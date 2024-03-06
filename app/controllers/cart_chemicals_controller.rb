@@ -1,0 +1,2 @@
+class CartChemicalsController < ApplicationController
+end

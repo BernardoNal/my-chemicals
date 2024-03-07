@@ -1,0 +1,32 @@
+<div class="container" data-controller= "select-storages">
+  <div class="d-flex">
+    <div class="col-4 m-2">
+      <h2>Farms:</h2>
+      <%= select_tag "farm",
+      options_from_collection_for_select(@farms, :id, :name),
+      prompt: 'Select a Farm',
+      data: {
+        action: "change->select-storages#updateStorages",
+        select_storages_target: "farms"
+      },
+      id: 'farms_dropdown',
+      class: 'form-control' %>
+    </div>
+    <div class="col-4 m-2">
+      <h2>Storages:</h2>
+      <%= select_tag "storage",
+      options_from_collection_for_select([], "id", "name"),
+      include_blank: 'Select a Storage',
+      id: 'storages_dropdown',
+      class: 'form-control',
+      disabled: true,
+      data: {
+        action: "change->select-storages#updateCarts",
+        select_storages_target: "storages"
+      } %>
+    </div>
+  </div>
+  <ul>
+    <div id="carts" data-select-storages-target="carts"></div>
+  </ul>
+</div>

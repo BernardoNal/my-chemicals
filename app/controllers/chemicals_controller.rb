@@ -1,6 +1,5 @@
 class ChemicalsController < ApplicationController
-
-def index
+  def index
     @chemicals = Chemical.all
   end
 

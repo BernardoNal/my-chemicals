@@ -11,12 +11,13 @@
     </tr>
   </thead>
   <tbody>
-    <% @chemical_totals.each do |chemical_total| %>
+    <% @chemical_totals.each do |chemical_total, chemical_value| %>
+      <% total_quantity = chemical_value.sum(&:quantity) %>
       <tr>
-        <td class='text-center'><%= chemical_total.product_name %></td>
-        <td class='text-center'><%= chemical_total.type_product %></td>
-        <td class='text-center'><%= chemical_total.compound_product %></td>
-        <td class='text-center'><%= chemical_total.total_quantity %></td>
+        <td class='text-center'><%= Chemical.find(chemical_total).product_name %></td>
+        <td class='text-center'><%= Chemical.find(chemical_total).type_product %></td>
+        <td class='text-center'><%= Chemical.find(chemical_total).compound_product %></td>
+        <td class='text-center'><%= total_quantity %></td>
     </tr>
     <% end %>
 

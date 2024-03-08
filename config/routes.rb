@@ -7,7 +7,7 @@ Rails.application.routes.draw do
       get 'storages', to: 'farms#storages'
     end
 
-    resources :storages do
+    resources :storages, only: [:index] do
       member do
         get 'carts', to: 'farms#carts'
       end
@@ -17,11 +17,13 @@ Rails.application.routes.draw do
     resources :cart_chemicals, only: %i[new create]
   end
 
+  resources :storages, except: [:index]
+  get "my_storages" => "storages#my_storages"
   resources :chemicals
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.
+  get "myfarms" => 'farms#myfarms'
   get "up" => "rails/health#show", as: :rails_health_check
-  get "myfarms" => 'farm#myfarms'
   # Defines the root path route ("/")
   # root "posts#index"
 end

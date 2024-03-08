@@ -18,10 +18,9 @@ class FarmsController < ApplicationController
   def carts
     @storage = Storage.find(params[:id])
     @carts = @storage.carts
-    @chemical_totals = CartChemical.joins(:chemical)
-                                   .select('chemicals.product_name, chemicals.type_product, chemicals.compound_product, SUM(cart_chemicals.quantity) as total_quantity')
-                                   .group('chemicals.product_name, chemicals.type_product, chemicals.compound_product')
-    render partial: 'farms/carts', locals: { chemical_totals: @chemical_totals, storage: @storage }, formats: [:html]
+
+    @chemical_totals = CartChemical.joins(:chemical).where(cart: @carts).group_by(&:chemical_id)
+    render partial: 'farms/carts', locals: { chemical_totals: @chemical_totals }, formats: [:html]
   end
 
   def new
@@ -34,7 +33,9 @@ class FarmsController < ApplicationController
     @farm.save
 
     if @farm.save
-      # redirect_to product_path(@product)
+      flash[:alert] = "Fazenda criada com sucesso."
+
+      redirect_to myfarms_path
     else
       render :new, status: :unprocessable_entity
     end
@@ -51,15 +52,17 @@ class FarmsController < ApplicationController
   def update
     @farm = Farm.find(params[:id])
     @farm.update(farm_params)
-    flash[:alert] = "Fazenda Editada com sucesso."
-    redirect_to farms_path
+    flash[:alert] = "Fazenda editada com sucesso."
+
+    redirect_to myfarms_path
   end
 
   def destroy
     @farm = Farm.find(params[:id])
     @farm.destroy
+    flash[:alert] = "Fazenda excluída com sucesso."
 
-    redirect_to farms_path, notice: 'Fazenda excluída com sucesso.'
+    redirect_to myfarms_path
   end
 
   private

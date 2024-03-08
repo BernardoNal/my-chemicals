@@ -18,9 +18,9 @@ class FarmsController < ApplicationController
   def carts
     @storage = Storage.find(params[:id])
     @carts = @storage.carts
-
+    @cart = Cart.new
     @chemical_totals = CartChemical.joins(:chemical).where(cart: @carts).group_by(&:chemical_id)
-    render partial: 'farms/carts', locals: { chemical_totals: @chemical_totals }, formats: [:html]
+    render partial: 'farms/carts', locals: { chemical_totals: @chemical_totals, storage: @storage, cart: @cart}, formats: [:html]
   end
 
   def new

@@ -1,4 +1,7 @@
-<%= link_to "Entradas de produtos",new_cart_path(storage) %>
+<%# <%= link_to "Entradas de produtos",new_cart_path(storage) %>
+<%= simple_form_for [storage,cart] do |f|%>
+ <%= f.submit 'Entrada de produtos', class: "my-2 btn-login" %>
+<% end %>
 <h2 class='my-4'>Meus Produtos</h2>
 <div class="table-responsive col-10">
   <table class="table table-dark table-striped table-bordered">

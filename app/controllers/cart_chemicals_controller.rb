@@ -7,8 +7,8 @@ class CartChemicalsController < ApplicationController
 
   def create
    @cart_chemical = CartChemical.new(cart_chemical_params)
-   raise
-   @cart_chemical.save
+   @cart = Cart.find(params[:cart_id])
+   @cart_chemical.cart = @cart
 
    if @cart_chemical.save
      # redirect_to product_path(@product)

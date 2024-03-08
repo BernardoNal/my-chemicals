@@ -2,12 +2,33 @@ class CartsController < ApplicationController
   before_action :authenticate_user!
 
   def new
+     raise
     @storage = Storage.find(params[:format])
     @chemicals = Chemical.all
     @cart = Cart.new
     @cart.storage = @storage
     @cart.save
     @cart_chemical = CartChemical.new
+  end
+
+  def create
+    @cart = Cart.new
+    @storage = Storage.find(params[:storage_id])
+    @cart.storage = @storage
+    if @cart.save
+      flash[:alert] = "Fazenda criada com sucesso."
+
+      redirect_to cart_path(@cart)
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+  def show
+    @cart = Cart.find(params[:id])
+    @cart_chemical = CartChemical.new
+    @chemicals = Chemical.all
+    @cart_chemicals = @cart.cart_chemicals
   end
 
   def add_chemical_to_cart

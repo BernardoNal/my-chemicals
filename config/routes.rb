@@ -13,11 +13,13 @@ Rails.application.routes.draw do
       end
     end
   end
-  resources :carts do
+  resources :carts, except: %i[new create] do
     resources :cart_chemicals, only: %i[new create]
   end
 
-  resources :storages, except: [:index]
+  resources :storages, except: [:index] do
+    resources :carts, only: %i[new create]
+  end
   get "my_storages" => "storages#my_storages"
   resources :chemicals
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

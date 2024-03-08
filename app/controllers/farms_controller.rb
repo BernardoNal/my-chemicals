@@ -1,4 +1,29 @@
 class FarmsController < ApplicationController
+  skip_before_action :authenticate_user!, only: %i[index show storages]
+
+  def index
+    @farms = Farm.all
+  end
+
+  def show
+    @farm = Farm.find(params[:id])
+  end
+
+  def storages
+    farm = Farm.find(params[:id])
+    @storages = farm.storages
+    render json: @storages
+  end
+
+  def carts
+    @storage = Storage.find(params[:id])
+    @carts = @storage.carts
+    @chemical_totals = CartChemical.joins(:chemical)
+                                   .select('chemicals.product_name, chemicals.type_product, chemicals.compound_product, SUM(cart_chemicals.quantity) as total_quantity')
+                                   .group('chemicals.product_name, chemicals.type_product, chemicals.compound_product')
+    render partial: 'farms/carts', locals: { chemical_totals: @chemical_totals }, formats: [:html]
+  end
+
   def new
     @farm = Farm.new
   end
@@ -18,7 +43,7 @@ class FarmsController < ApplicationController
   def myfarms
     @farms = current_user.farms
   end
-  
+
   def edit
     @farm = Farm.find(params[:id])
   end

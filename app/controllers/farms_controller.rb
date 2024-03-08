@@ -18,9 +18,8 @@ class FarmsController < ApplicationController
   def carts
     @storage = Storage.find(params[:id])
     @carts = @storage.carts
-    @chemical_totals = CartChemical.joins(:chemical)
-                                   .select('chemicals.product_name, chemicals.type_product, chemicals.compound_product, SUM(cart_chemicals.quantity) as total_quantity')
-                                   .group('chemicals.product_name, chemicals.type_product, chemicals.compound_product')
+
+    @chemical_totals = CartChemical.joins(:chemical).where(cart: @carts).group_by(&:chemical_id)
     render partial: 'farms/carts', locals: { chemical_totals: @chemical_totals }, formats: [:html]
   end
 

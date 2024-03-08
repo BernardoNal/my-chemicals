@@ -4,24 +4,12 @@
 <div class="container">
   <div class="form-shape col-md-6 mx-auto">
     <h1 class="form-title">Carrinho</h1>
-    <form action="">
-      <label for="fazenda">Fazenda:</label>
-        <select id="fazenda">
-        <% @farms.each do |farm| %>
-          <option value= <%= farm.id %>><%= farm.name %></option>
-        <% end %>
-        </select>
-         <label for="storage">Galpoes:</label>
-        <select id="storage">
-          <option value=1>teste</option>
-        </select>
-
-        <label for="chemical">Produto Quimico:</label>
-        <select id="chemical">
-        <% @chemicals.each do |chemical|%>
-          <option value= <%= chemical.id %>><%= chemical.product_name %></option>
-        <% end %>
-        </select>
-    </form>
+     <%= simple_form_for [@cart,@cart_chemical], method: :post do |f| %>
+      <%= f.input :quantity,  label: "Quantidade" %>
+      <%= f.input :chemical_id, as: :select, collection: @chemicals, label: "Quimico" %>
+      <%= f.button :submit, value: "criar", class: "my-2 btn-login" %>
+    <% end %>
+    <div id=>
+    </div>
   </div>
 </div>

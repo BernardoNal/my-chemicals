@@ -2,9 +2,12 @@ class CartsController < ApplicationController
   before_action :authenticate_user!
 
   def new
-    @farms = current_user.farms
+    @storage = Storage.find(params[:format])
     @chemicals = Chemical.all
     @cart = Cart.new
+    @cart.storage = @storage
+    @cart.save
+    @cart_chemical = CartChemical.new
   end
 
   def add_chemical_to_cart

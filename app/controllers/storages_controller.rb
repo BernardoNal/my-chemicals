@@ -1,6 +1,7 @@
 class StoragesController < ApplicationController
   def index
     @storages = Storage.all
+    @farms = Farm.all
   end
 
   def new
@@ -8,10 +9,11 @@ class StoragesController < ApplicationController
   end
 
   def create
+    @farm = Farm.find(params[:farm_id])
     @storage = Storage.new(storage_params)
-    @storage.farm = current_user.farm # FIX IT
+    @storage.farm = @farm
     if @storage.save
-      redirect_to storages_path(@storage.farm)
+      redirect_to my_storages_path
     else
       render :new, status: :unprocessable_entity
     end
@@ -21,28 +23,32 @@ class StoragesController < ApplicationController
   end
 
   def edit
-    @storage = Storage.find(storage_params)
+    @storage = Storage.find(params[:id])
   end
 
   def update
     @storage = Storage.find(params[:id])
     if @storage.update(storage_params)
-      redirect_to storages_path(@storage.farm)  # FIX IT
+      redirect_to my_storages_path
     else
       render :new, status: :unprocessable_entity
     end
   end
 
-  def delete
+  def my_storages
+    @storages = current_user.storages
+  end
+
+  def destroy
     @storage = Storage.find(params[:id])
     @storage.destroy
 
-    redirect_to storages_path(@storage.farm)
+    redirect_to my_storages_path
   end
 
   private
 
   def storage_params
-    params.require(:user).permit(:name, :size, :capacity)
+    params.require(:storage).permit(:name, :size, :capacity)
   end
 end

@@ -1,3 +1,12 @@
 <div class="container">
-<h1>Create of Storage</h1>
+  <div class="form-shape col-md-6 mx-auto">
+    <h1 class="form-title">Cadastrar novo Galpão</h1>
+    <%= simple_form_for [@farm, @storage] do |f| %>
+      <%= f.input :name, label: "Nome" %>
+      <%= f.input :size, label: "Tamanho" %>
+      <%= f.input :capacity, label: "Capacidade" %>
+      <%= f.input :farm_id, as: :select, collection: Farm.all, label: "Fazendas" %>
+      <%= f.button :submit, class: "my-2" %>
+    <% end %>
+  </div>
 </div>

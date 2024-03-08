@@ -1,0 +1,13 @@
+<div class="container">
+  <h1>Show of My_Storage</h1>
+
+  <div>
+  <% @storages.each do |storage| %>
+    <h2><%= storage.name %></h2>
+    <p><%= storage.size %></p>
+    <p><%= storage.capacity %></p>
+    <%= link_to "+", storage_path(storage), data: {turbo_method: :delete, turbo_confirm: "Excluir Galpão?"} %>
+    <% end %>
+  </div>
+  <%= link_to "Criar Galpão", new_storage_path %>
+</div>

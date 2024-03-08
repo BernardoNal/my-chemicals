@@ -1,0 +1,19 @@
+.btn-login {
+  color: white;
+  padding: 4px 8px ;
+  border-radius: 8px;
+  background: $dark-green;
+  text-decoration: none;
+  font-size: 16px;
+  width: 100%;
+}
+
+.btn-login:hover {
+  background: $new-green;
+  transition: background 0.3s ease;
+  color: white;
+}
+
+.btn-clean {
+  text-decoration: none !important;
+}

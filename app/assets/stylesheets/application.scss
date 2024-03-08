@@ -10,3 +10,13 @@
 // Your CSS partials
 @import "components/index";
 @import "pages/index";
+
+
+body {
+  background-color: $bg-page;
+}
+
+.view-75 {
+  min-height: 75vh !important;
+
+}

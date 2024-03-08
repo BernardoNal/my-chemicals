@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     end
 
     resources :storages do
+      get "my_storages" => "storages#my_storages"
       member do
         get 'carts', to: 'farms#carts'
       end

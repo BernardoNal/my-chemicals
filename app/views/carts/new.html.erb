@@ -1,0 +1,27 @@
+
+
+
+<div class="container">
+  <div class="form-shape col-md-6 mx-auto">
+    <h1 class="form-title">Carrinho</h1>
+    <form action="">
+      <label for="fazenda">Fazenda:</label>
+        <select id="fazenda">
+        <% @farms.each do |farm| %>
+          <option value= <%= farm.id %>><%= farm.name %></option>
+        <% end %>
+        </select>
+         <label for="storage">Galpoes:</label>
+        <select id="storage">
+          <option value=1>teste</option>
+        </select>
+
+        <label for="chemical">Produto Quimico:</label>
+        <select id="chemical">
+        <% @chemicals.each do |chemical|%>
+          <option value= <%= chemical.id %>><%= chemical.product_name %></option>
+        <% end %>
+        </select>
+    </form>
+  </div>
+</div>

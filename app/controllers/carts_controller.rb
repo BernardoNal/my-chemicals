@@ -1,9 +1,10 @@
 class CartsController < ApplicationController
   before_action :authenticate_user!
 
-  def show
+  def new
+    @farms = current_user.farms
     @chemicals = Chemical.all
-    @cart = current_cart
+    @cart = Cart.new
   end
 
   def add_chemical_to_cart

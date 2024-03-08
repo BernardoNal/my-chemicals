@@ -3,7 +3,15 @@ Rails.application.routes.draw do
   root to: "pages#home"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   resources :farms do
-    resource :carts
+    member do
+      get 'storages', to: 'farms#storages'
+    end
+
+    resources :storages do
+      member do
+        get 'carts', to: 'farms#carts'
+      end
+    end
   end
 
   resources :chemicals

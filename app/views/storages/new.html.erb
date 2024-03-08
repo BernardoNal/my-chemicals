@@ -5,7 +5,7 @@
       <%= f.input :name, label: "Nome" %>
       <%= f.input :size, label: "Tamanho" %>
       <%= f.input :capacity, label: "Capacidade" %>
-      <%= f.input :farm_id, as: :select, collection: Farm.all, label: "Fazendas" %>
+      <%= f.input :farm_id, as: :select, collection: @farms, label: "Fazendas" %>
       <%= f.button :submit, class: "my-2" %>
     <% end %>
   </div>

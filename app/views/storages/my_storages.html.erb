@@ -6,7 +6,8 @@
     <h2><%= storage.name %></h2>
     <p><%= storage.size %></p>
     <p><%= storage.capacity %></p>
-    <%= link_to "+", storage_path(storage), data: {turbo_method: :delete, turbo_confirm: "Excluir Galpão?"} %>
+    <%= link_to 'Editar', edit_storage_path(storage) %>
+    <%= link_to "Deletar", storage_path(storage), data: {turbo_method: :delete, turbo_confirm: "Excluir Galpão?"} %>
     <% end %>
   </div>
   <%= link_to "Criar Galpão", new_storage_path %>

@@ -6,12 +6,11 @@ class StoragesController < ApplicationController
 
   def new
     @storage = Storage.new
+    @farms = current_user.farms
   end
 
   def create
-    @farm = Farm.find(params[:farm_id])
     @storage = Storage.new(storage_params)
-    @storage.farm = @farm
     if @storage.save
       redirect_to my_storages_path
     else
@@ -49,6 +48,6 @@ class StoragesController < ApplicationController
   private
 
   def storage_params
-    params.require(:storage).permit(:name, :size, :capacity)
+    params.require(:storage).permit(:name, :size, :capacity, :farm_id)
   end
 end

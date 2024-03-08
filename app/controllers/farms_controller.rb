@@ -2,17 +2,11 @@ class FarmsController < ApplicationController
   skip_before_action :authenticate_user!, only: %i[index show storages]
 
   def index
-    @farms = Farm.includes(:storages)
-    @carts = Cart.all
-    respond_to do |format|
-      format.html
-      format.json { render json: @farms.as_json(include: :storages) }
-    end
+    @farms = Farm.all
   end
 
   def show
     @farm = Farm.find(params[:id])
-    @storages = @farm.storages
   end
 
   def storages

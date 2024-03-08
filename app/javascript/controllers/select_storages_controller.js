@@ -5,9 +5,15 @@ export default class extends Controller {
   static targets = ["farms", "storages", "carts"];
 
   updateStorages() {
-
     const farmId = this.farmsTarget.value;
     const url = `/farms/${farmId}/storages`;
+
+    if (!farmId) {
+      this.storagesTarget.innerHTML = '<option value="">Select a Storage</option>';
+      this.storagesTarget.disabled = true;
+
+      return;
+    }
 
     fetch(url, {
       method: 'GET',
@@ -34,7 +40,6 @@ export default class extends Controller {
     .then((data) => {
       console.log(data);
       this.cartsTarget.innerHTML = data;
-      // this.populateCarts(data);
     })
   }
 
@@ -48,13 +53,5 @@ export default class extends Controller {
     this.storagesTarget.innerHTML = options;
 
     this.storagesTarget.disabled = false;
-  }
-
-  populateCarts(data) {
-    const itemsHtml = data.map(cart => {
-      return `<li>${cart.cart_chemical.product_name}</li>`;
-    }).join('');
-
-    this.cartsTarget.innerHTML = `<ul>${itemsHtml}</ul>`;
   }
 }

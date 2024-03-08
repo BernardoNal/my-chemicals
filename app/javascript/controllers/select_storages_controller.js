@@ -8,11 +8,6 @@ export default class extends Controller {
     const farmId = this.farmsTarget.value;
     const url = `/farms/${farmId}/storages`;
 
-    if (!farmId) {
-      this.resetStoragesDropdown();
-      return;
-    }
-
     fetch(url, {
       method: 'GET',
       headers: { "Accept": "application/json" }
@@ -52,10 +47,5 @@ export default class extends Controller {
     this.storagesTarget.innerHTML = options;
     this.storagesTarget.disabled = false;
 
-  }
-
-  resetStoragesDropdown() {
-    this.storagesTarget.innerHTML = '<option value="" disabled selected>Select a Storage</option>';
-    this.storagesTarget.disabled = true;
   }
 }

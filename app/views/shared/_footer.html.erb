@@ -1,15 +1,33 @@
-<div class="footer">
-  <div class="container mt-4">
-    <div class="footer-links">
-    <a href="#"><i class="fab fa-github"></i></a>
-    <a href="#"><i class="fab fa-instagram"></i></a>
-    <a href="#"><i class="fab fa-facebook"></i></a>
-    <a href="#"><i class="fab fa-twitter"></i></a>
-    <a href="#"><i class="fab fa-linkedin"></i></a>
-  </div>
-      <div class="col-md-12">
-        <p class="text-center">&copy; <%= Time.now.year %> My Chemicals Marketplace. Todos os direitos reservados.</p>
-      </div>
-
-  </div>
+<footer class="footer">
+  <div class="container">
+  <div class="row">
+        <div class="col-md-4 about-us">
+          <h3 class="first-h3">Sobre Nós</h3>
+          <p class= "paragraph-market"> No My Chemicals Marketplace fornecemos uma ampla gama de produtos químicos de alta qualidade para atender às necessidades de diversos setores.
+          Nosso compromisso é oferecer uma seleção diversificada de substâncias químicas essenciais, desde aplicações agropecuária até uso industrial.
+          Com uma plataforma intuitiva e serviços confiáveis, estamos aqui para impulsionar seu negócio com segurança e eficiência.
+          Explore nosso Marketplace agora e descubra como podemos ser seu parceiro confiável em soluções químicas.</p>
+        </div>
+        <div class="col-md-4">
+          <h3 class="first-h3">Links Úteis</h3>
+          <ul class="list-unstyled">
+            <li><%= link_to "Página Inicial", root_path %></li>
+          <div class="footer-links">
+            <h2 class="first-h2">Redes Sociais<h2>
+            <a href="https://github.com/seuusuario" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
+            <a href="https://www.instagram.com/seuusuario/" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.facebook.com/seuusuario" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook"></i></a>
+            <a href="https://twitter.com/seuusuario" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter"></i></a>
+            <a href="https://www.linkedin.com/in/seuusuario" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a>
+          </div>
+          </ul>
+        </div>
+        <div class="col-md-4">
+          <h3 class="first-h3">Contato</h3>
+          <p>Endereço: Rua Benjamim Egas  193, São Paulo/SP</p>
+          <p>Email: mychemicals@mychemical.com</p>
+          <p>Telefone: (11) 4547-7890</p>
+        </div>
 </div>
+</div>
+</footer>

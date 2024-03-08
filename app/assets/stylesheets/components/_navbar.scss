@@ -1,12 +1,29 @@
 .navbar-lewagon {
   justify-content: space-between;
-  background: white;
+  background: #6d7760;
+  color: azure;
 }
 
 .navbar-lewagon .navbar-collapse {
   flex-grow: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  color: azure;
 }
 
-.navbar-lewagon .navbar-brand img {
-  width: 40px;
+.navbar-lewagon .navbar-brand {
+  font-family: Arial, Helvetica, sans-serif;
+  color: azure;
+}
+
+.navbar-text {
+  font-family: Arial, Helvetica, sans-serif;
+  color: #DDB8A6;
+  font-size: 20px;
+  font-weight: bold;
+  margin: 0px;
+}
+
+.nav-account {
+  color: #DDB8A6;
+  text-decoration: none;
 }

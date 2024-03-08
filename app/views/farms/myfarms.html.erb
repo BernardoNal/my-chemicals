@@ -1,3 +1,12 @@
-
-<li>Nome da Fazenda:  <%= farm.name %></li>
-<li>Tamanho da Fazenda:  <%= farm.size %></li>
+<% @farms.each do |farm| %>
+  <li>Nome da Fazenda:  <%= farm.name %></li>
+  <li>Tamanho da Fazenda:  <%= farm.size %></li>
+  <li>Usuário:  <%= farm.user_id %></li>
+  <%= link_to 'Edit', edit_farm_path(farm), class:'btn-card-edit ma' %>
+  <%= link_to farm_path(farm),  data: {turbo_method: :delete, turbo_confirm: "Confirma exclusão de Produto?"}, class:'btn-card-dlt ma' do  %>
+    <span>Deletar</span>
+  <% end %>
+<%end %>
+  <%= link_to new_farm_path, class: "btn-new-farm" do %>
+     <i class="fa-solid fa-circle-plus"></i>
+  <% end %>

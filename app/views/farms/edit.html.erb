@@ -8,7 +8,6 @@
       <%= f.input :complement, label: "Complemento" %>
       <%= f.button :submit, "Atualizar Fazenda", class:'btn-update-farm' %>
     <% end %>
-    <%= link_to 'Voltar', farms_path, class:'btn-back-to-farms'%>
-    <%= link_to "Deletar", @farm,   method: :delete, data: { confirm: "Confirma exclusão da Fazenda?" }, class: 'btn-delete-farm ma' %>
+    <%= link_to 'Voltar', myfarms_path, class:'btn-back-edt'%>
   </div>
 </div>

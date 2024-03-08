@@ -1,9 +1,8 @@
 <h2 class='my-4'>Meus Produtos</h2>
-<div class="table-responsive">
+<div class="table-responsive col-10">
   <table class="table table-dark table-striped table-bordered">
   <thead>
     <tr>
-      <th class='text-center' scope="col">#</th>
       <th class='text-center' scope="col">Nome</th>
       <th class='text-center' scope="col">Tipo</th>
       <th class='text-center' scope="col">Composto</th>
@@ -13,7 +12,6 @@
   <tbody>
     <% @chemical_totals.each do |chemical_total| %>
       <tr>
-        <th class='text-center' scope="row"></th>
         <td class='text-center'><%= chemical_total.product_name %></td>
         <td class='text-center'><%= chemical_total.type_product %></td>
         <td class='text-center'><%= chemical_total.compound_product %></td>

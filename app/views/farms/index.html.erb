@@ -1,7 +1,7 @@
 <div class="container" data-controller= "select-storages">
-  <div class="d-flex">
+  <div class="d-flex m-5">
     <div class="col-4 m-2">
-      <h2>Farms:</h2>
+      <h2>Fazendas:</h2>
       <%= select_tag "farm",
       options_from_collection_for_select(@farms, :id, :name),
       prompt: 'Select a Farm',
@@ -13,7 +13,7 @@
       class: 'form-control' %>
     </div>
     <div class="col-4 m-2">
-      <h2>Storages:</h2>
+      <h2>Estoques:</h2>
       <%= select_tag "storage",
       options_from_collection_for_select([], "id", "name"),
       include_blank: 'Select a Storage',
@@ -26,7 +26,8 @@
       } %>
     </div>
   </div>
-  <ul>
-    <div id="carts" data-select-storages-target="carts"></div>
-  </ul>
+  <div class="m-5" id="carts" data-select-storages-target="carts">
+    <h2 class='my-4'>Meus Produtos:</h2>
+    <p>Selecione a fazenda e o estoque</p>
+  </div>
 </div>

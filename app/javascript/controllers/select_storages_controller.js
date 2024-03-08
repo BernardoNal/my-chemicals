@@ -9,9 +9,7 @@ export default class extends Controller {
     const url = `/farms/${farmId}/storages`;
 
     if (!farmId) {
-      this.storagesTarget.innerHTML = '<option value="">Select a Storage</option>';
-      this.storagesTarget.disabled = true;
-
+      this.resetStoragesDropdown();
       return;
     }
 
@@ -26,21 +24,22 @@ export default class extends Controller {
 
   }
 
-  updateCarts() {
+  updateCarts(e) {
     const farmId = this.farmsTarget.value;
-    const storageId = this.storagesTarget.value;
+    const storageId = e.target.value;
     const url = `/farms/${farmId}/storages/${storageId}/carts`;
-
-
-    fetch(url, {
-      method: 'GET',
-      headers: { "Accept": "text/plain" }
-    })
-    .then(response => response.text())
-    .then((data) => {
-      console.log(data);
-      this.cartsTarget.innerHTML = data;
-    })
+    if (storageId) {
+      fetch(url, {
+        method: 'GET',
+        headers: { "Accept": "text/plain" }
+      })
+      .then(response => response.text())
+      .then((data) => {
+        this.cartsTarget.innerHTML = data;
+      })
+    } else {
+      this.cartsTarget.innerHTML = "<h2 class='my-4'>Meus Produtos:</h2><p>Selecione o estoque</p>"
+    }
   }
 
   populateStoragesDropdown(data) {
@@ -51,7 +50,12 @@ export default class extends Controller {
     });
 
     this.storagesTarget.innerHTML = options;
-
     this.storagesTarget.disabled = false;
+
+  }
+
+  resetStoragesDropdown() {
+    this.storagesTarget.innerHTML = '<option value="" disabled selected>Select a Storage</option>';
+    this.storagesTarget.disabled = true;
   }
 }

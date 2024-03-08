@@ -33,7 +33,9 @@ class FarmsController < ApplicationController
     @farm.save
 
     if @farm.save
-      redirect_to farm_path(@farm), notice: 'Farm was successfully created.'
+      flash[:alert] = "Fazenda criada com sucesso."
+
+      redirect_to myfarms_path
     else
       render :new, status: :unprocessable_entity
     end
@@ -50,15 +52,17 @@ class FarmsController < ApplicationController
   def update
     @farm = Farm.find(params[:id])
     @farm.update(farm_params)
-    flash[:alert] = "Fazenda Editada com sucesso."
-    redirect_to farms_path
+    flash[:alert] = "Fazenda editada com sucesso."
+
+    redirect_to myfarms_path
   end
 
   def destroy
     @farm = Farm.find(params[:id])
     @farm.destroy
+    flash[:alert] = "Fazenda excluída com sucesso."
 
-    redirect_to farms_path, notice: 'Fazenda excluída com sucesso.'
+    redirect_to myfarms_path
   end
 
   private

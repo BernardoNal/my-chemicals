@@ -3,7 +3,7 @@
     <div class="col-4 m-2">
       <h2>Fazendas:</h2>
       <%= select_tag "farm",
-      options_from_collection_for_select(@farms, :id, :name),
+      options_from_collection_for_select(@farms, :id, :name, selected: @selected_farm),
       prompt: 'Select a Farm',
       data: {
         action: "change->select-storages#updateStorages",

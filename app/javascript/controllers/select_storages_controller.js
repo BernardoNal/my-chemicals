@@ -8,21 +8,32 @@ export default class extends Controller {
     const farmId = this.farmsTarget.value;
     const url = `/farms/${farmId}/storages`;
 
-    fetch(url, {
-      method: 'GET',
-      headers: { "Accept": "application/json" }
-    })
-    .then(response => response.json())
-    .then((data) => {
-      this.populateStoragesDropdown(data);
-    })
+    this.cartsTarget.innerHTML = "<h2 class='my-4'>Meus Produtos:</h2><p>Selecione uma fazenda e um estoque</p>";
 
+    if (farmId) {
+      fetch(url, {
+        method: 'GET',
+        headers: { "Accept": "application/json" }
+      })
+      .then(response => response.json())
+      .then((data) => {
+        this.populateStoragesDropdown(data);
+        const placeholderOption = this.farmsTarget.querySelector('option[value=""]');
+        if (placeholderOption) {
+          placeholderOption.disabled = true; // Disable farm placeholder now
+        }
+      })
+      .catch(error => {
+        console.error("Error fetching storages:", error);
+      });
+    }
   }
 
   updateCarts(e) {
     const farmId = this.farmsTarget.value;
     const storageId = e.target.value;
     const url = `/farms/${farmId}/storages/${storageId}/carts`;
+
     if (storageId) {
       fetch(url, {
         method: 'GET',
@@ -31,9 +42,14 @@ export default class extends Controller {
       .then(response => response.text())
       .then((data) => {
         this.cartsTarget.innerHTML = data;
+        const placeholderOption = this.storagesTarget.querySelector('option[value=""]');
+        if (placeholderOption) {
+          placeholderOption.disabled = true; // Disable storages placeholder now
+        }
       })
-    } else {
-      this.cartsTarget.innerHTML = "<h2 class='my-4'>Meus Produtos:</h2><p>Selecione o estoque</p>"
+      .catch(error => {
+        console.error('Error fetching carts:', error);
+      });
     }
   }
 

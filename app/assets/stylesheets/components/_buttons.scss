@@ -17,3 +17,20 @@
 .btn-clean {
   text-decoration: none !important;
 }
+
+.btn-blue {
+  color: white;
+  padding: 4px 8px;
+  border-radius: 8px;
+  background: $blue;
+  width: 100%;
+  font-size: 16px;
+  text-align: center;
+  border: none;
+  text-decoration: none;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.1s ease;
+  &:hover {
+    background-color: #0d67ec;
+  }
+}

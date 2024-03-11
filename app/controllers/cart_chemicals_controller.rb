@@ -20,10 +20,10 @@ class CartChemicalsController < ApplicationController
         flash[:alert] = "Estoque insuficiente." #melhorar esse condição
         render js: "window.location.reload()"
       elsif@cart_chemical.save
-        redirect_to cart_path(@cart)
+        redirect_to cart_path(@cart, entry: params[:cart_chemical][:entry])
       end
     elsif @cart_chemical.save
-      redirect_to cart_path(@cart)
+      redirect_to cart_path(@cart, entry: params[:cart_chemical][:entry])
     end
   end
 

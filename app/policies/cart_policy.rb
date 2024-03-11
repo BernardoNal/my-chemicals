@@ -24,5 +24,8 @@ class CartPolicy < ApplicationPolicy
     # def resolve
     #   scope.all
     # end
+    def resolve
+      scope.all
+    end
   end
 end

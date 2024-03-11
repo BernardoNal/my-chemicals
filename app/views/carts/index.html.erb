@@ -1,0 +1,25 @@
+<div class="container mt-2">
+  <div class="row">
+    <% @carts.each do |cart| %>
+      <h2><%= cart.date_move %></h2>
+      <div class="table-responsive col-4">
+        <table class="table table-dark table-striped table-bordered">
+        <thead>
+          <tr>
+            <th class='text-center' scope="col">Nome</th>
+            <th class='text-center' scope="col">Quantidade</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% cart.cart_chemicals.each do |cart_chemical| %>
+            <tr>
+              <td class='text-center'><%= link_to chemical_path(cart_chemical), class: "text-decoration-none text-white" do %> <%= cart_chemical.chemical.product_name %> <% end %></td>
+              <td class='text-center negative-quantity'><%= cart_chemical.quantity %></td>
+            </tr>
+          <% end %>
+        </tbody>
+        </table>
+      </div>
+    <% end %>
+  </div>
+</div>

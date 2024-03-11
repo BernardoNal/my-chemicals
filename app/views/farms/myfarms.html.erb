@@ -1,12 +1,49 @@
-<% @farms.each do |farm| %>
-  <li>Nome da Fazenda:  <%= farm.name %></li>
-  <li>Tamanho da Fazenda:  <%= farm.size %></li>
-  <li>Usuário:  <%= farm.user_id %></li>
-  <%= link_to 'Edit', edit_farm_path(farm), class:'btn-card-edit ma' %>
-  <%= link_to farm_path(farm),  data: {turbo_method: :delete, turbo_confirm: "Confirma exclusão de Produto?"}, class:'btn-card-dlt ma' do  %>
-    <span>Deletar</span>
-  <% end %>
-<%end %>
-  <%= link_to new_farm_path, class: "btn-new-farm" do %>
-     <i class="fa-solid fa-circle-plus"></i>
-  <% end %>
+
+<div class="container mt-4">
+  <div class="farm-card">
+    <h2 class="farm-title">Minhas Fazendas</h2>
+    <%= link_to new_farm_path, class: "btn-new-farm" do %>
+      <i class="fa-solid fa-circle-plus"></i>
+      <% end %>
+    <div class="row">
+    <% @farms.each do |farm| %>
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <p class="card-text">Nome da Fazenda: <%= farm.name %></p>
+          <p class="card-text">Tamanho da Fazenda: <%= farm.size %></p>
+          <p class="card-text">Usuário: <%= farm.user_id %></p>
+          <%= link_to 'Edit', edit_farm_path(farm), class:'farm-btn btn-card-edit' %>
+          <%= link_to farm_path(farm), data: {turbo_method: :delete, turbo_confirm: "Confirma exclusão de Produto?"}, class:'farm-btn btn-card-dlt' do  %>
+            <span>Deletar</span>
+          <% end %>
+        </div>
+      </div>
+     </div>
+    <% end %>
+  </div>
+  </div>
+
+  <input type="text" id="cepInput" placeholder="Digite o CEP"/>
+  <button onclick="updateMapLocation()">Mostrar Localização</button>
+
+
+    <div class="map" id="map"></div>
+
+  <script>
+    mapboxgl.accessToken = "pk.eyJ1Ijoiam9yZGFubzg4IiwiYSI6ImNsc2x4OWdvZjBkOTUyanNjOXRtZno4YnkifQ.9TVAMKmkrFEmnXjmIah2aQ";
+    var map = new mapboxgl.Map({
+      container: 'map',
+      style: 'mapbox://styles/mapbox/streets-v11',
+      center: [-46.687, -23.565],
+      zoom: 15
+    });
+
+    new mapboxgl.Marker()
+      .setLngLat([-46.687, -23.565])
+      .addTo(map);
+      // locate.appendChild
+  </script>
+
+   <script src='https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js'></script>
+</div>

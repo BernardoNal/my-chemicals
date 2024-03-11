@@ -34,3 +34,16 @@
     background-color: #0d67ec;
   }
 }
+
+.btn-new-farm {
+  color: white;
+  padding: 4px 10px ;
+  border-radius: 50%;
+  background: $dark-green;
+  text-decoration: none;
+  position: fixed;
+  bottom:20px;
+  right: 20px;
+  font-size:24px;
+
+}

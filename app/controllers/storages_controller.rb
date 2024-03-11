@@ -29,6 +29,7 @@ class StoragesController < ApplicationController
     @storage = Storage.find(params[:id])
     if @storage.update(storage_params)
       redirect_to my_storages_path
+      flash[:alert] = "Galpão atualizado com sucesso."
     else
       render :new, status: :unprocessable_entity
     end
@@ -41,6 +42,7 @@ class StoragesController < ApplicationController
   def destroy
     @storage = Storage.find(params[:id])
     @storage.destroy
+    flash[:alert] = "Galpão excluído com sucesso."
 
     redirect_to my_storages_path
   end

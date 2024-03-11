@@ -14,7 +14,6 @@ User.create!(
   first_name: 'hen',
   last_name: 'rique',
   address: 'quintal do espeto',
-  role: 0,
   cpf: "66699966669"
 )
 

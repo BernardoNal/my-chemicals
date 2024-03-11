@@ -40,13 +40,6 @@
                       required: true,
                       autofocus: true,
                       input_html: { autocomplete: "address" }%>
-          <%= f.input :role,
-            as: :select,
-            collection: [['Fazendeiro', 0], ['Gerente', 1] ,['Funcionario', 2]],
-            required: true,
-            autofocus: true,
-            input_html: {}
-          %>
           <div class="row">
             <div class="col-6">
               <%= f.input :password, label: "Senha",

@@ -14,7 +14,7 @@ class StoragesController < ApplicationController
     @storage = Storage.new(storage_params)
     authorize @storage
     if @storage.save
-      redirect_to my_storages_path
+      redirect_to storages_path
     else
       render :new, status: :unprocessable_entity
     end

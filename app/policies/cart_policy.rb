@@ -1,14 +1,22 @@
 class CartPolicy < ApplicationPolicy
+  def show?
+    true
+  end
+
   def new
-    all
+    true
   end
 
   def create?
-    all
+    true
   end
 
   def update?
-    all
+    true
+  end
+
+  def record?
+    true
   end
 
   class Scope < Scope

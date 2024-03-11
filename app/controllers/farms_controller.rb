@@ -10,7 +10,7 @@ class FarmsController < ApplicationController
     end
 
     if params[:storage_id].present?
-      @storage = @storages.first unless @storages.empty?
+      @storage = Storage.find(params[:storage_id])
       @carts = @storage.carts
       @cart = Cart.new
       @chemical_totals = CartChemical.joins(:chemical, :cart)
@@ -40,6 +40,7 @@ class FarmsController < ApplicationController
 
   def myfarms
     @farms = policy_scope(Farm)
+    authorize @farms
   end
 
   def edit
@@ -58,6 +59,7 @@ class FarmsController < ApplicationController
 
   def destroy
     @farm = Farm.find(params[:id])
+    authorize @farm
     @farm.destroy
     flash[:alert] = "Fazenda excluída com sucesso."
 

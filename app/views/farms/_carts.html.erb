@@ -7,7 +7,7 @@
   <%= f.hidden_field :entry, value: 0 %>
   <%= f.submit 'Saída de produtos', class: "my-2 btn-red" %>
 <% end %>
-<h2 class='my-4'>Meus Produtos</h2>
+<h2 class='my-4'>Meus Produtos:</h2>
 <div class="table-responsive col-10">
   <table class="table table-dark table-striped table-bordered">
   <thead>
@@ -22,7 +22,7 @@
     <% @chemical_totals.each do |chemical_total, chemical_value| %>
       <% total_quantity = chemical_value.sum(&:quantity) %>
       <tr>
-        <td class='text-center'><%= Chemical.find(chemical_total).product_name %></td>
+        <td class='text-center'><%= link_to chemical_path(chemical_total), class: "text-decoration-none text-white" do %> <%= Chemical.find(chemical_total).product_name %> <% end %></td>
         <td class='text-center'><%= Chemical.find(chemical_total).type_product %></td>
         <td class='text-center'><%= Chemical.find(chemical_total).compound_product %></td>
         <td class='text-center'><%= total_quantity*Chemical.find(chemical_total).amount%> <%= Chemical.find(chemical_total).measurement_unit %> </td>

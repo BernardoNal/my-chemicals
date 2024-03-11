@@ -4,11 +4,15 @@ class FarmPolicy < ApplicationPolicy
   end
 
   def update?
-    user.farmer? && record.user == user
+    record.user == user
   end
 
   def destroy?
     update?
+  end
+
+  def myfarms?
+    true
   end
 
   class Scope < Scope

@@ -6,8 +6,8 @@
       <div class="col-4 m-2">
         <h2>Fazendas:</h2>
           <%= form.collection_select  :farm_id, @farms, :id, :name,
-          {selected: @farm ? @farm.id : nil, prompt: 'Select a farm' },
-          { onchange: 'this.form.requestSubmit()',  class: 'form-control'}
+          { selected: @farm ? @farm.id : nil, include_blank: 'Selecione uma fazenda' },
+          { onchange: 'this.form.requestSubmit()',  class: 'form-control' }
         %>
       </div>
 
@@ -17,8 +17,8 @@
         <h2>Estoques:</h2>
 
             <%= form.collection_select  :storage_id, @storages, :id, :name,
-            { prompt: 'Select a storage', selected: @storage ? @storage.id : nil},
-            { class: 'form-control', onchange: 'this.form.requestSubmit()'}
+            { selected: @storage ? @storage.id : nil, include_blank: 'Selecione um estoque' },
+            { class: 'form-control', onchange: 'this.form.requestSubmit()' }
           %>
       </div>
 
@@ -26,9 +26,8 @@
     </div>
   <% end %>
 
-  <% if @storage %>
+  <% if @chemical_totals %>
     <div class="m-5" id="carts">
-      <h2 class='my-4'>Meus Produtos:</h2>
 
       <%= render partial: 'farms/carts', locals: { chemical_totals: @chemical_totals, storage: @storage, cart: @cart}
   %>
@@ -36,5 +35,3 @@
     </div>
   <% end %>
 </div>
-
-<%= link_to 'Limpar', root_path %>

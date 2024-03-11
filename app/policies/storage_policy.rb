@@ -1,14 +1,10 @@
 class StoragePolicy < ApplicationPolicy
-  def new
-    user.farmer?
-  end
-
   def create?
-    user.farmer?
+    true
   end
 
   def update?
-    record.user == user
+    record.farm.user == user
   end
 
   def destroy?
@@ -17,11 +13,7 @@ class StoragePolicy < ApplicationPolicy
 
   class Scope < Scope
     def resolve
-      if user
-        scope.joins(:farm).where(farms: { user: user })
-      else
-        scope.none
-      end
+      scope.joins(:farm).where(farm: user.farms)
     end
   end
 end

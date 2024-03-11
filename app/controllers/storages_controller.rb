@@ -29,7 +29,7 @@ class StoragesController < ApplicationController
     @storage = Storage.find(params[:id])
     authorize @storage
     if @storage.update(storage_params)
-      redirect_to my_storages_path
+      redirect_to storages_path
     else
       render :new, status: :unprocessable_entity
     end
@@ -37,9 +37,10 @@ class StoragesController < ApplicationController
 
   def destroy
     @storage = Storage.find(params[:id])
+    authorize @storage
     @storage.destroy
 
-    redirect_to my_storages_path
+    redirect_to storages_path
   end
 
   private

@@ -22,11 +22,13 @@ class FarmsController < ApplicationController
 
   def new
     @farm = Farm.new
+    authorize @farm
   end
 
   def create
     @farm = Farm.new(farm_params)
     @farm.user = current_user
+    authorize @farm
     @farm.save
 
     if @farm.save

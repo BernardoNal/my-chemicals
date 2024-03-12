@@ -1,12 +1,14 @@
 <div class="container">
   <div class="form-shape col-md-6 mx-auto">
-    <h1 class="form-title">Editar <%= @storage.name %></h1>
+  <%= link_to storages_path, class: 'btn-back text-decoration-none' do %>
+    <i class='fa-solid fa-circle-left'></i>
+    <% end %>
+    <h2 class="form-title">Editar <%= @storage.name %></h2>
     <%= simple_form_for @storage do |f| %>
       <%= f.input :name, label: "Nome" %>
       <%= f.input :size, label: "Tamanho" %>
       <%= f.input :capacity, label: "Capacidade" %>
-      <%= f.button :submit, "Atualizar Galpão", class:'btn-update-product mb-4' %>
+      <%= f.button :submit, "Atualizar Galpão", class:'btn-login' %>
     <% end %>
-    <%= link_to 'Voltar', my_storages_path, class:'btn-back-to-my-products'%>
-  </div>
+    </div>
 </div>

@@ -1,6 +1,9 @@
 <div class="container">
   <div class="form-shape col-md-6 mx-auto">
-    <h1 class="form-title">Cadastrar nova Fazenda</h1>
+    <%= link_to myfarms_path, class: 'btn-back text-decoration-none' do %>
+    <i class='fa-solid fa-circle-left'></i>
+    <% end %>
+    <h2 class="form-title">Cadastrar nova Fazenda</h2>
     <%= simple_form_for @farm do |f| %>
       <%= f.input :name, label_html: { class: "label-form" }, label: "Nome da Fazenda" %>
       <%= f.input :size, label: "Tamanho" %>
@@ -8,6 +11,5 @@
       <%= f.input :cep, label: "CEP" %>
       <%= f.button :submit, "Criar nova fazenda", class: "my-2 btn-login" %>
     <% end %>
-    <%= link_to 'Voltar', myfarms_path, class:'btn-back-add'%>
   </div>
 </div>

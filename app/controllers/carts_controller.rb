@@ -3,6 +3,7 @@ class CartsController < ApplicationController
 
   def index
     @carts = policy_scope(Cart)
+    @carts = Cart.all.group_by(&:date_move)
   end
 
   def new

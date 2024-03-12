@@ -25,7 +25,8 @@ class CartPolicy < ApplicationPolicy
     #   scope.all
     # end
     def resolve
-      scope.all
+      user_storage_ids = user.storages.pluck(:id)
+      scope.where(storage_id: user_storage_ids)
     end
   end
 end

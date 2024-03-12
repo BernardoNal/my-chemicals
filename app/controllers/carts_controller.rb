@@ -51,6 +51,7 @@ class CartsController < ApplicationController
 
   def destroy
     @cart = Cart.find(params[:id])
+    authorize @cart
     @cart.destroy!
 
     redirect_to farms_path

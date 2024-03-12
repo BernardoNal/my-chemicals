@@ -1,9 +1,9 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  # validates :first_name, :last_name, :address, :cpf, :role, presence: true
+  # validates :first_name, :last_name, :address, :cpf, presence: true
   has_many :employees
-  has_many :employee_farms, through: :employees, source: :farm
+  # has_many :employee_farms, through: :marm, source: :farm VER DEPOIS
 
   has_many :farms
 

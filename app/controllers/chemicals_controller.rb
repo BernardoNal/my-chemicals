@@ -5,5 +5,6 @@ class ChemicalsController < ApplicationController
 
   def show
     @chemical = Chemical.find(params[:id])
+    authorize @chemical
   end
 end

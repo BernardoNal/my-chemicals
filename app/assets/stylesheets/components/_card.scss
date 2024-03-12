@@ -21,18 +21,58 @@
 .card-item small {
   font-weight: bold;
 }
+
 .card-item .card-item-actions {
   display: flex;
   transition: ease .3s;
 }
 
-
 .card-item .card-item-actions a {
-  color:$red;
+  color: $red;
   margin-left: 16px;
   font-size: 14px;
 }
 
 .card-item .card-item-actions a:hover {
   color: #555555;
+}
+
+.cards {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-small {
+  position: relative;
+  overflow: hidden;
+  height: 120px;
+  background: white;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  color: rgb(18, 17, 17);
+  padding: 10px;
+  margin-bottom: 16px;
+}
+
+.card-small h2 {
+  font-family: $home-font;
+  font-size: 20px;
+  font-weight: bold;
+  margin: 0;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.card-small p {
+  font-size: 14px;
+  line-height: 1.4;
+  margin: 0;
+  font-weight: 600;
+  font-family: $home-font;
+}
+
+.card-small .position-relative {
+  position: absolute;
+  bottom: 4px; /* Ajuste conforme necessário */
+  right: 4px; /* Ajuste conforme necessário */
 }

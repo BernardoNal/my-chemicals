@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_06_203708) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_11_152023) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -58,6 +58,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_06_203708) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "employees", force: :cascade do |t|
+    t.boolean "manager"
+    t.boolean "invite"
+    t.bigint "user_id", null: false
+    t.bigint "farm_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["farm_id"], name: "index_employees_on_farm_id"
+    t.index ["user_id"], name: "index_employees_on_user_id"
+  end
+
   create_table "farms", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "name"
@@ -93,7 +104,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_06_203708) do
     t.string "last_name"
     t.string "address"
     t.string "cpf"
-    t.integer "role"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -101,6 +111,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_06_203708) do
   add_foreign_key "cart_chemicals", "carts"
   add_foreign_key "cart_chemicals", "chemicals"
   add_foreign_key "carts", "storages"
+  add_foreign_key "employees", "farms"
+  add_foreign_key "employees", "users"
   add_foreign_key "farms", "users"
   add_foreign_key "storages", "farms"
 end

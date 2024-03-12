@@ -2,17 +2,7 @@ Rails.application.routes.draw do
   devise_for :users
   root to: "farms#index"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-  resources :farms do
-    member do
-      get 'storages', to: 'farms#storages'
-    end
-
-    resources :storages, only: [:index] do
-      member do
-        get 'carts', to: 'farms#carts'
-      end
-    end
-  end
+  resources :farms
 
   resources :carts, except: %i[new create] do
     resources :cart_chemicals, only: %i[new create]
@@ -20,7 +10,7 @@ Rails.application.routes.draw do
 
   resources :cart_chemicals, only: %i[destroy]
 
-  resources :storages, except: [:index] do
+  resources :storages do
     resources :carts, only: %i[new create]
   end
 

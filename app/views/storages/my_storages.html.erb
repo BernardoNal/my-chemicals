@@ -1,14 +1,24 @@
-<div class="container">
+<div class="container mt-4">
   <h1>Show of My_Storage</h1>
-
-  <div>
-  <% @storages.each do |storage| %>
-    <h2><%= storage.name %></h2>
-    <p><%= storage.size %></p>
-    <p><%= storage.capacity %></p>
-    <%= link_to 'Editar', edit_storage_path(storage) %>
-    <%= link_to "Deletar", storage_path(storage), data: {turbo_method: :delete, turbo_confirm: "Excluir Galpão?"} %>
-    <% end %>
+  <div class="cards">
+  <div class="row">
+    <% @storages.each do |storage| %>
+    <div class="col-sm-4">
+    <div class="card-small">
+      <h2><%= storage.name %></h2>
+      <p>Tamanho: <%= storage.size %></p>
+      <p>Capacidade: <%= storage.capacity %></p>
+      <div class="d-flex align-items-end flex-column position-relative">
+      <div class="mt-auto p-2">
+        <%= link_to 'Editar', edit_storage_path(storage), class: "btn-edit" %>
+        <%= link_to "<i class='far fa-trash-alt'></i>".html_safe, storage_path(storage), class: "btn-delete-bin", data: {turbo_method: :delete, turbo_confirm: "Excluir Galpão?"} %>
+        </div>
+        </div>
+      </div>
+        </div>
+        <% end %>
+        </div>
   </div>
-  <%= link_to "Criar Galpão", new_storage_path %>
+  <%= link_to "<i class='fa-solid fa-circle-plus'></i>".html_safe, new_storage_path, class: "btn-plus-sign" %>
+
 </div>

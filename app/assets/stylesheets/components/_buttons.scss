@@ -34,3 +34,23 @@
     background-color: #0d67ec;
   }
 }
+
+.btn-delete-bin {
+  color: $red;
+}
+
+.btn-edit {
+  text-decoration: none;
+}
+
+.btn-plus-sign {
+  color: white;
+  padding: 4px 10px ;
+  border-radius: 50%;
+  background: $green;
+  text-decoration: none;
+  position: fixed;
+  bottom:20px;
+  right: 20px;
+  font-size:24px;
+}

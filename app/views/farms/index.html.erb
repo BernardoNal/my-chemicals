@@ -23,8 +23,22 @@
       </div>
 
 
+      <div class="col-6 m-2 mt-5">
+        <h2>Buscar produto:</h2>
+        <%= simple_form_for :search, url: root_path, method: :get do |f| %>
+          <%= hidden_field_tag 'farm_id', params[:farm_id] if params[:farm_id].present? %>
+          <%= hidden_field_tag 'storage_id', params[:storage_id] if params[:storage_id].present? %>
+          <div class="search-form-control form-group">
+            <input class="form-control string required" type="text" name="search[query]" id="search_query" />
+            <button name="button" type="submit" class="btn btn-flat">
+              <i class="fas fa-search"></i> Buscar
+            </button>
+          </div>
+        <% end %>
+      </div>
     </div>
   <% end %>
+
 
   <% if @chemical_totals %>
     <div class="m-5" id="carts">

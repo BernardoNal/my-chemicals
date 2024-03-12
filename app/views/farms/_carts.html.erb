@@ -15,12 +15,14 @@ value="<%= params[:search][:query] if params[:search].present? %>" />
 
 <%= simple_form_for [storage, cart] do |f|%>
   <%= f.hidden_field :entry, value: 1 %>
-  <%= f.submit 'Entrada de produtos', class: "my-2 btn-login" %>
+  <%= f.submit 'Entrada de produtos', class: "btn-new-product" %>
 <% end %>
-<%= simple_form_for [storage, cart] do |f|%>
+<div class= "btn-jdn">
+<%= simple_form_for [storage,cart] do |f|%>
   <%= f.hidden_field :entry, value: 0 %>
-  <%= f.submit 'Saída de produtos', class: "my-2 btn-red" %>
+  <%= f.submit 'Saída de produtos', class: "btn-out-product" %>
 <% end %>
+</div>
 <h2 class='my-4'>Meus Produtos:</h2>
 <div id="cart-<%= cart.id %>" class="table-responsive col-10">
   <table class="table table-dark table-striped table-bordered">

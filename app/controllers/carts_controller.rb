@@ -35,19 +35,25 @@ class CartsController < ApplicationController
     authorize @cart
     @cart_chemical = CartChemical.new
     @chemicals = Chemical.all
+    existing_chemical_ids = @cart.cart_chemicals.pluck(:chemical_id)
+    # Remover os chemicals já presentes na lista de chemicals disponíveis
+    @chemicals = @chemicals.where.not(id: existing_chemical_ids)
     @cart_chemicals = @cart.cart_chemicals
   end
 
   def record
     @cart = Cart.find(params[:id])
-    @cart.date_move = Time.now
-    @cart.approved = true
     authorize @cart
-    if @cart.save
-      redirect_to farms_path
-    else
-      render :new, status: :unprocessable_entity
+    if @cart.cart_chemicals != []
+      @cart.date_move = Time.now
+      @cart.approved = true
+      if @cart.save
+        redirect_to farms_path(farm_id: @cart.storage.farm_id,storage_id: @cart.storage_id)
+      else
+        render :new, status: :unprocessable_entity
+      end
     end
+
   end
 
   def destroy

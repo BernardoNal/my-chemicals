@@ -1,4 +1,6 @@
-
+ <%= link_to farms_path(@farm), class: 'btn-back text-decoration-none' do %>
+        <i class='fa-solid fa-circle-left'></i>
+        <% end %>
 <p><li>Nome <%= @chemical.product_name %></li><p>
 <p><li>Composto <%= @chemical.compound_product %></li><p>
 <p><li>Tip <%= @chemical.type_product %></li><p>

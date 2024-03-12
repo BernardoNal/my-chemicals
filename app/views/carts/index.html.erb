@@ -1,0 +1,50 @@
+<div class="container mt-2">
+  <div class="row">
+    <% @carts.each do |cart| %>
+      <h2><%= cart.date_move %></h2>
+      <% cart.cart_chemicals.each do |cart_chemical| %>
+        <div class="table-responsive col-4">
+        <% if cart_chemical.quantity < 0 %>
+            <table class="table table-danger table-striped table-bordered">
+            <thead>
+              <tr>
+                <th class='text-center' scope="col">Fazenda</th>
+                <th class='text-center' scope="col">Galpão</th>
+                <th class='text-center' scope="col">Nome</th>
+                <th class='text-center' scope="col">Quantidade</th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr>
+                  <td class='text-center negative-quantity'><%= cart.storage.farm.name %></td>
+                  <td class='text-center negative-quantity'><%= cart.storage.name %></td>
+                  <td class='text-center'><%= link_to chemical_path(cart_chemical), class: "text-decoration-none text-dark" do %> <%= cart_chemical.chemical.product_name %> <% end %></td>
+                  <td class='text-center negative-quantity'><%= cart_chemical.quantity %></td>
+                </tr>
+            </tbody>
+            </table>
+        <% else %>
+          <table class="table table-success table-striped table-bordered">
+          <thead>
+            <tr>
+              <th class='text-center' scope="col">Fazenda</th>
+              <th class='text-center' scope="col">Galpão</th>
+              <th class='text-center' scope="col">Nome</th>
+              <th class='text-center' scope="col">Quantidade</th>
+            </tr>
+          </thead>
+          <tbody>
+              <tr>
+                <td class='text-center negative-quantity'><%= cart.storage.farm.name %></td>
+                <td class='text-center negative-quantity'><%= cart.storage.name %></td>
+                <td class='text-center'><%= link_to chemical_path(cart_chemical.chemical), class: "text-decoration-none text-dark" do %> <%= cart_chemical.chemical.product_name %> <% end %></td>
+                <td class='text-center negative-quantity'><%= cart_chemical.quantity %></td>
+              </tr>
+          </tbody>
+          </table>
+        <% end %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>

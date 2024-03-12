@@ -1,6 +1,10 @@
 class CartsController < ApplicationController
   before_action :authenticate_user!
 
+  def index
+    @carts = policy_scope(Cart)
+  end
+
   def new
     @storage = Storage.find(params[:format])
     @chemicals = Chemical.all
@@ -47,6 +51,7 @@ class CartsController < ApplicationController
 
   def destroy
     @cart = Cart.find(params[:id])
+    authorize @cart
     @cart.destroy!
 
     redirect_to farms_path

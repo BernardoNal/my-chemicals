@@ -3,6 +3,9 @@
   <div class="row">
     <div class=" col-md-6">
       <div class="form-shape col-md-8 mx-auto">
+        <%= link_to farms_path(@farm), class: 'btn-back text-decoration-none' do %>
+        <i class='fa-solid fa-circle-left'></i>
+        <% end %>
         <h3 class="form-title"><%= @entry == "1" ? "Entrada" : "Saída" %></h3>
         <%= simple_form_for [@cart,@cart_chemical], method: :post do |f| %>
           <%= f.hidden_field :entry, value: @entry == "1" ? 1 : 0 %>

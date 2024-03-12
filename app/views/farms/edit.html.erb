@@ -1,13 +1,15 @@
 <div class="container">
   <div class="form-shape col-md-6 mx-auto">
+  <%= link_to myfarms_path, class: 'btn-back text-decoration-none' do %>
+    <i class='fa-solid fa-circle-left'></i>
+    <% end %>
     <h1 class="form-title">Editar fazenda <%= @farm.name %></h1>
     <%= simple_form_for @farm do |f| %>
       <%= f.input :name, label: "Nome" %>
       <%= f.input :size, label: "Tamanho" %>
       <%= f.input :cep, label: "CEP" %>
       <%= f.input :complement, label: "Complemento" %>
-      <%= f.button :submit, "Atualizar Fazenda", class:'btn-update-farm' %>
+      <%= f.button :submit, "Atualizar Fazenda", class:'btn-login' %>
     <% end %>
-    <%= link_to 'Voltar', myfarms_path, class:'btn-back-edt'%>
-  </div>
+    </div>
 </div>

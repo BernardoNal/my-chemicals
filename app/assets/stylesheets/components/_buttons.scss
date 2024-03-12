@@ -4,7 +4,7 @@
   border-radius: 8px;
   background: $dark-green;
   text-decoration: none;
-  font-size: 16px;
+  font-size: 14px;
   width: 100%;
 }
 
@@ -35,6 +35,13 @@
   }
 }
 
+.btn-new-farm {
+  color: white;
+  padding: 4px 10px ;
+  border-radius: 50%;
+  background: $dark-green;
+}
+
 .btn-back {
     color: rgb(201, 201, 201);
     padding: 2px ;
@@ -61,25 +68,72 @@
   border-radius: 8px;
   background: $dark-green;
   text-decoration: none;
-  font-size: 16px;
+  font-size: 14px;
   width: 50%;
 }
+
+
 .btn-delete-bin {
-  color: $red;
+  color: $red !important;
 }
 
 .btn-edit {
+  color: white !important;
+  padding: 4px 8px ;
+  border-radius: 8px;
+  background: #7B876D;
   text-decoration: none;
+  font-size: 14px;
+    &:hover {
+      background: $new-green;
+      transition: background 0.3s ease;
+      color: white;
+  }
 }
 
 .btn-plus-sign {
   color: white;
   padding: 4px 10px ;
   border-radius: 50%;
-  background: $green;
+  background: $btn-green;
   text-decoration: none;
   position: fixed;
   bottom:20px;
   right: 20px;
   font-size:24px;
+  border: 1px solid white;
+}
+
+.btn-new-product {
+  color: white;
+  padding: 4px 8px ;
+  border-radius: 8px;
+  background: #7B876D;
+  text-decoration: none;
+  font-size: 14px;
+  border: #7B876D;
+    &:hover {
+      background: $new-green;
+      transition: background 0.3s ease;
+      color: white;
+  }
+}
+
+.btn-out-product {
+  color: red;
+  padding: 4px 8px ;
+  border-radius: 8px;
+  background: white;
+  text-decoration: none;
+  font-size: 14px;
+  border: white;
+    &:hover {
+      background: whitesmoke;
+      transition: background 0.5s ease;
+      color: red;
+  }
+}
+
+.btn-jdn {
+margin-top: 10px;
 }

@@ -21,7 +21,7 @@ class FarmsController < ApplicationController
   end
 
   def new
-    @farm = Farm.new
+    @farm = Farm.new  
     authorize @farm
   end
 

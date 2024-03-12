@@ -31,7 +31,7 @@ class StoragesController < ApplicationController
     if @storage.update(storage_params)
       redirect_to my_storages_path
       flash[:alert] = "Galpão atualizado com sucesso."
-      redirect_to storages_path
+
     else
       render :new, status: :unprocessable_entity
     end

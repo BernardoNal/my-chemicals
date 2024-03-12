@@ -14,36 +14,13 @@
           <p class="card-text">Tamanho da Fazenda: <%= farm.size %></p>
           <p class="card-text">Usuário: <%= farm.user_id %></p>
           <%= link_to 'Edit', edit_farm_path(farm), class:'farm-btn btn-card-edit' %>
-          <%= link_to farm_path(farm), data: {turbo_method: :delete, turbo_confirm: "Confirma exclusão de Produto?"}, class:'farm-btn btn-card-dlt' do  %>
+          <%= link_to farm_path(farm), data: {turbo_method: :delete, turbo_confirm: "Confirma exclusão da Fazenda?"}, class:'farm-btn btn-card-dlt' do  %>
             <span>Deletar</span>
           <% end %>
+          </div>
         </div>
       </div>
      </div>
     <% end %>
   </div>
-  </div>
-
-  <input type="text" id="cepInput" placeholder="Digite o CEP"/>
-  <button onclick="updateMapLocation()">Mostrar Localização</button>
-
-
-    <div class="map" id="map"></div>
-
-  <script>
-    mapboxgl.accessToken = "pk.eyJ1Ijoiam9yZGFubzg4IiwiYSI6ImNsc2x4OWdvZjBkOTUyanNjOXRtZno4YnkifQ.9TVAMKmkrFEmnXjmIah2aQ";
-    var map = new mapboxgl.Map({
-      container: 'map',
-      style: 'mapbox://styles/mapbox/streets-v11',
-      center: [-46.687, -23.565],
-      zoom: 15
-    });
-
-    new mapboxgl.Marker()
-      .setLngLat([-46.687, -23.565])
-      .addTo(map);
-      // locate.appendChild
-  </script>
-
-   <script src='https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js'></script>
 </div>

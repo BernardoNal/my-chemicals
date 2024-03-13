@@ -1,0 +1,17 @@
+<div class="container">
+<h1>Funcionarios</h1>
+
+<% @farms.each do  |farm|%>
+ <h3><%= farm.name %></h3>
+ <% farm.employees.each do |employee| %>
+  <li><%= employee.user.first_name %>  <%= employee.user.last_name %> <%= employee.invite ? '': "(Convite Pendente)" %>
+   <%= link_to  employee_path(employee),  data: {turbo_method: :delete}, class:'btn btn-red ma' do  %>
+                <%= employee.invite ? 'Cancelar': "Demitir" %>
+                <% end %>
+  </li>
+  <% end %>
+  <% end %>
+
+
+ <%= link_to "<i class='fa-solid fa-circle-plus'></i>".html_safe, new_employee_path, class: "btn-plus-sign" %>
+</div>

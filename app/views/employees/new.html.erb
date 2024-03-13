@@ -1,0 +1,14 @@
+<div class="container">
+  <div class="form-shape col-md-6 mx-auto">
+    <%= link_to employees_path, class: 'btn-back text-decoration-none' do %>
+    <i class='fa-solid fa-circle-left'></i>
+    <% end %>
+    <h2 class="form-title">Convidar funcionario</h2>
+    <%= simple_form_for @employee do |f| %>
+      <%= f.input :farm_id, as: :select, collection: @farms, label: "Fazendas" %>
+      <%= f.input :user_cpf , label: "Usuarios" %>
+      <%= f.input :manager ,label: "Gerente"%>
+      <%= f.button :submit, "Convidar", class: "my-2 btn-login" %>
+    <% end %>
+  </div>
+</div>

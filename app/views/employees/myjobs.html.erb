@@ -1,0 +1,17 @@
+<div class="container">
+  <h1>Trabalhos</h1>
+
+  <% @employees.each do  |employee|%>
+  <li><%= employee.farm.name %></li>
+  fazendeiro: <%= employee.farm.user.first_name %> <%= employee.farm.user.last_name %> <br>
+  meu cargo : <%= employee.manager ? 'Gerente' : "Funcionario" %> <br>
+    <%if employee.invite == false  %>
+      <%= link_to  'Aceitar',employee_path(employee), data: {turbo_method: :patch}, class:'btn btn-edit ma' %>
+      <%= link_to  'Rejeitar',employee_path(employee), data: {turbo_method: :delete}, class:'btn btn-red ma' %>
+    <% end %>
+    <br>
+  <% end %>
+
+
+  <%= link_to "<i class='fa-solid fa-circle-plus'></i>".html_safe, new_employee_path, class: "btn-plus-sign" %>
+</div>

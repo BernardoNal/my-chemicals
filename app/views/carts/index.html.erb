@@ -1,5 +1,5 @@
 <div class="container mt-4">
-<div class="title-big">
+  <div class="title-big">
   <h1 class="farm-title"><i class="fas fa-sheet-plastic"></i> Meus Registros</h1>
   </div>
   <div class="row">
@@ -39,25 +39,27 @@
       <% end %>
     <% end %>
 
-<div class="row">
-  <h2>Selecione as datas:</h2>
-  <%= form_with(url: carts_path, method: :get, local: true) do |form| %>
-    <div class="form-group col-3 mt-3">
-      <%= label_tag :start_date, 'De' %>
-      <%= date_field_tag :start_date, params[:start_date], class: 'form-control' %>
-    </div>
-    <div class="form-group col-3 mt-3">
-      <%= label_tag :end_date, 'Até' %>
-      <%= date_field_tag :end_date, params[:end_date], class: 'form-control' %>
-    </div>
-    <%= submit_tag 'Filter', class: 'btn btn-primary my-3' %>
-  <% end %>
-</div>
-
-<% if @carts.any? { |date_move, carts| carts.any? } %>
-  <div class="m-5" id="carts">
-    <%= render partial: 'carts/records' %>
+  <div class="row">
+    <h2>Selecione as datas:</h2>
+    <%= form_with(url: carts_path, method: :get, local: true) do |form| %>
+      <div class="form-group col-3 mt-3">
+        <%= label_tag :start_date, 'De' %>
+        <%= date_field_tag :start_date, params[:start_date], class: 'form-control' %>
+      </div>
+      <div class="form-group col-3 mt-3">
+        <%= label_tag :end_date, 'Até' %>
+        <%= date_field_tag :end_date, params[:end_date], class: 'form-control' %>
+      </div>
+      <%= submit_tag 'Filter', class: 'btn btn-primary my-3' %>
+    <% end %>
   </div>
-<% else %>
-  <p><strong>Não há registros disponíveis para esse período.</strong></p>
-<% end %>
+
+  <% if @carts.any? { |date_move, carts| carts.any? } %>
+    <div class="m-5" id="carts">
+      <%= render partial: 'carts/records' %>
+    </div>
+  <% else %>
+    <p><strong>Não há registros disponíveis para esse período.</strong></p>
+  <% end %>
+  </div>
+</div>

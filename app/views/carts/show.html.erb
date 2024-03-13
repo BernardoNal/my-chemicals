@@ -3,7 +3,7 @@
   <div class="row">
     <div class=" col-md-6">
       <div class="form-shape col-md-8 mx-auto">
-        <%= link_to cart_path(@cart),  data: {turbo_method: :delete}, class: 'btn-back text-decoration-none' do %>
+        <%= link_to farms_path(@farm), class: 'btn-back text-decoration-none' do %>
         <i class='fa-solid fa-circle-left'></i>
         <% end %>
         <h3 class="form-title"><%= @entry == "1" ? "Entrada" : "Saída" %></h3>

@@ -13,7 +13,7 @@
     <div class="d-flex align-items-end flex-column position-relative">
       <div class="mt-auto p-2">
           <%= link_to 'Edit', edit_farm_path(farm), class:"btn-edit" %>
-          <%= link_to  cart_chemical_path(farm),  data: {turbo_method: :delete}, class:'btn-delete-bin' do  %>
+          <%= link_to  farm_path(farm),  data: {turbo_method: :delete}, class:'btn-delete-bin' do  %>
                   <i class="far fa-trash-alt"></i>
                 <% end %>
            </div>

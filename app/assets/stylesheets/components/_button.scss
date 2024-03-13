@@ -112,6 +112,7 @@
   background: #7B876D;
   text-decoration: none;
   font-size: 14px;
+  margin-top: 8px;
   border: #7B876D;
     &:hover {
       background: $new-green;
@@ -121,10 +122,10 @@
 }
 
 .btn-out-product {
-  color: red;
+  color: white;
   padding: 4px 8px ;
   border-radius: 8px;
-  background: white;
+  background: rgb(189, 36, 36);
   text-decoration: none;
   font-size: 14px;
   border: white;

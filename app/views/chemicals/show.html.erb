@@ -1,9 +1,28 @@
-
-<p><li>Nome <%= @chemical.product_name %></li><p>
-<p><li>Composto <%= @chemical.compound_product %></li><p>
-<p><li>Tip <%= @chemical.type_product %></li><p>
-<p><li>Perigo <%= @chemical.hazard %></li><p>
-<p><li>Area de atuação <%= @chemical.area %></li><p>
-<p><li>Medida <%= @chemical.measurement_unit %></li><p>
-<p><li>Quantidade <%= @chemical.amount %></li><p>
-<p><li>Dosagem <%= @chemical.dosage %></li><p>
+<%= render "shared/modal", title: "Detalhes do Produto"  do %>
+  <div class="container mt-5 p-5">
+    <table class="table table-borderless table-hover ">
+      <thead>
+        <tr>
+          <th scope="col">Nome</th>
+          <th scope="col">Composto</th>
+          <th scope="col">Tipo</th>
+          <th scope="col">Area de atuação</th>
+          <th scope="col">Medida</th>
+          <th scope="col">Quantidade</th>
+          <th scope="col">Dosagem</th>
+        </tr>
+        </thead>
+      <tbody>
+        <tr>
+          <td><%= @chemical.product_name %></td>
+          <td><%= @chemical.compound_product %></td>
+          <td><%= @chemical.type_product %></td>
+          <td><%= @chemical.area %></td>
+          <td><%= @chemical.measurement_unit %></td>
+          <td><%= @chemical.amount %></td>
+          <td><%= @chemical.dosage %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+<% end %>

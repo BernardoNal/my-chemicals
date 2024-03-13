@@ -51,10 +51,10 @@ farm3 = Farm.create!(name: 'Lagoa Escura', size: '600 ha', cep: '49075420', user
 employee1 = Employee.create!(manager: false, invite: true, user_id: 4, farm_id: 1)
 employee2 = Employee.create!(manager: true, invite: false, user_id: 3, farm_id: 1)
 
-stock1 = Storage.create!(name: "Galpao principal", size: '20 m2', capacity: 1000, farm_id: 1)
-stock2 = Storage.create!(name: "Galpao da laranja", size: '10 m2', capacity: 400, farm_id: 1)
-stock3 = Storage.create!(name: "Galpao do Rio", size: '5 m2', capacity: 200, farm_id: 2)
-stock4 = Storage.create!(name: "Galpao da baixa funda", size: '10 m2', capacity: 400, farm_id: 3)
+stock1 = Storage.create!(name: "Galpão principal", size: '20 m2', capacity: 1000, farm_id: 1)
+stock2 = Storage.create!(name: "Galpão da laranja", size: '10 m2', capacity: 400, farm_id: 1)
+stock3 = Storage.create!(name: "Galpão do Rio", size: '5 m2', capacity: 200, farm_id: 2)
+stock4 = Storage.create!(name: "Galpão da baixa funda", size: '10 m2', capacity: 400, farm_id: 3)
 
 
 cart1 = Cart.create!(date_move: '03/12/2022', approved: true, storage_id: 1)

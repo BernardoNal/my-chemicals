@@ -3,7 +3,12 @@ class CartsController < ApplicationController
 
   def index
     @carts = policy_scope(Cart)
-    @carts = Cart.all.group_by(&:date_move)
+    if params[:start_date].present? && params[:end_date].present?
+      start_date = Date.parse(params[:start_date])
+      end_date = Date.parse(params[:end_date])
+      @carts = @carts.where(date_move: start_date..end_date)
+    end
+    @carts = @carts.all.group_by(&:date_move)
   end
 
   def new

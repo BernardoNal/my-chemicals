@@ -18,13 +18,13 @@
 
   <div class="row">
     <% @carts.each do |date_move, carts| %>
-      <% if date_move.present? %>
+      <% carts.each do |cart| %>
+        <% cart.cart_chemicals.each do |cart_chemical| %>
+      <% if date_move.present? && cart.cart_chemicals.present? %>
         <div class="table-responsive col-2">
           <h2 class="title-medium table card-title"><%= date_move %></h2>
         </div>
       <% end %>
-      <% carts.each do |cart| %>
-        <% cart.cart_chemicals.each do |cart_chemical| %>
           <div class="table-responsive">
             <% if cart_chemical.quantity.present? && cart_chemical.quantity < 0 %>
               <table class="table table-danger table-striped table-bordered">

@@ -39,7 +39,7 @@ class CartsController < ApplicationController
     @cart = Cart.find(params[:id])
     authorize @cart
     @cart_chemical = CartChemical.new
-    @chemicals = Chemical.all
+    @chemicals = Chemical.all.order(product_name: :asc)
     existing_chemical_ids = @cart.cart_chemicals.pluck(:chemical_id)
     # Remover os chemicals já presentes na lista de chemicals disponíveis
     @chemicals = @chemicals.where.not(id: existing_chemical_ids)

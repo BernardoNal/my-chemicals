@@ -11,7 +11,7 @@
 .infos {
   padding: 16px;
   width: 100%;
-  text-align:left;
+  text-align: left;
   display: flex;
   flex-direction: column;
 }
@@ -100,38 +100,45 @@
 }
 
 .card-small {
-  position: relative;
-  overflow: hidden;
-  height: 120px;
   background: white;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
-  color: rgb(18, 17, 17);
-  padding: 10px;
+  color: #787878;
+  padding: 12px;
   margin-bottom: 16px;
-}
+  transition: 0.4s;
 
-.card-small h2 {
-  font-family: $home-font;
-  font-size: 20px;
-  font-weight: bold;
-  margin: 0;
-  margin-bottom: 8px;
-  text-align: center;
-}
+  h2 {
+    font-family: $home-font;
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0;
+    margin-bottom: 16px;
+    text-align: center;
+    color: $dark-green;
+  }
 
-.card-small p {
-  font-size: 14px;
-  line-height: 1.4;
-  margin: 0;
-  font-weight: 600;
-  font-family: $home-font;
+  p {
+    font-size: 16px;
+    line-height: 1.4;
+    margin: 0;
+    font-weight: 600;
+    font-family: $home-font;
+  }
+
+  hr {
+    margin: 4px 0;
+  }
+
+  &:hover {
+    transform: scale(1.05, 1.05);
+    transition: 0.4s;
+  }
 }
 
 .card-small .position-relative {
   position: absolute;
-  bottom: 4px;
-  right: 4px;
+  bottom: 40px;
 }
 
 .card-title {
@@ -139,4 +146,14 @@
   background-color: $light-green;
   margin-bottom: 4px;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+}
+
+.card-small-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.card-small-info {
+  height: 85px;
 }

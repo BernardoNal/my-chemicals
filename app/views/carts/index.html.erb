@@ -1,32 +1,41 @@
 <div class="container mt-2">
+<h1 class="title-big">Meus Registros</h1>
   <div class="row">
-    <% @carts.group_by(&:date_move).each do |date, carts| %>
-      <h2><%= date %></h2>
+    <% @carts.each do |date_move, carts| %>
+      <% if date_move.present? %>
+        <div class="table-responsive col-2">
+          <h2 class="title-medium table card-title"><%= date_move %></h2>
+        </div>
+      <% end %>
       <% carts.each do |cart| %>
         <% cart.cart_chemicals.each do |cart_chemical| %>
-          <div class="table-responsive col-4">
-          <% table_class = cart_chemical.quantity < 0 ? 'table-danger' : 'table-success' %>
-            <table class="table <%= table_class %> table-striped table-bordered">
-              <thead>
-                <tr>
-                  <th class='text-center' scope="col">Fazenda</th>
-                  <th class='text-center' scope="col">Galpão</th>
-                  <th class='text-center' scope="col">Nome</th>
-                  <th class='text-center' scope="col">Quantidade</th>
-                </tr>
-              </thead>
-              <tbody>
-                  <tr>
-                    <td class='text-center negative-quantity'><%= cart.storage.farm.name %></td>
-                    <td class='text-center negative-quantity'><%= cart.storage.name %></td>
-                    <td class='text-center'><%= link_to chemical_path(cart_chemical), class: "text-decoration-none text-dark" do %> <%= cart_chemical.chemical.product_name %> <% end %></td>
-                    <td class='text-center negative-quantity'><%= cart_chemical.quantity %></td>
-                  </tr>
-              </tbody>
-            </table>
+          <div class="table-responsive">
+            <% if cart_chemical.quantity.present? && cart_chemical.quantity < 0 %>
+              <table class="table table-danger table-striped table-bordered">
+            <% else %>
+              <table class="table table-success table-striped table-bordered">
+            <% end %>
+            <thead>
+              <tr>
+                <th class='text-center' scope="col">Fazenda</th>
+                <th class='text-center' scope="col">Galpão</th>
+                <th class='text-center' scope="col">Nome</th>
+                <th class='text-center' scope="col">Quantidade</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class='text-center negative-quantity'><%= cart.storage.farm.name %></td>
+                <td class='text-center negative-quantity'><%= cart.storage.name %></td>
+                <td class='text-center'><%= link_to chemical_path(cart_chemical.chemical), class: "text-decoration-none text-dark" do %> <%= cart_chemical.chemical.product_name %> <% end %></td>
+                <td class='text-center negative-quantity'><%= cart_chemical.quantity %></td>
+              </tr>
+            </tbody>
+          </table>
           </div>
         <% end %>
       <% end %>
     <% end %>
+
   </div>
 </div>

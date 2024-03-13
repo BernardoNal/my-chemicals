@@ -9,9 +9,9 @@
 #   end
 require 'csv'
 
-# Chemical.destroy_all
+Chemical.destroy_all
 
-csv_file = Rails.root.join('db', 'my_csv_file.csv')
+csv_file = Rails.root.join('db/data', 'my_csv_file.csv')
 
 CSV.foreach(csv_file, headers: true) do |row|
   Chemical.create!(
@@ -19,6 +19,8 @@ CSV.foreach(csv_file, headers: true) do |row|
     compound_product: row['DS_INGREDIENTE_ATIVO'],
     type_product: row['CLASSE_AGRONOMICA'],
     area: row['NO_CULTURA'],
-    measurement_unit: row['NO_UNIDADE_MEDIDA']
+    measurement_unit: row['NO_UNIDADE_MEDIDA'],
+    amount: [1, 5, 10, 20, 20, 20, 20, 20].sample
   )
+  puts "Product created..."
 end

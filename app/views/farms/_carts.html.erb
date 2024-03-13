@@ -12,11 +12,14 @@ value="<%= params[:search][:query] if params[:search].present? %>" />
     </div>
   <% end %>
 </div>
-
-<%= simple_form_for [storage, cart] do |f|%>
-  <%= f.hidden_field :entry, value: 1 %>
-  <%= f.submit 'Entrada de produtos', class: "btn-new-product" %>
-<% end %>
+<% manager = @storage.farm.employees.find_by(user_id: current_user.id) %>
+  <% if (manager.present? && manager.manager) || @storage.farm.user == current_user %>
+    <%= simple_form_for [storage, cart] do |f|%>
+    <%= f.hidden_field :entry, value: 1 %>
+    <%= f.submit 'Entrada de produtos', class: "btn-new-product" %>
+    <% end %>
+  <% end %>
+  <%# <%= raise %>
 <div class= "btn-jdn">
 <%= simple_form_for [storage,cart] do |f|%>
   <%= f.hidden_field :entry, value: 0 %>

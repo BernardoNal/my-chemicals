@@ -38,7 +38,7 @@ User.create!(
   first_name: 'cla',
   last_name: 'ra',
   address: 'quintal do espeto',
-  cpf: "66699966669"
+  cpf: "66699966678"
 )
 
 

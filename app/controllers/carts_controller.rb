@@ -6,6 +6,11 @@ class CartsController < ApplicationController
     @carts = Cart.all.group_by(&:date_move)
   end
 
+  def pending
+    @carts = policy_scope(Cart).where(approved: false)
+    authorize @carts
+  end
+
   def new
     @storage = Storage.find(params[:format])
     @chemicals = Chemical.all
@@ -46,14 +51,14 @@ class CartsController < ApplicationController
     authorize @cart
     if @cart.cart_chemicals != []
       @cart.date_move = Time.now
-      @cart.approved = true
+      manager = @cart.storage.farm.employees.find_by(user_id: current_user.id)
+      @cart.approved = (manager.present? && manager.manager) || @cart.storage.farm.user == current_user ? true : false
       if @cart.save
         redirect_to farms_path(farm_id: @cart.storage.farm_id,storage_id: @cart.storage_id)
       else
         render :new, status: :unprocessable_entity
       end
     end
-
   end
 
   def destroy

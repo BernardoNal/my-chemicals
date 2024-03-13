@@ -16,14 +16,23 @@
           Bem vindo <%= current_user.first_name %> <i class="fa-solid fa-caret-down"></i>
           </a>
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-              <%= link_to storages_path, class: "dropdown-item" do %>
-              <i class="fa-solid fa-warehouse"></i> Meus Galpões
-              <% end %>
               <%= link_to myfarms_path, class: "dropdown-item" do %>
               <i class="fa-brands fa-pagelines"></i>  </i>Minha Fazenda
               <% end %>
+              <%= link_to storages_path, class: "dropdown-item" do %>
+              <i class="fa-solid fa-warehouse"></i> Meus Galpões
+              <% end %>
               <%= link_to carts_path, class: "dropdown-item" do %>
               <i class="fa-solid fa-sheet-plastic"></i>  </i>Meus registros
+              <% end %>
+              <%= link_to employees_path, class: "dropdown-item" do %>
+              <i class="fa-solid fa-users"></i> Funcionarios
+              <% end %>
+              <%= link_to myjobs_path, class: "dropdown-item" do %>
+             <i class="fa-solid fa-tractor"></i> Trabalhos
+              <% end %>
+                <%= link_to pending_path, class: "dropdown-item" do %>
+             <i class="fa-solid fa-spinner"></i> Pendencias
               <% end %>
               <%= link_to edit_user_registration_path, class: "dropdown-item" do %>
               <i class="fa-solid fa-user"></i> </i> Minha Conta

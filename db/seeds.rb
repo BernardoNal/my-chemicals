@@ -7,6 +7,23 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+require 'csv'
+
+Chemical.destroy_all
+
+csv_file = Rails.root.join('db/data', 'my_csv_file.csv')
+
+CSV.foreach(csv_file, headers: true) do |row|
+  Chemical.create!(
+    product_name: row['Produto'],
+    compound_product: row['DS_INGREDIENTE_ATIVO'],
+    type_product: row['CLASSE_AGRONOMICA'],
+    area: row['NO_CULTURA'],
+    measurement_unit: row['NO_UNIDADE_MEDIDA'],
+    amount: [1, 5, 10, 20, 20, 20, 20, 20].sample
+  )
+  puts "Product created..."
+end
 
 User.create!(
   email: "henrique@email.com",
@@ -38,10 +55,8 @@ User.create!(
   first_name: 'cla',
   last_name: 'ra',
   address: 'quintal do espeto',
-  cpf: "66699966669"
+  cpf: "66699966678"
 )
-
-
 
 farm1 = Farm.create!(name: 'Sol Nascente', size: '500 ha', cep: '49075220', user_id: 1)
 farm2 = Farm.create!(name: 'Maria da Murta', size: '200 ha', cep: '49075550', user_id: 1)

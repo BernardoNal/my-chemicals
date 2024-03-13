@@ -13,15 +13,18 @@
         </button>
       </div>
     </div>
-  </div>
-<% end %>
-
-<%= simple_form_for [storage, cart] do |f|%>
-  <%= f.hidden_field :entry, value: 1 %>
-  <button name="button" type="submit" class="btn-new-product">
+  <% end %>
+</div>
+<% manager = @storage.farm.employees.find_by(user_id: current_user.id) %>
+  <% if (manager.present? && manager.manager) || @storage.farm.user == current_user %>
+    <%= simple_form_for [storage, cart] do |f|%>
+    <%= f.hidden_field :entry, value: 1 %>
+    <button name="button" type="submit" class="btn-new-product">
           <i class="fa-solid fa-up-long"></i> Entrada de produto
         </button>
-<% end %>
+    <% end %>
+  <% end %>
+  <%# <%= raise %>
 <div class= "btn-jdn">
 <%= simple_form_for [storage,cart] do |f|%>
   <%= f.hidden_field :entry, value: 0 %>

@@ -1,7 +1,32 @@
-.title-big {
-  text-align: center;
+
+.title-big h1 {
   font-family: $home-font;
+  text-align: center;
+  font-size: 30px;
+  font-weight: 300;
   color: $form-title;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.title-big h1 i {
+  font-size: 26px;
+  color: $form-title;
+}
+
+.title-big h1:before,
+.title-big h1:after {
+  content: "";
+  height: 5px;
+  flex-grow: 1;
+  background: $bg-page;
+  margin: 0 10px;
+  border-bottom: 1px solid #c50000;
+  border-top: 1px solid #c50000;
 }
 
 .title-medium {
@@ -10,4 +35,8 @@
   font-family: $home-font;
   color: $form-title;
   color: white;
+}
+
+.title-info {
+  font-weight: 100;
 }

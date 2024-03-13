@@ -3,6 +3,10 @@ class FarmsController < ApplicationController
 
   def index
     @farms = policy_scope(Farm)
+    current_user.employees.each do |employee|
+      @farm_e = employee.farm
+      @farms += [@farm_e]
+    end
     @storages = []
     if params[:farm_id].present?
       @farm = Farm.find(params[:farm_id])
@@ -29,7 +33,7 @@ class FarmsController < ApplicationController
   end
 
   def new
-    @farm = Farm.new  
+    @farm = Farm.new
     authorize @farm
   end
 

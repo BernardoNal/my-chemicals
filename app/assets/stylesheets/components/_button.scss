@@ -74,18 +74,19 @@
 
 
 .btn-delete-bin {
-  color: $red !important;
+  color: #c50000 !important;
 }
 
 .btn-edit {
-  color: white !important;
+  color: $dark-green;
   padding: 4px 8px ;
   border-radius: 8px;
-  background: #7B876D;
+  background: #fff;
+  border: 1px solid $dark-green;
   text-decoration: none;
   font-size: 14px;
     &:hover {
-      background: $new-green;
+      background: $dark-green;
       transition: background 0.3s ease;
       color: white;
   }

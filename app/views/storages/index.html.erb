@@ -1,23 +1,30 @@
 <div class="container mt-4">
-  <h2>Meus Galpões</h2>
+<div class="title-big">
+  <h1><i class="fas fa-warehouse"></i> Meus Galpões</h1>
+  </div>
   <div class="cards">
-  <div class="row">
-    <% @storages.each do |storage| %>
-    <div class="col-sm-4">
-    <div class="card-small">
-      <h2><%= storage.name %></h2>
-      <p>Tamanho: <%= storage.size %></p>
-      <p>Capacidade: <%= storage.capacity %></p>
-      <div class="d-flex align-items-end flex-column position-relative">
-      <div class="mt-auto p-2">
-        <%= link_to 'Editar', edit_storage_path(storage), class: "btn-edit" %>
-        <%= link_to "<i class='far fa-trash-alt'></i>".html_safe, storage_path(storage), class: "btn-delete-bin", data: {turbo_method: :delete, turbo_confirm: "Excluir Galpão?"} %>
+    <div class="row">
+      <% @storages.each do |storage| %>
+        <div class="col-sm-4">
+          <div class="card-small">
+            <h2><%= storage.name %></h2>
+            <div class="card-small-content">
+              <div class="card-small-info">
+                <p>Fazenda: <span class="title-info"><%= storage.farm.name %></p>
+                <hr>
+                <p>Tamanho: <span class="title-info"><%= storage.size %></p>
+                <hr>
+                <p>Capacidade: <span class="title-info"><%= storage.capacity %></p>
+              </div>
+              <div class="card-small-btns">
+                <%= link_to 'Editar', edit_storage_path(storage), class: "btn-edit" %>
+                <%= link_to "<i class='far fa-trash-alt'></i>".html_safe, storage_path(storage), class: "btn-delete-bin", data: {turbo_method: :delete, turbo_confirm: "Excluir Galpão?"} %>
+              </div>
+            </div>
+          </div>
         </div>
-        </div>
-      </div>
-        </div>
-        <% end %>
-        </div>
+      <% end %>
+    </div>
   </div>
   <%= link_to "<i class='fa-solid fa-circle-plus'></i>".html_safe, new_storage_path, class: "btn-plus-sign" %>
 

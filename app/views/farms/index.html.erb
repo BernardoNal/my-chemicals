@@ -3,7 +3,7 @@
 
     <div class="row m-5">
 
-      <div class="col-4 m-2">
+      <div class="col-4 my-2">
         <h2>Fazendas:</h2>
           <%= form.collection_select  :farm_id, @farms, :id, :name,
           { selected: @farm ? @farm.id : nil, include_blank: 'Selecione uma fazenda' },
@@ -13,7 +13,7 @@
 
 
 
-      <div class="col-4 m-2">
+      <div class="col-4 my-2">
         <h2>Estoques:</h2>
 
             <%= form.collection_select  :storage_id, @storages, :id, :name,
@@ -22,9 +22,9 @@
           %>
       </div>
 
-
     </div>
   <% end %>
+
 
   <% if @chemical_totals %>
     <div class="m-5" id="carts">

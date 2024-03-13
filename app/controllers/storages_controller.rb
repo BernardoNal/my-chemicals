@@ -15,6 +15,7 @@ class StoragesController < ApplicationController
     authorize @storage
     if @storage.save
       redirect_to storages_path
+      flash[:alert] = "Galpão criado com sucesso."
     else
       render :new, status: :unprocessable_entity
     end
@@ -30,6 +31,8 @@ class StoragesController < ApplicationController
     authorize @storage
     if @storage.update(storage_params)
       redirect_to storages_path
+      flash[:alert] = "Galpão atualizado com sucesso."
+
     else
       render :new, status: :unprocessable_entity
     end
@@ -39,6 +42,7 @@ class StoragesController < ApplicationController
     @storage = Storage.find(params[:id])
     authorize @storage
     @storage.destroy
+    flash[:alert] = "Galpão excluído com sucesso."
 
     redirect_to storages_path
   end

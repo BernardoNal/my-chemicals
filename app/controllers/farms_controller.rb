@@ -7,6 +7,7 @@ class FarmsController < ApplicationController
     if params[:farm_id].present?
       @farm = Farm.find(params[:farm_id])
       @storages = @farm.storages
+      @carts = Cart.joins(:storage).where(storages: { farm_id: @farm.id })
     end
 
     if params[:storage_id].present?
@@ -18,10 +19,17 @@ class FarmsController < ApplicationController
                                      .where(cart: @carts)
                                      .group_by(&:chemical_id)
     end
+
+    if params[:search].present? && params[:search][:query].present?
+      search_query = params[:search][:query]
+      @carts = @carts.where("name ILIKE :query", query: "#{search_query}%")
+    elsif @carts.nil?
+      @carts = Cart.all
+    end
   end
 
   def new
-    @farm = Farm.new
+    @farm = Farm.new  
     authorize @farm
   end
 

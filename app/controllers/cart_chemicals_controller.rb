@@ -31,11 +31,11 @@ class CartChemicalsController < ApplicationController
 
   def destroy
     @cart_chemical = CartChemical.find(params[:id])
-    authorize @cart_checimal
+    authorize @cart_chemical
     @cart_chemical.destroy
     flash[:alert] = "Item excluído com sucesso."
 
-    redirect_to cart_path(@cart_chemical.cart)
+    redirect_to cart_path(@cart_chemical.cart, entry: params[:entry])
   end
   private
 

@@ -8,6 +8,27 @@
   border-radius: 8px;
 }
 
+.infos {
+  padding: 16px;
+  width: 100%;
+  text-align:left;
+  display: flex;
+  flex-direction: column;
+}
+
+.cards {
+  a.ma {
+    color: white;
+  }
+
+  a {
+    text-decoration: none;
+    color: black;
+  }
+
+  margin-top: 32px;
+}
+
 .card-item .card-item-content {
   flex-grow: 1;
   padding: 2px 24px;
@@ -35,6 +56,42 @@
 
 .card-item .card-item-actions a:hover {
   color: #555555;
+}
+
+.farm-card {
+  border-radius: 10px;
+  padding: 20px;
+  margin: 20px;
+
+
+  .farm-title {
+    color: $form-title;
+    font-size: 24px;
+  }
+
+  .farm-content {
+    color: $gray;
+    margin-top: 10px;
+  }
+
+  .farm-btn {
+    background-color: $dark-green;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: darken($btn-green, 10%);
+    }
+  }
+}
+
+.map {
+  height: 200px;
+  width: 100%;
+
 }
 
 .cards {
@@ -73,6 +130,13 @@
 
 .card-small .position-relative {
   position: absolute;
-  bottom: 4px; /* Ajuste conforme necessário */
-  right: 4px; /* Ajuste conforme necessário */
+  bottom: 4px;
+  right: 4px;
+}
+
+.card-title {
+  border-radius: 4px;
+  background-color: $light-green;
+  margin-bottom: 4px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
 }

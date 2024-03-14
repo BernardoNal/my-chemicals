@@ -9,6 +9,8 @@
 #   end
 require 'csv'
 
+require "cpf_cnpj"
+
 Chemical.destroy_all
 
 csv_file = Rails.root.join('db/data', 'my_csv_file.csv')
@@ -31,7 +33,7 @@ User.create!(
   first_name: 'hen',
   last_name: 'rique',
   address: 'quintal do espeto',
-  cpf: "66699966669"
+  cpf: CPF.generate
 )
 User.create!(
   email: "jordano@email.com",
@@ -39,7 +41,7 @@ User.create!(
   first_name: 'jordano',
   last_name: 'rique',
   address: 'quintal do espeto',
-  cpf: "66699966669"
+  cpf: CPF.generate
 )
 User.create!(
   email: "lucas@email.com",
@@ -47,7 +49,7 @@ User.create!(
   first_name: 'lu',
   last_name: 'cas',
   address: 'quintal do espeto',
-  cpf: "66699966669"
+  cpf: CPF.generate
 )
 User.create!(
   email: "clara@email.com",
@@ -55,7 +57,7 @@ User.create!(
   first_name: 'cla',
   last_name: 'ra',
   address: 'quintal do espeto',
-  cpf: "66699966678"
+  cpf: CPF.generate
 )
 
 farm1 = Farm.create!(name: 'Sol Nascente', size: '500 ha', cep: '49075220', user_id: 1)

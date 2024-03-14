@@ -13,6 +13,8 @@ class EmployeesController < ApplicationController
 
   def create
     @employee = Employee.new(employee_params)
+    @employee.user_cpf = params[:employee][:user_cpf]
+    @farms = current_user.farms
     @user = User.find_by(cpf: params[:employee][:user_cpf])
     @employee.user = @user
     @employee.invite = false

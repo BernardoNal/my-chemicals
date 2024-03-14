@@ -6,7 +6,7 @@
     <h2 class="form-title">Convidar funcionario</h2>
     <%= simple_form_for @employee do |f| %>
       <%= f.input :farm_id, as: :select, collection: @farms, label: "Fazendas" %>
-      <%= f.input :user_cpf , label: "Usuarios" %>
+      <%= f.input :user_cpf , label: "CPF" %>
       <%= f.input :manager ,label: "Gerente"%>
       <%= f.button :submit, "Convidar", class: "my-2 btn-login" %>
     <% end %>

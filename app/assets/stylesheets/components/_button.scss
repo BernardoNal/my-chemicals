@@ -111,13 +111,20 @@
   align-items: center;
   color: white;
   border-radius: 50%;
-  background: $btn-green;
+  background: $dark-green;
   text-decoration: none;
   font-size: 24px;
-  border: 1px solid white;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  transition: 0.4s;
+
+  &:hover {
+    transform: scale(1.1, 1.1);
+    transition: 0.4s;
+  }
 }
 
 .btn-new-product {
+  width: 200px;
   color: white;
   padding: 4px 8px;
   border-radius: 8px;
@@ -126,15 +133,18 @@
   font-size: 14px;
   margin-top: 8px;
   border: #7B876D;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
 
   &:hover {
-    background: $new-green;
+    background: whitesmoke;
     transition: background 0.3s ease;
-    color: white;
+    color: #6b844a;
+    text-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
   }
 }
 
 .btn-out-product {
+  width: 200px;
   color: white;
   padding: 4px 8px;
   border-radius: 8px;
@@ -142,10 +152,11 @@
   text-decoration: none;
   font-size: 14px;
   border: white;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
 
   &:hover {
     background: whitesmoke;
-    transition: background 0.5s ease;
+    transition: background 0.3s ease;
     color: red;
   }
 }

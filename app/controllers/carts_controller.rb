@@ -9,6 +9,13 @@ class CartsController < ApplicationController
       @carts = @carts.where(date_move: start_date..end_date)
     end
     @carts = @carts.all.group_by(&:date_move)
+    respond_to do |format|
+      format.html
+      format.pdf do
+        pdf = CartPdf.new(@carts).call
+        send_data pdf, filename: "carts_report.pdf", type: "application/pdf"
+      end
+    end
   end
 
   def pending

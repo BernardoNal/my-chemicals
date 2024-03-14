@@ -105,6 +105,26 @@
   border: 1px solid white;
 }
 
+.btn-approve {
+  color: white;
+  padding: 6px 10px ;
+  border-radius: 50%;
+  background: $btn-green;
+  text-decoration: none;
+  font-size:22px;
+  border: 3px solid white;
+}
+
+.btn-reject {
+  color: white;
+  padding: 6px 12px ;
+  border-radius: 50%;
+  background: $red;
+  text-decoration: none;
+  font-size:22px;
+  border: 3px solid white;
+}
+
 .btn-new-product {
   color: white;
   padding: 4px 8px ;

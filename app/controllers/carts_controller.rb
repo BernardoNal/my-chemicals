@@ -21,6 +21,12 @@ class CartsController < ApplicationController
   def pending
     @carts = policy_scope(Cart).where(approved: false)
     authorize @carts
+    current_user.employees.each do |employee|
+      if employee.manager
+        @carts_aux = employee.farm.carts.where(approved: false)
+        @carts += [@carts_aux]
+      end
+    end
   end
 
   def new

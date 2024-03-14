@@ -1,3 +1,7 @@
+.container-view {
+  min-height: 80vh !important;
+}
+
 .card-item {
   display: flex;
   align-items: center;
@@ -63,7 +67,6 @@
   padding: 20px;
   margin: 20px;
 
-
   .farm-title {
     color: $form-title;
     font-size: 24px;
@@ -89,9 +92,9 @@
 }
 
 .map {
-  height: 100px;
+  margin-top: 12px;
+  height: 200px;
   width: 100%;
-
 }
 
 .cards {

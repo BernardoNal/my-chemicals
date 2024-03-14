@@ -1,4 +1,7 @@
-<div class="container">
+<div class="container container-view mt-4">
+<div class="title-big">
+<h1 class='my-2'>Saidas pendentes</h1 class='my-2'>
+</div>
   <% @carts.group_by(&:date_move).each do |date, carts_with_same_date| %>
     <h2 class="fw-bold pending-date my-4"><i class="fa-regular fa-calendar"></i> <%= date.strftime('%d/%m/%Y') %></h2>
     <ol class="list-group list-group-numbered">

@@ -1,48 +1,7 @@
-<div class="container container-view mt-4">
-<div class="title-big">
-<h1 class='my-2'>Saidas pendentes</h1 class='my-2'>
-</div>
-  <% @carts.group_by(&:date_move).each do |date, carts_with_same_date| %>
-    <h2 class="fw-bold pending-date my-4"><i class="fa-regular fa-calendar"></i> <%= date.strftime('%d/%m/%Y') %></h2>
-    <ol class="list-group list-group-numbered">
-      <% carts_with_same_date.each do |cart| %>
-      <div class="row">
-        <div class="col-6">
-        <li class="list-group-item d-flex justify-content-between align-items-start py-3" id="bg-color-light-green">
-          <div class="ms-2 me-auto">
-            <div><strong class="fs-6">Saída #<%= cart.id %></strong> | Fazenda: <%= cart.storage.farm.name %> | Galpão: <%= cart.storage.name %></div>
-            </div>
-          <span id ="bg-color-light-brown" class="badge rounded-pill">Pendente</span>
-        </li>
-          <div class="table-responsive">
-            <table class="table table-info table-striped table-bordered">
-            <thead>
-              <tr>
-                <th class='text-center' scope="col">Nome</th>
-                <th class='text-center' scope="col">Quantidade</th>
-              </tr>
-            </thead>
-            <tbody>
-              <% cart.cart_chemicals.each do |item| %>
-                <tr>
-                  <td class='text-center'><%= link_to chemical_path(item.chemical), class: "text-decoration-none text-dark" do %> <%= item.chemical.product_name %> <% end %></td>
-                  <td class='text-center negative-quantity'><%= item.chemical.amount*item.quantity %><%= item.chemical.measurement_unit %></td>
-                </tr>
-              <% end %>
-            </tbody>
-          </table>
-          </div>
-          <div class="btn-grid">
-            <%= link_to  cart_record_path(cart),  data: { turbo_confirm: "Tem certeza que deseja aprovar a saída?", turbo_method: :patch}, class:'btn-approve' do  %>
-              Aprovar <i class="fa-solid fa-check"></i>
-            <% end %>
-            <%= link_to  cart_path(cart),  data: { turbo_confirm: "Tem certeza que deseja rejeitar a saída?", turbo_method: :delete}, class:'btn-reject' do  %>
-              Rejeitar <i class="fa-solid fa-xmark"></i>
-            <% end %>
-          </div>
-        </div>
-      </div>
-      <% end %>
-    </ol>
-  <% end %>
-</div>
+<% if @carts.any? %>
+  <div class="m-5" id="carts">
+    <%= render partial: 'carts/pendencies' %>
+  </div>
+<% else %>
+  <h2 class="fw-bold pending-date m-4 fs-3">Não há pêndencias disponíveis para esse período.</h2>
+<% end %>

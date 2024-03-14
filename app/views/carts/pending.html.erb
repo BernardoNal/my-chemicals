@@ -1,47 +1,40 @@
 <div class="container">
-  <ul class="list-group">
   <% @carts.group_by(&:date_move).each do |date, carts_with_same_date| %>
-    <li class="list-group-item list-group-item-dark d-flex justify-content-center align-items-center col-2 my-5 p-3 pt-4">
-      <h2 class="fw-bold"><%= date.strftime('%d/%m/%Y') %></h2>
-    </li>
+    <h2 class="fw-bold pending-date my-4"><i class="fa-regular fa-calendar"></i> <%= date.strftime('%d/%m/%Y') %></h2>
     <ol class="list-group list-group-numbered">
       <% carts_with_same_date.each do |cart| %>
-        <li class="list-group-item list-group-item-success d-flex justify-content-between align-items-start col-6 p-3">
+      <div class="row">
+        <div class="col-6">
+        <li class="list-group-item d-flex justify-content-between align-items-start py-3" id="bg-color-light-green">
           <div class="ms-2 me-auto">
             <div><strong class="fs-6">Saída #<%= cart.id %></strong> | Fazenda: <%= cart.storage.farm.name %> | Galpão: <%= cart.storage.name %></div>
             </div>
-          <span class="badge bg-primary rounded-pill">Pendente</span>
+          <span id ="bg-color-light-brown" class="badge rounded-pill">Pendente</span>
         </li>
-      <div class="row">
-        <div class="d-flex my-3">
-          <div class="col-6">
-            <div class="table-responsive my-3">
-              <table class="table table-info table-striped table-bordered">
-              <thead>
+          <div class="table-responsive">
+            <table class="table table-info table-striped table-bordered">
+            <thead>
+              <tr>
+                <th class='text-center' scope="col">Nome</th>
+                <th class='text-center' scope="col">Quantidade</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% cart.cart_chemicals.each do |item| %>
                 <tr>
-                  <th class='text-center' scope="col">Nome</th>
-                  <th class='text-center' scope="col">Quantidade</th>
+                  <td class='text-center'><%= link_to chemical_path(item.chemical), class: "text-decoration-none text-dark" do %> <%= item.chemical.product_name %> <% end %></td>
+                  <td class='text-center negative-quantity'><%= item.chemical.amount*item.quantity %><%= item.chemical.measurement_unit %></td>
                 </tr>
-              </thead>
-              <tbody>
-                <% cart.cart_chemicals.each do |item| %>
-                  <tr>
-                    <td class='text-center'><%= link_to chemical_path(item.chemical), class: "text-decoration-none text-dark" do %> <%= item.chemical.product_name %> <% end %></td>
-                    <td class='text-center negative-quantity'><%= item.chemical.amount %><%= item.chemical.measurement_unit %> (x<%= item.quantity%>)</td>
-                  </tr>
-                <% end %>
-              </tbody>
-            </table>
-            </div>
+              <% end %>
+            </tbody>
+          </table>
           </div>
-          <div class="ms-5 align-self-center">
+          <div class="btn-grid">
             <%= link_to  cart_record_path(cart),  data: { turbo_confirm: "Tem certeza que deseja aprovar a saída?", turbo_method: :patch}, class:'btn-approve' do  %>
-              <i class="fa-solid fa-check"></i>
+              Aprovar <i class="fa-solid fa-check"></i>
             <% end %>
-          </div>
-          <div class="ms-4 align-self-center">
             <%= link_to  cart_path(cart),  data: { turbo_confirm: "Tem certeza que deseja rejeitar a saída?", turbo_method: :delete}, class:'btn-reject' do  %>
-              <i class="fa-solid fa-xmark"></i>
+              Rejeitar <i class="fa-solid fa-xmark"></i>
             <% end %>
           </div>
         </div>
@@ -49,5 +42,4 @@
       <% end %>
     </ol>
   <% end %>
-  </ul>
 </div>

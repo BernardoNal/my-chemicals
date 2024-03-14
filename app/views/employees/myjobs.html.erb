@@ -17,7 +17,7 @@
       <div class="card-item-actions">
         <%if employee.invite == false  %>
           <%= link_to  'Aceitar',employee_path(employee), data: {turbo_method: :patch}, class:'btn btn-edit ma' %>
-          <%= link_to  'Rejeitar',employee_path(employee), data: {turbo_method: :delete}, class:'btn btn-out-product ma' %>
+          <%= link_to  'Rejeitar',employee_path(employee), data: {turbo_method: :delete}, class:'btn ma' %>
         <% end %>
       </div>
 </div>

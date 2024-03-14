@@ -102,6 +102,12 @@
   flex-direction: column;
 }
 
+.card-small-farm {
+  position: relative;
+  overflow: hidden;
+  height: 420px;
+
+}
 .card-small {
   background: white;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
@@ -110,7 +116,23 @@
   padding: 12px;
   margin-bottom: 16px;
   transition: 0.4s;
+}
 
+.card-small-farm h2 {
+  font-family: $home-font;
+  font-size: 20px;
+  font-weight: bold;
+  margin: 0;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.card-small-farm p {
+  font-size: 14px;
+  line-height: 1.4;
+  margin: 0;
+  font-weight: 600;
+  font-family: $home-font;
   h2 {
     font-family: $home-font;
     font-size: 20px;
@@ -139,7 +161,7 @@
   }
 }
 
-.card-small .position-relative {
+.card-small-farm .position-relative {
   position: absolute;
   bottom: 40px;
 }

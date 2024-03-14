@@ -23,8 +23,9 @@ class CartsController < ApplicationController
     authorize @carts
     current_user.employees.each do |employee|
       if employee.manager
-        @carts_aux = employee.farm.carts.where(approved: false)
-        @carts += [@carts_aux]
+        employee.farm.carts.where(approved: false).each do |cart_aux|
+          @carts += [cart_aux]
+        end
       end
     end
   end

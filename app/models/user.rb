@@ -9,6 +9,7 @@ class User < ApplicationRecord
 
   has_many :storages, through: :farms
   validates :cpf, uniqueness: true
+  validates :cpf, cpf: { message: 'Sua mensagem de validação' }
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 

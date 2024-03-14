@@ -7,9 +7,64 @@
     <%= simple_form_for @farm do |f| %>
       <%= f.input :name, label_html: { class: "label-form" }, label: "Nome da Fazenda" %>
       <%= f.input :size, label: "Tamanho" %>
+      <%= f.input :cep, label: "CEP", input_html: { id: "cepInput" } %>
       <%= f.input :complement, label: "Complemento" %>
-      <%= f.input :cep, label: "CEP" %>
+      <%= f.input :latitude, as: :hidden, input_html: { id: "farmLatitude" } %>
+      <%= f.input :longitude, as: :hidden, input_html: { id: "farmLongitude" } %>
       <%= f.button :submit, "Criar nova fazenda", class: "my-2 btn-login" %>
     <% end %>
   </div>
 </div>
+
+<div class="map" id="map" ></div>
+
+  <script src='https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js'></script>
+
+  <script>
+     mapboxgl.accessToken = "pk.eyJ1Ijoiam9yZGFubzg4IiwiYSI6ImNsc2x4OWdvZjBkOTUyanNjOXRtZno4YnkifQ.9TVAMKmkrFEmnXjmIah2aQ";
+    // var savedCoordinates = JSON.parse(localStorage.getItem('savedCoordinates')) || [-47.9292, -15.7801];
+     var map = new mapboxgl.Map({
+      container: 'map',
+      style: 'mapbox://styles/mapbox/streets-v11',
+      center: [-47.9292, -15.7801],
+      zoom: 15
+     });
+
+    function updateMapLocation() {
+    var cep = document.getElementById('cepInput').value;
+    fetch(`https://cep.awesomeapi.com.br/json/${cep}`)
+      .then(response => response.json())
+      .then(data => {
+        var lngLat = [data.lng, data.lat];
+        map.setCenter(lngLat);
+        new mapboxgl.Marker().setLngLat(lngLat).addTo(map);
+
+
+        document.getElementById('farmLatitude').value = data.lat;
+        document.getElementById('farmLongitude').value = data.lng;
+      })
+      .catch(error => {
+        console.error('Erro ao obter localização:', error);
+        alert('CEP inválido ou não encontrado.');
+      });
+    }
+
+    map.on('moveend', function() {
+    var center = map.getCenter();
+    console.log('Latitude:', center.lat);
+    console.log('Longitude:', center.lng);
+    var savedCoordinates = JSON.parse(localStorage.getItem('savedCoordinates')) || [];
+    savedCoordinates.push([center.lat, center.lng]);
+    localStorage.setItem('savedCoordinates', JSON.stringify(savedCoordinates));
+    });
+
+    document.getElementById('cepInput').addEventListener('change', function() {
+    var cep = this.value;
+    updateMapLocation(cep);
+    });
+
+   new mapboxgl.Marker()
+   .setLngLat([-47.9292, -15.7801])
+   .addTo(map);
+
+  </script>

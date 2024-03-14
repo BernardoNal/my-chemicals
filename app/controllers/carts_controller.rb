@@ -72,7 +72,7 @@ class CartsController < ApplicationController
       manager = @cart.storage.farm.employees.find_by(user_id: current_user.id)
       @cart.approved = (manager.present? && manager.manager) || @cart.storage.farm.user == current_user ? true : false
       if @cart.save
-        redirect_to farms_path(farm_id: @cart.storage.farm_id,storage_id: @cart.storage_id)
+        redirect_to farms_path(farm_id: @cart.storage.farm_id, storage_id: @cart.storage_id)
       else
         render :new, status: :unprocessable_entity
       end

@@ -1,25 +1,29 @@
 <div class="container mt-4">
-<div class="title-big">
-  <h1 class="farm-title"><i class="fas fa-sheet-plastic"></i> Meus Registros</h1>
+  <div class="title-big">
+    <h1 class="farm-title"><i class="fas fa-sheet-plastic"></i> Meus Registros</h1>
   </div>
-  <%= link_to 'Download as PDF', carts_path(format: :pdf) %>
 
   <div class="row">
-    <h2>Selecione as datas:</h2>
-    <%= form_with(url: carts_path, method: :get, local: true) do |form| %>
-      <div class="form-group col-3 mt-3">
-        <%= label_tag :start_date, 'De' %>
-        <%= date_field_tag :start_date, params[:start_date], class: 'form-control' %>
-      </div>
-      <div class="form-group col-3 mt-3">
-        <%= label_tag :end_date, 'Até' %>
-        <%= date_field_tag :end_date, params[:end_date], class: 'form-control' %>
-      </div>
-      <%= submit_tag 'Filter', class: 'btn btn-primary my-3' %>
-    <% end %>
+    <div class="card-small col-8 m-5">
+      <h2 class="fw-bold pending-date m-4"><i class="fa-regular fa-calendar"></i> Selecione as datas:</h2>
+      <%= form_with(url: carts_path, method: :get, local: true) do |form| %>
+        <div class="d-flex">
+          <div class="form-group col-3 m-3">
+            <%= label_tag :start_date, 'De' %>
+            <%= date_field_tag :start_date, params[:start_date], class: 'form-control' %>
+          </div>
+          <div class="form-group col-3 m-3">
+            <%= label_tag :end_date, 'Até' %>
+            <%= date_field_tag :end_date, params[:end_date], class: 'form-control' %>
+          </div>
+        </div>
+        <%= submit_tag 'Filtrar', class: 'btn btn-primary m-3' %>
+      <% end %>
+    </div>
   </div>
 
   <% if @carts.any? { |date_move, carts| carts.any? } %>
+    <%= link_to 'Relatório de registros (PDF)', carts_path(format: :pdf), class: "btn-blue m-5 p-2" %>
     <div class="m-5" id="carts">
       <%= render partial: 'carts/records' %>
     </div>

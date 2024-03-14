@@ -4,17 +4,26 @@
   </div>
 
   <% @employees.each do  |employee|%>
-  <li><%= employee.farm.name %></li>
-  fazendeiro: <%= employee.farm.user.first_name %> <%= employee.farm.user.last_name %> <br>
-  meu cargo : <%= employee.manager ? 'Gerente' : "Funcionario" %> <br>
-    <%if employee.invite == false  %>
-      <%= link_to  'Aceitar',employee_path(employee), data: {turbo_method: :patch}, class:'btn btn-edit ma' %>
-      <%= link_to  'Rejeitar',employee_path(employee), data: {turbo_method: :delete}, class:'btn btn-red ma' %>
-    <% end %>
-    <br>
-  <% end %>
-</div>
+  <div class="card-item">
+    <div class="card-item-content">
+  <h3><%= employee.farm.name %></h3>
+   <h5>Fazendeiro: <%= employee.farm.user.first_name %> <%= employee.farm.user.last_name %></h5>
+  <h5>
+  Cargo : <%= employee.manager ? 'Gerente' : "Funcionario" %>
+  </h5>
 
+    </div>
+
+      <div class="card-item-actions">
+        <%if employee.invite == false  %>
+          <%= link_to  'Aceitar',employee_path(employee), data: {turbo_method: :patch}, class:'btn btn-edit ma' %>
+          <%= link_to  'Rejeitar',employee_path(employee), data: {turbo_method: :delete}, class:'btn btn-out-product ma' %>
+        <% end %>
+      </div>
+</div>
+  <% end %>
+
+  </div>
 <div class="btn-plus-sign-container">
   <%= link_to "<i class='fa-solid fa-circle-plus'></i>".html_safe, new_employee_path, class: "btn-plus-sign" %>
 </div>

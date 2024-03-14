@@ -1,26 +1,42 @@
-
 <div class="container mt-4">
-  <h2 class="farm-title">Minhas Fazendas</h2>
-    <%= link_to "<i class='fa-solid fa-circle-plus'></i>".html_safe, new_farm_path, class: "btn-plus-sign" %>
-    <div class="cards">
-      <div class="row">
-    <% @farms.each do |farm| %>
-    <div class="col-sm-4">
-    <div class="card-small">
-          <p class="card-text">Nome da Fazenda: <%= farm.name %></p>
-          <p class="card-text">Tamanho da Fazenda: <%= farm.size %></p>
-          <p class="card-text">Usuário: <%= farm.user_id %></p>
-    <div class="d-flex align-items-end flex-column position-relative">
-      <div class="mt-auto p-2">
-          <%= link_to 'Edit', edit_farm_path(farm), class:"btn-edit" %>
-          <%= link_to  cart_chemical_path(farm),  data: {turbo_method: :delete}, class:'btn-delete-bin' do  %>
+  <h2 class="farm-title">Minhas Fazendas <i class="fa-solid fa-wheat-awn"></i></h2>
+  <%= link_to "<i class='fa-solid fa-circle-plus'></i>".html_safe, new_farm_path, class: "btn-plus-sign" %>
+  <div class="cards">
+    <div class="row">
+      <% @farms.each do |farm| %>
+        <div class="col-sm-4">
+          <div class="card-small-farm">
+            <p class="card-text">Nome da Fazenda: <%= farm.name %></p>
+            <p class="card-text">Tamanho da Fazenda: <%= farm.size %></p>
+            <div class="map-container">
+              <div id="map_<%= farm.id %>" class="map" style="height: 300px;"></div> <!-- Div para conter o mapa -->
+            </div>
+            <div class="d-flex align-items-end flex-column position-relative">
+              <div class="mt-auto p-2">
+                <%= link_to 'Edit', edit_farm_path(farm), class:"btn-edit" %>
+                <%= link_to farm_path(farm),  data: {turbo_method: :delete, turbo_confirm: "Excluir Fazenda?"}, class:'btn-delete-bin' do  %>
                   <i class="far fa-trash-alt"></i>
                 <% end %>
-           </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-     </div>
-    <% end %>
+        <script>
+          // Inicialização do mapa para esta fazenda
+          mapboxgl.accessToken = "pk.eyJ1Ijoiam9yZGFubzg4IiwiYSI6ImNsc2x4OWdvZjBkOTUyanNjOXRtZno4YnkifQ.9TVAMKmkrFEmnXjmIah2aQ"; // Substitua pelo seu token do Mapbox
+          var map_<%= farm.id %> = new mapboxgl.Map({
+            container: 'map_<%= farm.id %>',
+            style: 'mapbox://styles/mapbox/streets-v11',
+            center: [<%= farm.longitude %>, <%= farm.latitude %>], // As coordenadas estão na ordem [longitude, latitude]
+            zoom: 15
+          });
+          // Adicionar um marcador
+          new mapboxgl.Marker()
+            .setLngLat([<%= farm.longitude %>, <%= farm.latitude %>])
+            .setPopup(new mapboxgl.Popup().setHTML('<h3>' + '<%= farm.name %>' + '</h3>'))
+            .addTo(map_<%= farm.id %>);
+        </script>
+      <% end %>
+    </div>
   </div>
-</div>
 </div>

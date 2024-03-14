@@ -89,7 +89,7 @@
 }
 
 .map {
-  height: 200px;
+  height: 100px;
   width: 100%;
 
 }
@@ -99,10 +99,10 @@
   flex-direction: column;
 }
 
-.card-small {
+.card-small-farm {
   position: relative;
   overflow: hidden;
-  height: 120px;
+  height: 420px;
   background: white;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
@@ -111,7 +111,7 @@
   margin-bottom: 16px;
 }
 
-.card-small h2 {
+.card-small-farm h2 {
   font-family: $home-font;
   font-size: 20px;
   font-weight: bold;
@@ -120,7 +120,7 @@
   text-align: center;
 }
 
-.card-small p {
+.card-small-farm p {
   font-size: 14px;
   line-height: 1.4;
   margin: 0;
@@ -128,7 +128,7 @@
   font-family: $home-font;
 }
 
-.card-small .position-relative {
+.card-small-farm .position-relative {
   position: absolute;
   bottom: 4px;
   right: 4px;

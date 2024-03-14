@@ -1,22 +1,45 @@
 <div class="container">
-<h2 class='my-2'>Saidas pendentes</h2 class='my-2'>
-<% @carts.each do |cart| %>
-  <div class="row">
-    <div class="col-6">
-    <h3> Saida <%= cart.id %> - <%= cart.date_move.strftime('%d/%m/%Y') %>
-     <%= link_to  cart_record_path(cart),  data: {turbo_method: :patch}, class:'btn-login px-5 py-2 text-center' do  %>
-        <i class="fa-solid fa-check"></i>
+  <% @carts.group_by(&:date_move).each do |date, carts_with_same_date| %>
+    <h2 class="fw-bold pending-date my-4"><i class="fa-regular fa-calendar"></i> <%= date.strftime('%d/%m/%Y') %></h2>
+    <ol class="list-group list-group-numbered">
+      <% carts_with_same_date.each do |cart| %>
+      <div class="row">
+        <div class="col-6">
+        <li class="list-group-item d-flex justify-content-between align-items-start py-3" id="bg-color-light-green">
+          <div class="ms-2 me-auto">
+            <div><strong class="fs-6">Saída #<%= cart.id %></strong> | Fazenda: <%= cart.storage.farm.name %> | Galpão: <%= cart.storage.name %></div>
+            </div>
+          <span id ="bg-color-light-brown" class="badge rounded-pill">Pendente</span>
+        </li>
+          <div class="table-responsive">
+            <table class="table table-info table-striped table-bordered">
+            <thead>
+              <tr>
+                <th class='text-center' scope="col">Nome</th>
+                <th class='text-center' scope="col">Quantidade</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% cart.cart_chemicals.each do |item| %>
+                <tr>
+                  <td class='text-center'><%= link_to chemical_path(item.chemical), class: "text-decoration-none text-dark" do %> <%= item.chemical.product_name %> <% end %></td>
+                  <td class='text-center negative-quantity'><%= item.chemical.amount*item.quantity %><%= item.chemical.measurement_unit %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+          </div>
+          <div class="btn-grid">
+            <%= link_to  cart_record_path(cart),  data: { turbo_confirm: "Tem certeza que deseja aprovar a saída?", turbo_method: :patch}, class:'btn-approve' do  %>
+              Aprovar <i class="fa-solid fa-check"></i>
+            <% end %>
+            <%= link_to  cart_path(cart),  data: { turbo_confirm: "Tem certeza que deseja rejeitar a saída?", turbo_method: :delete}, class:'btn-reject' do  %>
+              Rejeitar <i class="fa-solid fa-xmark"></i>
+            <% end %>
+          </div>
+        </div>
+      </div>
       <% end %>
-    </h3>
-      <% cart.cart_chemicals.each do |item| %>
-        <div class="card-item">
-                  <div class="card-item-content">
-                    <%= item.chemical.product_name %> <%= item.chemical.amount %><%= item.chemical.measurement_unit %> (x<%= item.quantity%>)
-                  </div>
-                </div>
-      <% end %>
-    </div>
-</div>
-<% end %>
-
+    </ol>
+  <% end %>
 </div>

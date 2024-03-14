@@ -21,3 +21,6 @@ $form-title: #343434;
 $bg-page: #eadace;
 $new-green: #525c45;
 $teal: #20c997;
+
+#bg-color-light-green { background-color: $light-green; color: white; }
+#bg-color-light-brown { background-color: white; color: $light-green; }

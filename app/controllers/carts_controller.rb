@@ -9,11 +9,25 @@ class CartsController < ApplicationController
       @carts = @carts.where(date_move: start_date..end_date)
     end
     @carts = @carts.all.group_by(&:date_move)
+    respond_to do |format|
+      format.html
+      format.pdf do
+        pdf = CartPdf.new(@carts).call
+        send_data pdf, filename: "carts_report.pdf", type: "application/pdf"
+      end
+    end
   end
 
   def pending
     @carts = policy_scope(Cart).where(approved: false)
     authorize @carts
+    current_user.employees.each do |employee|
+      if employee.manager
+        employee.farm.carts.where(approved: false).each do |cart_aux|
+          @carts += [cart_aux]
+        end
+      end
+    end
   end
 
   def new
@@ -59,7 +73,7 @@ class CartsController < ApplicationController
       manager = @cart.storage.farm.employees.find_by(user_id: current_user.id)
       @cart.approved = (manager.present? && manager.manager) || @cart.storage.farm.user == current_user ? true : false
       if @cart.save
-        redirect_to farms_path(farm_id: @cart.storage.farm_id,storage_id: @cart.storage_id)
+        redirect_to farms_path(farm_id: @cart.storage.farm_id, storage_id: @cart.storage_id)
       else
         render :new, status: :unprocessable_entity
       end

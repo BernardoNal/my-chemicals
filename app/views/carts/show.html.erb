@@ -10,19 +10,18 @@
         <%= simple_form_for [@cart,@cart_chemical], method: :post do |f| %>
           <%= f.hidden_field :entry, value: @entry == "1" ? 1 : 0 %>
           <%= f.input :quantity,input_html: { min: 1 } ,  label: "Quantidade" %>
-          <%= f.input :chemical_id, as: :select, collection: @chemicals.map { |chemical| [chemical.product_name, chemical.id] }, label: "Quimico" %>
+          <%= f.input :chemical_id, as: :select, collection: @chemicals.map { |chemical| [chemical.product_name, chemical.id] }, label: "Químico" %>
           <%= f.button :submit, value:
           @entry == "1" ? "Adicionar produto" : "Saída do produto", class: "my-2 btn-login" %>
         <% end %>
       </div>
       <div class="d-flex col-md-4 mx-auto mt-5">
         <%= link_to "Finalizar",cart_record_path(@cart),  data: {turbo_method: :patch}, class:'btn-login px-5 py-2 text-center' %>
+        </div>
+        <div class="d-flex col-md-3 mx-auto mt-3">
       </div>
-       <div class="d-flex col-md-3 mx-auto mt-3">
-        <%= link_to "Voltar",cart_path(@cart),  data: {turbo_method: :delete}, class:'btn-blue px-5 py-2 text-center' %>
       </div>
-    </div>
-    <div class=" col-md-6">
+      <div class=" col-md-6">
       <div class="form-shape col-md-8 mx-auto">
         <h3 class="form-title mb-3">Produtos</h3>
         <div id='chemicals'>

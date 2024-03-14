@@ -7,6 +7,23 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+require 'csv'
+
+Chemical.destroy_all
+
+csv_file = Rails.root.join('db/data', 'my_csv_file.csv')
+
+CSV.foreach(csv_file, headers: true) do |row|
+  Chemical.create!(
+    product_name: row['Produto'],
+    compound_product: row['DS_INGREDIENTE_ATIVO'],
+    type_product: row['CLASSE_AGRONOMICA'],
+    area: row['NO_CULTURA'],
+    measurement_unit: row['NO_UNIDADE_MEDIDA'],
+    amount: [1, 5, 10, 20, 20, 20, 20, 20].sample
+  )
+  puts "Product created..."
+end
 
 User.create!(
   email: "henrique@email.com",
@@ -38,10 +55,8 @@ User.create!(
   first_name: 'cla',
   last_name: 'ra',
   address: 'quintal do espeto',
-  cpf: "66699966669"
+  cpf: "66699966678"
 )
-
-
 
 farm1 = Farm.create!(name: 'Sol Nascente', size: '500 ha', cep: '49075220', user_id: 1)
 farm2 = Farm.create!(name: 'Maria da Murta', size: '200 ha', cep: '49075550', user_id: 1)
@@ -51,10 +66,10 @@ farm3 = Farm.create!(name: 'Lagoa Escura', size: '600 ha', cep: '49075420', user
 employee1 = Employee.create!(manager: false, invite: true, user_id: 4, farm_id: 1)
 employee2 = Employee.create!(manager: true, invite: false, user_id: 3, farm_id: 1)
 
-stock1 = Storage.create!(name: "Galpao principal", size: '20 m2', capacity: 1000, farm_id: 1)
-stock2 = Storage.create!(name: "Galpao da laranja", size: '10 m2', capacity: 400, farm_id: 1)
-stock3 = Storage.create!(name: "Galpao do Rio", size: '5 m2', capacity: 200, farm_id: 2)
-stock4 = Storage.create!(name: "Galpao da baixa funda", size: '10 m2', capacity: 400, farm_id: 3)
+stock1 = Storage.create!(name: "Galpão principal", size: '20 m2', capacity: 1000, farm_id: 1)
+stock2 = Storage.create!(name: "Galpão da laranja", size: '10 m2', capacity: 400, farm_id: 1)
+stock3 = Storage.create!(name: "Galpão do Rio", size: '5 m2', capacity: 200, farm_id: 2)
+stock4 = Storage.create!(name: "Galpão da baixa funda", size: '10 m2', capacity: 400, farm_id: 3)
 
 
 cart1 = Cart.create!(date_move: '03/12/2022', approved: true, storage_id: 1)

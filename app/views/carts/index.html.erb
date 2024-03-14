@@ -1,41 +1,29 @@
-<div class="container mt-2">
-<h1 class="title-big">Meus Registros</h1>
-  <div class="row">
-    <% @carts.each do |date_move, carts| %>
-      <% if date_move.present? %>
-        <div class="table-responsive col-2">
-          <h2 class="title-medium table card-title"><%= date_move %></h2>
-        </div>
-      <% end %>
-      <% carts.each do |cart| %>
-        <% cart.cart_chemicals.each do |cart_chemical| %>
-          <div class="table-responsive">
-            <% if cart_chemical.quantity.present? && cart_chemical.quantity < 0 %>
-              <table class="table table-danger table-striped table-bordered">
-            <% else %>
-              <table class="table table-success table-striped table-bordered">
-            <% end %>
-            <thead>
-              <tr>
-                <th class='text-center' scope="col">Fazenda</th>
-                <th class='text-center' scope="col">Galpão</th>
-                <th class='text-center' scope="col">Nome</th>
-                <th class='text-center' scope="col">Quantidade</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class='text-center negative-quantity'><%= cart.storage.farm.name %></td>
-                <td class='text-center negative-quantity'><%= cart.storage.name %></td>
-                <td class='text-center'><%= link_to chemical_path(cart_chemical.chemical), class: "text-decoration-none text-dark" do %> <%= cart_chemical.chemical.product_name %> <% end %></td>
-                <td class='text-center negative-quantity'><%= cart_chemical.quantity %></td>
-              </tr>
-            </tbody>
-          </table>
-          </div>
-        <% end %>
-      <% end %>
-    <% end %>
-
+<div class="container mt-4">
+<div class="title-big">
+  <h1 class="farm-title"><i class="fas fa-sheet-plastic"></i> Meus Registros</h1>
   </div>
+  <%= link_to 'Download as PDF', carts_path(format: :pdf) %>
+
+  <div class="row">
+    <h2>Selecione as datas:</h2>
+    <%= form_with(url: carts_path, method: :get, local: true) do |form| %>
+      <div class="form-group col-3 mt-3">
+        <%= label_tag :start_date, 'De' %>
+        <%= date_field_tag :start_date, params[:start_date], class: 'form-control' %>
+      </div>
+      <div class="form-group col-3 mt-3">
+        <%= label_tag :end_date, 'Até' %>
+        <%= date_field_tag :end_date, params[:end_date], class: 'form-control' %>
+      </div>
+      <%= submit_tag 'Filter', class: 'btn btn-primary my-3' %>
+    <% end %>
+  </div>
+
+  <% if @carts.any? { |date_move, carts| carts.any? } %>
+    <div class="m-5" id="carts">
+      <%= render partial: 'carts/records' %>
+    </div>
+  <% else %>
+    <p><strong>Não há registros disponíveis para esse período.</strong></p>
+  <% end %>
 </div>

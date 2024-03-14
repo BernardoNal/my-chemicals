@@ -16,8 +16,11 @@ Rails.application.routes.draw do
 
   patch "carts/:id/record" => 'carts#record', as: "cart_record"
 
-  get "my_storages" => "storages#my_storages"
   resources :chemicals
+  resources :employees
+  get "myjobs" => "employees#myjobs"
+
+  get "pending" => "carts#pending"
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "myfarms" => 'farms#myfarms'

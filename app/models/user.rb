@@ -8,6 +8,7 @@ class User < ApplicationRecord
   has_many :farms
 
   has_many :storages, through: :farms
+  validates :cpf, uniqueness: true
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 

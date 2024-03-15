@@ -3,7 +3,7 @@
     <div class="transparent-overlay dark-transparent-background" data-action="click->modal#closeModal"></div>
     <div class="modal-card">
       <div class="d-flex justify-content-between">
-        <h2 class="text-center mb-3"> <%= title %></h2>
+        <h2 class="fw-bold pending-date m-2"><i class="fa-regular fa-file-lines"></i> <%= title %></h2>
         <i class="fa-solid fa-xmark fa-fade modal-close-button position-absolute-end" data-action="click->modal#closeModal"></i>
       </div>
       <%= yield %>

@@ -9,8 +9,16 @@ class User < ApplicationRecord
 
   has_many :storages, through: :farms
   validates :cpf, uniqueness: true
+  validates :cpf, :first_name, :last_name, presence: true
+  validate :valid_cpf
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+
+  def valid_cpf
+    unless CPF.valid?(cpf)
+      errors.add(:cpf, :invalid_cpf, message: 'Inválido')
+    end
+  end
 
   def farmer?
     farms.any?

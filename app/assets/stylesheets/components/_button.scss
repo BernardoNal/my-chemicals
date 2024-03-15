@@ -181,9 +181,10 @@
   width: 100%;
   background: $dark-green;
   text-decoration: none;
-  font-size:16px;
+  font-size: 16px;
   text-align: center;
   transition: 0.4s;
+
   &:hover {
     transform: scale(1.05, 1.05);
     transition: 0.4s;
@@ -196,9 +197,10 @@
   width: 100%;
   background: $dark-brown;
   text-decoration: none;
-  font-size:16px;
+  font-size: 16px;
   text-align: center;
   transition: 0.4s;
+
   &:hover {
     transform: scale(1.05, 1.05);
     transition: 0.4s;
@@ -207,13 +209,13 @@
 
 .btn-new-product {
   width: 200px;
+  height: 30px;
   color: white;
   padding: 4px 8px;
   border-radius: 8px;
   background: #7B876D;
   text-decoration: none;
   font-size: 14px;
-  margin-top: 8px;
   border: #7B876D;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
 
@@ -221,12 +223,12 @@
     background: whitesmoke;
     transition: background 0.3s ease;
     color: #6b844a;
-    text-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
   }
 }
 
 .btn-out-product {
   width: 200px;
+  height: 30px;
   color: white;
   padding: 4px 8px;
   border-radius: 8px;
@@ -241,8 +243,4 @@
     transition: background 0.3s ease;
     color: red;
   }
-}
-
-.btn-jdn {
-  margin-top: 10px;
 }

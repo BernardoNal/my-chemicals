@@ -35,6 +35,7 @@ class EmployeesController < ApplicationController
 
   def update
     @employee = Employee.find(params[:id])
+    @employee.user_cpf = @employee.user.cpf
     @employee.invite = true
     authorize @employee
     if @employee.save

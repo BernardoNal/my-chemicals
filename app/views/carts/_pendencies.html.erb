@@ -15,14 +15,14 @@
             <table class="table table-info table-striped table-bordered">
             <thead>
               <tr>
-                <th class='text-center' scope="col">Nome</th>
-                <th class='text-center' scope="col">Quantidade</th>
+                <th class='text-center table-width' scope="col">Nome</th>
+                <th class='text-center table-width' scope="col">Quantidade</th>
               </tr>
             </thead>
             <tbody>
               <% cart.cart_chemicals.each do |item| %>
                 <tr>
-                  <td class='text-center'><%= link_to chemical_path(item.chemical), class: "text-decoration-none text-dark" do %> <%= item.chemical.product_name %> <% end %></td>
+                  <td class='text-center'><%= link_to chemical_path(item.chemical), data: {turbo_frame: :modal}, class: "text-decoration-none text-dark" do %> <%= item.chemical.product_name %> <% end %></td>
                   <td class='text-center negative-quantity'><%= item.chemical.amount*item.quantity %><%= item.chemical.measurement_unit %></td>
                 </tr>
               <% end %>

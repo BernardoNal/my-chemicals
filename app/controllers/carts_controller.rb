@@ -3,12 +3,9 @@ class CartsController < ApplicationController
 
   def index
     @carts = policy_scope(Cart)
-    if params[:start_date].present? && params[:end_date].present?
-      start_date = Date.parse(params[:start_date])
-      end_date = Date.parse(params[:end_date])
-      @carts = @carts.where(date_move: start_date..end_date)
-    end
-    @carts = @carts.all.group_by(&:date_move)
+    @start_date = params[:start_date].present? ? Date.parse(params[:start_date]) : Date.current.beginning_of_month
+    @end_date = params[:end_date].present? ? Date.parse(params[:end_date]) : Date.current
+    @carts = @carts.where(date_move: @start_date..@end_date).group_by(&:date_move)
     respond_to do |format|
       format.html
       format.pdf do

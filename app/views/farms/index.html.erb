@@ -5,7 +5,7 @@
   <%= form_with url: farms_path, method: :get do |form| %>
 
     <div class="row m-5">
-
+      <div class="card-static col-12">
       <div class="col-4 my-2">
         <h2>Fazendas:</h2>
           <%= form.collection_select  :farm_id, @farms, :id, :name,
@@ -13,8 +13,6 @@
           { onchange: 'this.form.requestSubmit()',  class: 'form-control' }
         %>
       </div>
-
-
 
       <div class="col-4 my-2">
         <h2>Estoques:</h2>
@@ -24,7 +22,7 @@
             { class: 'form-control', onchange: 'this.form.requestSubmit()' }
           %>
       </div>
-
+    </div>
     </div>
   <% end %>
 

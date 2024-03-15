@@ -132,13 +132,14 @@
 
 .btn-approve {
   color: white;
-  padding: 6px 8px ;
+  padding: 6px 8px;
   width: 100%;
   background: $dark-green;
   text-decoration: none;
-  font-size:16px;
+  font-size: 16px;
   text-align: center;
   transition: 0.4s;
+
   &:hover {
     transform: scale(1.05, 1.05);
     transition: 0.4s;
@@ -147,13 +148,14 @@
 
 .btn-reject {
   color: white;
-  padding: 6px 8px ;
+  padding: 6px 8px;
   width: 100%;
   background: $dark-brown;
   text-decoration: none;
-  font-size:16px;
+  font-size: 16px;
   text-align: center;
   transition: 0.4s;
+
   &:hover {
     transform: scale(1.05, 1.05);
     transition: 0.4s;
@@ -176,7 +178,6 @@
     background: whitesmoke;
     transition: background 0.3s ease;
     color: #6b844a;
-    text-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
   }
 }
 

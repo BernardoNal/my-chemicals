@@ -2,6 +2,25 @@
   min-height: 80vh !important;
 }
 
+.nopadding {
+
+  padding-top: 0 !important;
+
+  margin-top: 0 !important;
+
+}
+
+.card-bg-img {
+  background-image: image-url('1.jpg');
+  /* Using SASS helper */
+  background-size: cover;
+  /* Cover the entire area */
+  background-position: center;
+  /* Center the background image */
+  background-repeat: no-repeat;
+  /* Do not repeat the image */
+}
+
 .card-item {
   display: flex;
   align-items: center;
@@ -159,4 +178,33 @@
 
 .card-small-info {
   height: 85px;
+}
+
+.card-static {
+  background: white;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  color: #787878;
+  padding: 12px;
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: space-around;
+
+  h2 {
+    font-family: $home-font;
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0;
+    margin-bottom: 16px;
+    text-align: center;
+    color: $dark-green;
+  }
+
+  p {
+    font-size: 16px;
+    line-height: 1.4;
+    margin: 0;
+    font-weight: 600;
+    font-family: $home-font;
+  }
 }

@@ -209,13 +209,13 @@
 
 .btn-new-product {
   width: 200px;
+  height: 30px;
   color: white;
   padding: 4px 8px;
   border-radius: 8px;
   background: #7B876D;
   text-decoration: none;
   font-size: 14px;
-  margin-top: 8px;
   border: #7B876D;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
 
@@ -228,6 +228,7 @@
 
 .btn-out-product {
   width: 200px;
+  height: 30px;
   color: white;
   padding: 4px 8px;
   border-radius: 8px;
@@ -242,8 +243,4 @@
     transition: background 0.3s ease;
     color: red;
   }
-}
-
-.btn-jdn {
-  margin-top: 10px;
 }

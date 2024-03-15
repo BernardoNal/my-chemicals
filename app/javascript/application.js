@@ -6,7 +6,10 @@ import "bootstrap"
 
 document.addEventListener('turbo:load', () => {
   const element = document.getElementById('search-results-bottom');
-  if (element) {
+  const element2 = document.getElementById('search_query');
+  console.log(element2.value)
+  if (element && element2.value != '') {
+
     element.scrollIntoView({ behavior: 'smooth' });
   }
 });

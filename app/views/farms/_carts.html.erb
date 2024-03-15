@@ -1,11 +1,11 @@
-<div class="col-6 m-2">
-  <h2>Buscar produto:</h2>
+<div class="container">
+<div class="search-bar px-5">
 <%= simple_form_for :search, url: root_path(anchor: 'search-results-bottom'), method: :get, data: { turbo_action: "replace" } do |f| %>
   <%= hidden_field_tag 'farm_id', params[:farm_id] if params[:farm_id].present? %>
   <%= hidden_field_tag 'storage_id', params[:storage_id] if params[:storage_id].present? %>
   <div class="search-form-control form-group">
     <div class="input-group">
-      <input class="form-control string required" type="text" name="search[query]" id="search_query"
+      <input class="form-control string required" type="text" placeholder="Buscar produto" name="search[query]" id="search_query"
              value="<%= params[:search][:query] if params[:search].present? %>" />
       <div class="input-group-append">
         <button name="button" type="submit" class="btn btn-flat">
@@ -17,23 +17,28 @@
 <% end %>
 <% manager = @storage.farm.employees.find_by(user_id: current_user.id) %>
   <% if (manager.present? && manager.manager) || @storage.farm.user == current_user %>
+</div>
+
+<div class="card-btn d-flex flex-row-reverse justify-content-evenly">
+  <%= simple_form_for [storage,cart] do |f|%>
+    <%= f.hidden_field :entry, value: 0 %>
+      <button name="button" type="submit" class="btn-out-product my-4">
+            <i class="fa-solid fa-down-long"></i> Saída de produto
+          </button>
+  <% end %>
+  
     <%= simple_form_for [storage, cart] do |f|%>
     <%= f.hidden_field :entry, value: 1 %>
-    <button name="button" type="submit" class="btn-new-product">
+    <button name="button" type="submit" class="btn-new-product my-4">
           <i class="fa-solid fa-up-long"></i> Entrada de produto
         </button>
     <% end %>
   <% end %>
-  <%# <%= raise %>
-<div class= "btn-jdn">
-<%= simple_form_for [storage,cart] do |f|%>
-  <%= f.hidden_field :entry, value: 0 %>
-    <button name="button" type="submit" class="btn-out-product">
-          <i class="fa-solid fa-down-long"></i> Saída de produto
-        </button>
-<% end %>
+
+
+<h2 class='my-4'>Meus produtos:</h2>
 </div>
-<h2 class='my-4'>Meus Produtos:</h2>
+
 <div id="cart-<%= cart.id %>" class="table-responsive col-12">
   <table id="search-results-bottom" class="table table-dark table-striped table-bordered ">
   <thead>

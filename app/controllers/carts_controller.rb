@@ -2,7 +2,7 @@ class CartsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @carts = policy_scope(Cart)
+    @carts = policy_scope(Cart).where(approved: true)
     @start_date = params[:start_date].present? ? Date.parse(params[:start_date]) : Date.current.beginning_of_month
     @end_date = params[:end_date].present? ? Date.parse(params[:end_date]) : Date.current
     @carts = @carts.where(date_move: @start_date..@end_date).group_by(&:date_move)

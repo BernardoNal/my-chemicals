@@ -11,8 +11,6 @@ class CartPdf
     header_height = 60
     top_margin = header_height + 10
     Prawn::Document.new(margin: [top_margin, 40, 40, 40]) do |pdf|
-      pdf.repeat :all do
-      end
       pdf.canvas do
         pdf.repeat :all do
           space_from_top = 0

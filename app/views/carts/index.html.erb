@@ -10,11 +10,11 @@
         <div class="d-flex">
           <div class="form-group col-3 m-3">
             <%= label_tag :start_date, 'De' %>
-            <%= date_field_tag :start_date, params[:start_date], class: 'form-control' %>
+            <%= date_field_tag :start_date, @start_date, class: 'form-control' %>
           </div>
           <div class="form-group col-3 m-3">
             <%= label_tag :end_date, 'Até' %>
-            <%= date_field_tag :end_date, params[:end_date], class: 'form-control' %>
+            <%= date_field_tag :end_date, @end_date, class: 'form-control' %>
           </div>
         </div>
         <div class="d-flex justify-content-between">
@@ -28,7 +28,6 @@
   </div>
 
   <% if @carts.any? { |date_move, carts| carts.any? } %>
-
     <div class="my-5" id="carts">
       <%= render partial: 'carts/records' %>
     </div>

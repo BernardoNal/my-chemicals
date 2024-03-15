@@ -1,6 +1,6 @@
 <div class="col-6 m-2">
   <h2>Buscar produto:</h2>
-<%= simple_form_for :search, url: root_path, method: :get do |f| %>
+<%= simple_form_for :search, url: root_path(anchor: 'search-results-bottom'), method: :get, data: { turbo_action: "replace" } do |f| %>
   <%= hidden_field_tag 'farm_id', params[:farm_id] if params[:farm_id].present? %>
   <%= hidden_field_tag 'storage_id', params[:storage_id] if params[:storage_id].present? %>
   <div class="search-form-control form-group">
@@ -13,8 +13,8 @@
         </button>
       </div>
     </div>
-  <% end %>
-</div>
+  </div>
+<% end %>
 <% manager = @storage.farm.employees.find_by(user_id: current_user.id) %>
   <% if (manager.present? && manager.manager) || @storage.farm.user == current_user %>
     <%= simple_form_for [storage, cart] do |f|%>
@@ -35,7 +35,7 @@
 </div>
 <h2 class='my-4'>Meus Produtos:</h2>
 <div id="cart-<%= cart.id %>" class="table-responsive col-12">
-  <table class="table table-dark table-striped table-bordered ">
+  <table id="search-results-bottom" class="table table-dark table-striped table-bordered ">
   <thead>
     <tr>
       <th class='text-center' scope="col">Nome</th>
@@ -47,8 +47,9 @@
   <tbody>
     <% @chemical_totals.each do |chemical_total, chemical_value| %>
       <% total_quantity = chemical_value.sum(&:quantity) %>
+      <% chemical = Chemical.find_by(id: chemical_total) %>
       <tr>
-        <td class='text-center'><%= link_to chemical_path(chemical_total), data: {turbo_frame: :modal}, class: "text-decoration-none text-white" do %> <%= Chemical.find(chemical_total).product_name %> <% end %></td>
+        <td class='text-center'><%= link_to chemical_path(chemical_total), data: {turbo_frame: :modal}, class: "text-decoration-none text-white" do %> <%= highlight_background(Chemical.find(chemical_total).product_name, params.dig(:search, :query)) %> <% end %></td>
         <td class='text-center'><%= Chemical.find(chemical_total).type_product %></td>
         <td class='text-center'><%= Chemical.find(chemical_total).compound_product %></td>
         <td class='text-center'><%= total_quantity*Chemical.find(chemical_total).amount%> <%= Chemical.find(chemical_total).measurement_unit %> </td>

@@ -64,7 +64,7 @@
 }
 
 .btn-update {
-  color: white;
+  color: white !important;
   padding: 4px 8px;
   border-radius: 8px;
   background: $dark-green;
@@ -123,6 +123,51 @@
   }
 }
 
+
+.btn-plus-approve {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  border-radius: 50%;
+  background: $dark-green;
+  text-decoration: none;
+  font-size: 16px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+  transition: 0.4s;
+
+  &:hover {
+    transform: scale(1.1, 1.1);
+    transition: 0.4s;
+  }
+}
+
+
+.btn-plus-reject {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  border-radius: 50%;
+  background: $dark-brown;
+  text-decoration: none;
+  font-size: 16px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+  transition: 0.4s;
+
+  &:hover {
+    transform: scale(1.2, 1.2);
+    transition: 0.4s;
+  }
+}
+
+
+
+
 .btn-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -131,8 +176,8 @@
 }
 
 .btn-approve {
-  color: white;
-  padding: 6px 8px;
+  color: white !important;
+  padding: 6px 8px ;
   width: 100%;
   background: $dark-green;
   text-decoration: none;
@@ -147,8 +192,8 @@
 }
 
 .btn-reject {
-  color: white;
-  padding: 6px 8px;
+  color: white !important;
+  padding: 6px 8px ;
   width: 100%;
   background: $dark-brown;
   text-decoration: none;

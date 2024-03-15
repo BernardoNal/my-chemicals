@@ -16,14 +16,14 @@
               <table class="table table-light table-striped table-bordered">
                 <thead>
                   <tr>
-                    <th class='text-center' scope="col">Nome</th>
-                    <th class='text-center' scope="col">Quantidade</th>
+                    <th class='text-center table-width' scope="col">Nome</th>
+                    <th class='text-center table-width' scope="col">Quantidade</th>
                   </tr>
                 </thead>
                 <tbody>
                   <% cart.cart_chemicals.each do |cart_chemical| %>
                     <tr class='<%= cart_chemical.quantity < 0 ? "table-danger" : "table-success" %>'>
-                      <td class='text-center'><%= link_to cart_chemical.chemical.product_name, chemical_path(cart_chemical.chemical), class: "text-decoration-none text-dark" %></td>
+                      <td class='text-center'><%= link_to cart_chemical.chemical.product_name, chemical_path(cart_chemical.chemical), data: {turbo_frame: :modal}, class: "text-decoration-none text-dark" %></td>
                       <td class='text-center'><%= cart_chemical.quantity %></td>
                     </tr>
                   <% end %>

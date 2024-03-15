@@ -3,3 +3,10 @@ import "@hotwired/turbo-rails"
 import "controllers"
 import "@popperjs/core"
 import "bootstrap"
+
+document.addEventListener('turbo:load', () => {
+  const element = document.getElementById('search-results-bottom');
+  if (element) {
+    element.scrollIntoView({ behavior: 'smooth' });
+  }
+});

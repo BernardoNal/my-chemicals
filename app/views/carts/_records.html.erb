@@ -1,38 +1,39 @@
-<div class="row">
-    <% @carts.each do |date_move, carts| %>
-      <% carts.each do |cart| %>
-        <% cart.cart_chemicals.each do |cart_chemical| %>
-      <% if date_move.present? && cart.cart_chemicals.present? %>
-        <div class="table-responsive col-2">
-          <h2 class="title-medium table card-title"><%= date_move %></h2>
-        </div>
-      <% end %>
-          <div class="table-responsive">
-            <% if cart_chemical.quantity.present? && cart_chemical.quantity < 0 %>
-              <table class="table table-danger table-striped table-bordered">
-            <% else %>
-              <table class="table table-success table-striped table-bordered">
-            <% end %>
-            <thead>
-              <tr>
-                <th class='text-center' scope="col">Fazenda</th>
-                <th class='text-center' scope="col">Galpão</th>
-                <th class='text-center' scope="col">Nome</th>
-                <th class='text-center' scope="col">Quantidade</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class='text-center negative-quantity'><%= cart.storage.farm.name %></td>
-                <td class='text-center negative-quantity'><%= cart.storage.name %></td>
-                <td class='text-center'><%= link_to chemical_path(cart_chemical.chemical), class: "text-decoration-none text-dark" do %> <%= cart_chemical.chemical.product_name %> <% end %></td>
-                <td class='text-center negative-quantity'><%= cart_chemical.quantity %></td>
-              </tr>
-            </tbody>
-          </table>
+<div class="container">
+  <% @carts.each do |date_move, carts_grouped_by_date| %>
+    <h2 class="fw-bold pending-date my-4"><i class="fa-regular fa-calendar"></i> <%= date_move.strftime('%d/%m/%Y') %></h2>
+    <ol class="list-group list-group-numbered">
+    <% carts_grouped_by_date.each do |cart| %>
+      <div class="row">
+        <div class="col-9">
+        <li class="list-group-item d-flex justify-content-between align-items-start py-3" id="bg-color-light-green">
+          <div class="ms-2 me-auto">
+            <strong class="fs-6">Registro #<%= cart.id %></strong> | Fazenda: <%= cart.storage.farm.name %> | Galpão: <%= cart.storage.name %>
           </div>
-        <% end %>
-      <% end %>
+          <span id ="bg-color-light-brown" class="badge rounded-pill">Aprovado</span>
+        </li>
+          <% if cart.cart_chemicals.any? %>
+            <div class="table-responsive">
+              <table class="table table-light table-striped table-bordered">
+                <thead>
+                  <tr>
+                    <th class='text-center table-width' scope="col">Nome</th>
+                    <th class='text-center table-width' scope="col">Quantidade</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% cart.cart_chemicals.each do |cart_chemical| %>
+                    <tr class='<%= cart_chemical.quantity < 0 ? "table-danger" : "table-success" %>'>
+                      <td class='text-center'><%= link_to cart_chemical.chemical.product_name, chemical_path(cart_chemical.chemical), data: {turbo_frame: :modal}, class: "text-decoration-none text-dark" %></td>
+                      <td class='text-center'><%= cart_chemical.quantity %></td>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+          <% end %>
+        </div>
+      </div>
     <% end %>
-  </div>
+    </ol>
+  <% end %>
 </div>

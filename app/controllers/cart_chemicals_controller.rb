@@ -8,24 +8,22 @@ class CartChemicalsController < ApplicationController
 
   def create
     @cart_chemical = CartChemical.new(cart_chemical_params)
+    authorize @cart_chemical
     @cart = Cart.find(params[:cart_id])
     @cart_chemical.cart = @cart
-    authorize @cart_chemical
+
+    @cart_chemicals = @cart.cart_chemicals
+    @chemicals = Chemical.all.order(product_name: :asc)
+    existing_chemical_ids = @cart.cart_chemicals.pluck(:chemical_id)
+    # Remover os chemicals já presentes na lista de chemicals disponíveis
+    @chemicals = @chemicals.where.not(id: existing_chemical_ids)
     if params[:cart_chemical][:entry] == "0"
       @cart_chemical.quantity = -@cart_chemical.quantity
-      @chemical_totals = CartChemical.joins(:chemical, :cart)
-      .where(chemical: Chemical.find(params[:cart_chemical][:chemical_id]))
-      .where(cart: { approved: true })
-      .where(cart: { storage_id: @cart.storage_id })
-      .sum(:quantity)
-      if @chemical_totals < - @cart_chemical.quantity
-        flash[:alert] = "Estoque insuficiente." #melhorar esse condição
-        render js: "window.location.reload()"
-      elsif@cart_chemical.save
-        redirect_to cart_path(@cart, entry: params[:cart_chemical][:entry])
-      end
-    elsif @cart_chemical.save
+    end
+    if @cart_chemical.save
       redirect_to cart_path(@cart, entry: params[:cart_chemical][:entry])
+    else
+      render 'carts/show', status: :unprocessable_entity
     end
   end
 
@@ -40,6 +38,6 @@ class CartChemicalsController < ApplicationController
   private
 
   def cart_chemical_params
-    params.require(:cart_chemical).permit(:quantity, :chemical_id)
+    params.require(:cart_chemical).permit(:quantity, :chemical_id, :entry)
   end
 end

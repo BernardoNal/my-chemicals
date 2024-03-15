@@ -13,6 +13,8 @@ class EmployeesController < ApplicationController
 
   def create
     @employee = Employee.new(employee_params)
+    @employee.user_cpf = params[:employee][:user_cpf]
+    @farms = current_user.farms
     @user = User.find_by(cpf: params[:employee][:user_cpf])
     @employee.user = @user
     @employee.invite = false
@@ -33,6 +35,7 @@ class EmployeesController < ApplicationController
 
   def update
     @employee = Employee.find(params[:id])
+    @employee.user_cpf = @employee.user.cpf
     @employee.invite = true
     authorize @employee
     if @employee.save

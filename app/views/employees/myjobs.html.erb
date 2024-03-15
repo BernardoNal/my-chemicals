@@ -1,17 +1,45 @@
-<div class="container">
-  <h1>Trabalhos</h1>
-
-  <% @employees.each do  |employee|%>
-  <li><%= employee.farm.name %></li>
-  fazendeiro: <%= employee.farm.user.first_name %> <%= employee.farm.user.last_name %> <br>
-  meu cargo : <%= employee.manager ? 'Gerente' : "Funcionario" %> <br>
-    <%if employee.invite == false  %>
-      <%= link_to  'Aceitar',employee_path(employee), data: {turbo_method: :patch}, class:'btn btn-edit ma' %>
-      <%= link_to  'Rejeitar',employee_path(employee), data: {turbo_method: :delete}, class:'btn btn-red ma' %>
-    <% end %>
-    <br>
-  <% end %>
+<div class="container container-view mt-4">
+  <div class="title-big">
+    <h1><i class="fas fa-warehouse"></i> Trabalhos</h1>
+  </div>
 
 
-  <%= link_to "<i class='fa-solid fa-circle-plus'></i>".html_safe, new_employee_path, class: "btn-plus-sign" %>
+<div class="cards">
+    <div class="row">
+     <% @employees.each do  |employee|%>
+        <div class="col-sm-4">
+          <div class="card-small p-4">
+            <div class="card-small-content">
+              <div class="card-small-info">
+              <h3><i class="fa-brands fa-pagelines"></i></i> <%= employee.farm.name %></h3>
+              <h5>Fazendeiro: <%= employee.farm.user.first_name %> <%= employee.farm.user.last_name %></h5>
+              <h5>
+              Cargo : <%= employee.manager ? 'Gerente' : "Funcionário" %>
+              </h5>
+              </div>
+              <%if employee.invite == false  %>
+                <div class="card-small-btns">
+                  <%= link_to  employee_path(employee), data: {turbo_method: :patch}, class:' btn-plus-approve ma mb-2 ' do %>
+                    <i class="fa-solid fa-user-plus"></i>
+                  <% end %>
+                  <%= link_to  employee_path(employee), data: {turbo_method: :delete}, class:' btn-plus-reject ma' do %>
+                    <i class="fa-solid fa-user-xmark"></i>
+                  <% end %>
+                </div>
+                <% else %>
+                  <i class="fa-solid fa-user-check"></i>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+
+
+</div>
+
+<div class="btn-plus-sign-container">
+
 </div>

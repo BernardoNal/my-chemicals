@@ -26,7 +26,8 @@ class FarmsController < ApplicationController
 
     if params[:search].present? && params[:search][:query].present?
       search_query = params[:search][:query]
-      @carts = @carts.where("name ILIKE :query", query: "#{search_query}%")
+      chemical_ids = Chemical.search_by_name(search_query).pluck(:id)
+      @carts = @carts.joins(:chemicals).where(chemicals: { id: chemical_ids })
     elsif @carts.nil?
       @carts = Cart.all
     end

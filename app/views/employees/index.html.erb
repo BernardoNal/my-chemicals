@@ -1,16 +1,24 @@
-<div class="container">
-<h1>Funcionarios</h1>
-
+<div class="container mt-4">
+  <div class="title-big mb-2 ">
+  <h1><i class="fa-solid fa-users"></i> Funcionários</h1>
+  </div>
 <% @farms.each do  |farm|%>
- <h3><%= farm.name %></h3>
- <% farm.employees.each do |employee| %>
-  <li><%= employee.user.first_name %>  <%= employee.user.last_name %> <%= employee.invite ? '': "(Convite Pendente)" %>
-   <%= link_to  employee_path(employee),  data: {turbo_method: :delete}, class:'btn btn-red ma' do  %>
-                <%= employee.invite ? 'Cancelar': "Demitir" %>
-                <% end %>
-  </li>
-  <% end %>
-  <% end %>
+  <div class="card-product mt-5">
+    <div class="col-sm-4">
+      <div class="card-small">
+        <h2><i class="fa-brands fa-pagelines"></i> <%= farm.name %></h2>
+        <% farm.employees.each do |employee| %>
+          <div class="card-item">
+            <%= employee.user.first_name %>  <%= employee.user.last_name %> <%= employee.invite ? '': "(Convite Pendente)" %>
+            <%= link_to  employee_path(employee),  data: {turbo_method: :delete}, class:'btn btn-red ma' do  %>
+              <%= employee.invite ? 'Demitir': "Cancelar" %>
+            <% end %>
+            </div>
+            <% end %>
+      </div>
+    </div>
+  </div>
+ <% end %>
 
 
  <%= link_to "<i class='fa-solid fa-circle-plus'></i>".html_safe, new_employee_path, class: "btn-plus-sign" %>

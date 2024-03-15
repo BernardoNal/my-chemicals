@@ -1,4 +1,4 @@
-<div class="container mt-4">
+<div class="container container-view mt-4">
   <div class="title-big mb-2 ">
   <h1><i class="fa-solid fa-users"></i> Funcionários</h1>
   </div>
@@ -38,6 +38,7 @@
   </div>
  <% end %>
 <% end %>
-
- <%= link_to "<i class='fa-solid fa-user-plus'></i>".html_safe, new_employee_path, class: "btn-plus-sign" %>
+</div>
+<div class="btn-plus-sign-container">
+  <%= link_to "<i class='fa-solid fa-user-plus'></i>".html_safe, new_employee_path, class: "btn-plus-sign" %>
 </div>

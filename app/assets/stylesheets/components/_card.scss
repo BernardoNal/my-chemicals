@@ -3,22 +3,16 @@
 }
 
 .nopadding {
-
   padding-top: 0 !important;
-
   margin-top: 0 !important;
-
 }
 
+
 .card-bg-img {
-  background-image: image-url('1.jpg');
-  /* Using SASS helper */
+  background-image: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), image-url('3.jpg');
   background-size: cover;
-  /* Cover the entire area */
   background-position: center;
-  /* Center the background image */
   background-repeat: no-repeat;
-  /* Do not repeat the image */
 }
 
 .card-item {

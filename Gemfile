@@ -55,6 +55,7 @@ gem "simple_form", github: "heartcombo/simple_form"
 gem "sassc-rails"
 gem "pundit"
 gem 'prawn'
+gem "pg_search"
 
 group :development, :test do
   gem "dotenv-rails"

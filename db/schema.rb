@@ -10,9 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_11_152023) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_15_153406) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "unaccent"
 
   create_table "cart_chemicals", force: :cascade do |t|
     t.bigint "chemical_id", null: false

@@ -13,8 +13,8 @@
         </button>
       </div>
     </div>
-  <% end %>
-</div>
+  </div>
+<% end %>
 <% manager = @storage.farm.employees.find_by(user_id: current_user.id) %>
   <% if (manager.present? && manager.manager) || @storage.farm.user == current_user %>
     <%= simple_form_for [storage, cart] do |f|%>
@@ -48,7 +48,7 @@
     <% @chemical_totals.each do |chemical_total, chemical_value| %>
       <% total_quantity = chemical_value.sum(&:quantity) %>
       <tr>
-        <td class='text-center'><%= link_to chemical_path(chemical_total), data: {turbo_frame: :modal}, class: "text-decoration-none text-white" do %> <%= Chemical.find(chemical_total).product_name %> <% end %></td>
+        <td class='text-center'><%= link_to chemical_path(chemical_total), data: {turbo_frame: :modal}, class: "text-decoration-none text-white" do %> <%= highlight(Chemical.find(chemical_total).product_name, params.dig(:search, :query)) %> <% end %></td>
         <td class='text-center'><%= Chemical.find(chemical_total).type_product %></td>
         <td class='text-center'><%= Chemical.find(chemical_total).compound_product %></td>
         <td class='text-center'><%= total_quantity*Chemical.find(chemical_total).amount%> <%= Chemical.find(chemical_total).measurement_unit %> </td>

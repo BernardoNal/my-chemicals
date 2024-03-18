@@ -20,7 +20,7 @@
         <div class="d-flex justify-content-between">
           <%= submit_tag 'Filtrar', class: 'btn btn-primary m-3' %>
           <% if @carts.any? { |date_move, carts| carts.any? } %>
-            <%= link_to 'Relatório de registros (PDF)', carts_path(format: :pdf), class: "btn-approve m-3 w-50" %>
+            <%= link_to 'Relatório de registros (PDF)', carts_path(format: :pdf,start_date: @start_date,end_date: @end_date), class: "btn-approve m-3 w-50" %>
           <% end %>
         </div>
       <% end %>

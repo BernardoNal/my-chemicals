@@ -11,6 +11,7 @@ class StoragesController < ApplicationController
   end
 
   def create
+    @farms = current_user.farms
     @storage = Storage.new(storage_params)
     authorize @storage
     if @storage.save

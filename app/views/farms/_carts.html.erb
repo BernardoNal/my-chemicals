@@ -15,8 +15,6 @@
     </div>
   </div>
 <% end %>
-<% manager = @storage.farm.employees.find_by(user_id: current_user.id) %>
-  <% if (manager.present? && manager.manager) || @storage.farm.user == current_user %>
 </div>
 
 <div class="card-btn d-flex flex-row-reverse justify-content-evenly">
@@ -26,7 +24,9 @@
             <i class="fa-solid fa-down-long"></i> Saída de produto
           </button>
   <% end %>
-  
+
+<% manager = @storage.farm.employees.find_by(user_id: current_user.id) %>
+<% if (manager.present? && manager.manager) || @storage.farm.user == current_user %>
     <%= simple_form_for [storage, cart] do |f|%>
     <%= f.hidden_field :entry, value: 1 %>
     <button name="button" type="submit" class="btn-new-product my-4">

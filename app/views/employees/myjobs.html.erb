@@ -11,13 +11,11 @@
      <% @employees.each do  |employee|%>
         <div class="col-sm-4">
           <div class="card-small p-4">
-            <div class="card-small-content">
+            <div class="card-small-content p-1">
               <div class="card-small-info">
-              <h3><i class="fa-brands fa-pagelines"></i></i> <%= employee.farm.name %></h3>
-              <h5>Fazendeiro: <%= employee.farm.user.first_name %> <%= employee.farm.user.last_name %></h5>
-              <h5>
-              Cargo : <%= employee.manager ? 'Gerente' : "Funcionário" %>
-              </h5>
+                <h3><i class="fa-brands fa-pagelines"></i></i> <%= employee.farm.name %></h3>
+                <p>Fazendeiro: <%= employee.farm.user.first_name %> <%= employee.farm.user.last_name %></p>
+                <p>Cargo : <%= employee.manager ? 'Gerente' : "Funcionário" %></h5>
               </div>
               <%if employee.invite == false  %>
                 <div class="card-small-btns">

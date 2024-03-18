@@ -18,7 +18,7 @@ class CartChemical < ApplicationRecord
   end
 
   def check_stock
-    if quantity
+    if quantity && chemical_id
       if quantity_total < -quantity && entry == '0'
         errors.add(:quantity, message: 'above limit')
       end
@@ -26,7 +26,7 @@ class CartChemical < ApplicationRecord
   end
 
   def negative
-    if quantity
+    if quantity && chemical_id
       if (quantity > 0 && entry == '0') || (quantity < 0 && entry == '1')
         errors.add(:quantity, message: 'invalid')
       end

@@ -4,8 +4,10 @@ class FarmsController < ApplicationController
   def index
     @farms = policy_scope(Farm)
     current_user.employees.each do |employee|
-      @farm_e = employee.farm
-      @farms += [@farm_e]
+      if employee.invite
+        @farm_e = employee.farm
+        @farms += [@farm_e]
+      end
     end
     @storages = []
     if params[:farm_id].present?

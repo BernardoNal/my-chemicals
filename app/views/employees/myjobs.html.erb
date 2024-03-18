@@ -3,7 +3,9 @@
     <h1><i class="fas fa-warehouse"></i> Trabalhos</h1>
   </div>
 
-
+ <% unless @employees.any? %>
+    <h2 class="fw-bold pending-date m-4 fs-3">Não há pêndencias disponíveis para esse período.</h2>
+  <% end %>
 <div class="cards">
     <div class="row">
      <% @employees.each do  |employee|%>

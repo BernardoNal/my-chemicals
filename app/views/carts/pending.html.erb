@@ -1,7 +1,9 @@
-<% if @carts.any? %>
-  <div class="m-5" id="carts">
-    <%= render partial: 'carts/pendencies' %>
-  </div>
-<% else %>
-  <h2 class="fw-bold pending-date m-4 fs-3">Não há pêndencias disponíveis para esse período.</h2>
-<% end %>
+<div class='container-view'>
+  <% if @carts.any? %>
+    <div class="m-5" id="carts">
+      <%= render partial: 'carts/pendencies' %>
+    </div>
+  <% else %>
+    <h2 class="fw-bold pending-date m-4 fs-3">Não há pêndencias disponíveis para esse período.</h2>
+  <% end %>
+</div>

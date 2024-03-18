@@ -3,12 +3,13 @@ class CartsController < ApplicationController
 
   def index
     @carts = policy_scope(Cart)
-    @start_date = params[:start_date].present? ? Date.parse(params[:start_date]) : Date.current.beginning_of_month
-    @end_date = params[:end_date].present? ? Date.parse(params[:end_date]) : Date.current
-    @carts = @carts.where(date_move: @start_date..@end_date).group_by(&:date_move)
+    @start_date = params[:date_start].present? ? Date.parse(params[:date_start]) : Date.current.beginning_of_month
+    @end_date = params[:date_end].present? ? Date.parse(params[:date_end]) : Date.current
+    @carts = @carts.where(date_move: @start_date..@end_date).group_by(&:date_move).order(date_move: :desc)
     respond_to do |format|
       format.html
       format.pdf do
+        raise
         pdf = CartPdf.new(@carts).call
         send_data pdf, filename: "carts_report.pdf", type: "application/pdf"
       end

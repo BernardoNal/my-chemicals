@@ -95,12 +95,9 @@
 }
 
 .btn-plus-sign-container {
-  width: 100%;
-  display: flex;
-  justify-content: end;
-  position: sticky;
-  bottom: 0;
-  padding: 20px;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
 }
 
 .btn-plus-sign {
@@ -111,6 +108,8 @@
   align-items: center;
   color: white;
   border-radius: 50%;
+  border-style: solid;
+  border-color: white;
   background: $dark-green;
   text-decoration: none;
   font-size: 24px;

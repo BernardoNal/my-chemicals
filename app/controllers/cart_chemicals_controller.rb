@@ -17,7 +17,7 @@ class CartChemicalsController < ApplicationController
     existing_chemical_ids = @cart.cart_chemicals.pluck(:chemical_id)
     # Remover os chemicals já presentes na lista de chemicals disponíveis
     @chemicals = @chemicals.where.not(id: existing_chemical_ids)
-    if params[:cart_chemical][:entry] == "0"
+    if params[:cart_chemical][:entry] == "0" && @cart_chemical.quantity
       @cart_chemical.quantity = -@cart_chemical.quantity
     end
     if @cart_chemical.save

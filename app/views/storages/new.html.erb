@@ -7,7 +7,7 @@
     <%= simple_form_for [@farm, @storage] do |f| %>
       <%= f.input :name, label: "Nome" %>
       <%= f.input :size, label: "Tamanho" %>
-      <%= f.input :capacity, label: "Capacidade" %>
+      <%= f.input :capacity, label: "Capacidade",  hint: (" x itens" ) %>
       <%= f.input :farm_id, as: :select, collection: @farms, label: "Fazendas" %>
       <%= f.button :submit, class: "btn-login" %>
     <% end %>

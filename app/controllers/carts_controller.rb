@@ -4,9 +4,7 @@ class CartsController < ApplicationController
   def index
     @carts = policy_scope(Cart).order(date_move: :desc)
     Cart.all.each do |cart|
-      if cart.cart_chemicals == []
-        cart.destroy
-      end
+      cart.destroy if cart.cart_chemicals == []
     end
     @start_date = params[:start_date].present? ? Date.parse(params[:start_date]) : Date.current.beginning_of_month
     @end_date = params[:end_date].present? ? Date.parse(params[:end_date]) : Date.current
@@ -62,7 +60,6 @@ class CartsController < ApplicationController
     @cart_chemical = CartChemical.new
     @chemicals = Chemical.all.order(product_name: :asc)
     existing_chemical_ids = @cart.cart_chemicals.pluck(:chemical_id)
-    # Remover os chemicals já presentes na lista de chemicals disponíveis
     @chemicals = @chemicals.where.not(id: existing_chemical_ids)
     @cart_chemicals = @cart.cart_chemicals
   end

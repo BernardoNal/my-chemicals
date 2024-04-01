@@ -4,16 +4,12 @@ class FarmsController < ApplicationController
   def index
     @farms = policy_scope(Farm)
     current_user.employees.each do |employee|
-      if employee.invite
-        @farm_e = employee.farm
-        @farms += [@farm_e]
-      end
+      @farms += [employee.farm] if employee.invite
     end
     @storages = []
     if params[:farm_id].present?
       @farm = Farm.find(params[:farm_id])
       @storages = @farm.storages
-      @carts = Cart.joins(:storage).where(storages: { farm_id: @farm.id })
     end
 
     if params[:storage_id].present?
@@ -31,7 +27,7 @@ class FarmsController < ApplicationController
       chemical_ids = Chemical.search_by_name(search_query).pluck(:id)
       @carts = @carts.joins(:chemicals).where(chemicals: { id: chemical_ids })
     elsif @carts.nil?
-      @carts = Cart.all
+      # @carts = Cart.all
     end
   end
 

@@ -3,7 +3,7 @@
   <div class="row">
     <div class=" col-md-6">
       <div class="form-shape col-md-8 mx-auto">
-        <%= link_to farms_path(@farm), class: 'btn-back text-decoration-none' do %>
+        <%= link_to farms_path(farm_id: @cart.storage.farm_id, storage_id: @cart.storage_id), class: 'btn-back text-decoration-none' do %>
         <i class='fa-solid fa-circle-left'></i>
         <% end %>
         <% @entry.nil? ? @entry = params[:cart_chemical][:entry] : '' %>

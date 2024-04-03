@@ -1,38 +1,35 @@
 <div class="container container-view mt-4">
-<div class="title-big">
-  <h1><i class="fas fa-user"></i> Painel de Controle</h1>
+  <div class="title-big">
+    <h1><i class="fas fa-user"></i> Painel de Controle</h1>
   </div>
   <%= form_with url: farms_path, method: :get do |form| %>
 
     <div class="row m-5">
       <div class="card-static col-12">
-      <div class="col-5 my-5">
-        <h2><i class="fa-brands fa-pagelines"></i> Fazendas:</h2>
+        <div class="col-5 my-5">
+          <h2><i class="fa-brands fa-pagelines"></i> Fazendas:</h2>
           <%= form.collection_select  :farm_id, @farms, :id, :name,
           { selected: @farm ? @farm.id : nil, include_blank: 'Selecione uma fazenda' },
           { onchange: 'this.form.requestSubmit()',  class: 'form-control' }
-        %>
-      </div>
-
-      <div class="col-5 my-5">
-        <h2><i class="fa-solid fa-warehouse"></i> Estoques:</h2>
-
-            <%= form.collection_select  :storage_id, @storages, :id, :name,
-            { selected: @storage ? @storage.id : nil, include_blank: 'Selecione um estoque' },
-            { class: 'form-control', onchange: 'this.form.requestSubmit()' }
           %>
+        </div>
+
+        <div class="col-5 my-5">
+          <h2><i class="fa-solid fa-warehouse"></i> Estoques:</h2>
+          <%= form.collection_select  :storage_id, @storages, :id, :name,
+          { selected: @storage ? @storage.id : nil, include_blank: 'Selecione um estoque' },
+          { class: 'form-control', onchange: 'this.form.requestSubmit()' }
+          %>
+        </div>
       </div>
-    </div>
     </div>
   <% end %>
 
 
   <% if @chemical_totals %>
     <div id="carts">
-
       <%= render partial: 'farms/carts', locals: { chemical_totals: @chemical_totals, storage: @storage, cart: @cart}
-  %>
-
+      %>
     </div>
   <% end %>
 </div>

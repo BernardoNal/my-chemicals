@@ -18,6 +18,7 @@ class CartPolicy < ApplicationPolicy
   def pending?
     true
   end
+
   def record?
     true
   end

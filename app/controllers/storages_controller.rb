@@ -1,15 +1,19 @@
 class StoragesController < ApplicationController
+  before_action :set_storage, only: %i[edit update destroy]
+  # Displays a list of storages
   def index
     @storages = policy_scope(Storage)
     @farms = Farm.all
   end
 
+  # Renders form to create a new storage
   def new
     @storage = Storage.new
     authorize @storage
     @farms = current_user.farms
   end
 
+  # Creates a new storage
   def create
     @farms = current_user.farms
     @storage = Storage.new(storage_params)
@@ -22,13 +26,13 @@ class StoragesController < ApplicationController
     end
   end
 
+  # Renders form to edit a storage
   def edit
-    @storage = Storage.find(params[:id])
     authorize @storage
   end
 
+  # Updates a storage
   def update
-    @storage = Storage.find(params[:id])
     authorize @storage
     if @storage.update(storage_params)
       redirect_to storages_path
@@ -39,8 +43,8 @@ class StoragesController < ApplicationController
     end
   end
 
+  # Deletes a storage
   def destroy
-    @storage = Storage.find(params[:id])
     authorize @storage
     @storage.destroy
     flash[:alert] = "Galpão excluído com sucesso."
@@ -50,7 +54,13 @@ class StoragesController < ApplicationController
 
   private
 
+  # Permits storage parameters
   def storage_params
     params.require(:storage).permit(:name, :size, :capacity, :farm_id)
+  end
+
+  # Sets the storage instance variable based on the provided id
+  def set_storage
+    @storage = Storage.find(params[:id])
   end
 end

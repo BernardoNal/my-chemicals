@@ -36,15 +36,15 @@ class CartPdf
           pdf.move_down 10
 
           carts_group.each do |cart|
-            text = "<b>Movimentação de número: </b> #{cart.id}\n" +
-            "<b>Fazenda:</b> #{cart.storage.farm.name}\n" +
-            "<b>Galpão:</b> #{cart.storage.name}\n<b>Produto(s):</b>"
+            text = "<b>Movimentação de número: </b> #{cart.id}\n" \
+                   "<b>Fazenda:</b> #{cart.storage.farm.name}\n" \
+                   "<b>Galpão:</b> #{cart.storage.name}\n<b>Produto(s):</b>"
             pdf.text text, color: "6d7760", inline_format: true
 
             cart.cart_chemicals.each do |cart_chemical|
-
-              text = " • #{cart_chemical.chemical.product_name} - <b> Movimentação: </b>" +
-              " #{cart_chemical.quantity * cart_chemical.chemical.amount} #{cart_chemical.chemical.measurement_unit}"
+              text = " • #{cart_chemical.chemical.product_name} - <b> Movimentação: </b> " \
+                     "#{cart_chemical.quantity * cart_chemical.chemical.amount} " \
+                     "#{cart_chemical.chemical.measurement_unit}"
               pdf.text text, color: "6d7760", inline_format: true
               pdf.move_down 0
             end
@@ -53,7 +53,6 @@ class CartPdf
             pdf.text text, color: "6d7760", inline_format: true
           end
 
-          # Adicionar algum espaço antes da próxima data
           pdf.move_down 5
         end
       else

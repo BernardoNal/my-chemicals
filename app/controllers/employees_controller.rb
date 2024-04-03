@@ -60,6 +60,6 @@ class EmployeesController < ApplicationController
 
   # Defines permitted parameters for creating or updating an employee
   def employee_params
-    params.require(:employee).permit(:manager, :farm_id,:user_cpf)
+    params.require(:employee).permit(:manager, :farm_id, :user_cpf)
   end
 end

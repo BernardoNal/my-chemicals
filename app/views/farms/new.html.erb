@@ -1,7 +1,7 @@
 <div class="container">
   <div class="form-shape col-md-6 mx-auto">
     <%= link_to myfarms_path, class: 'btn-back text-decoration-none' do %>
-    <i class='fa-solid fa-circle-left'></i>
+      <i class='fa-solid fa-circle-left'></i>
     <% end %>
     <h2 class="form-title">Cadastrar nova Fazenda</h2>
     <%= simple_form_for @farm do |f| %>
@@ -22,7 +22,6 @@
 
   <script>
      mapboxgl.accessToken = "pk.eyJ1Ijoiam9yZGFubzg4IiwiYSI6ImNsc2x4OWdvZjBkOTUyanNjOXRtZno4YnkifQ.9TVAMKmkrFEmnXjmIah2aQ";
-    // var savedCoordinates = JSON.parse(localStorage.getItem('savedCoordinates')) || [-47.9292, -15.7801];
      var map = new mapboxgl.Map({
       container: 'map',
       style: 'mapbox://styles/mapbox/streets-v11',
@@ -51,8 +50,6 @@
 
     map.on('moveend', function() {
     var center = map.getCenter();
-    console.log('Latitude:', center.lat);
-    console.log('Longitude:', center.lng);
     var savedCoordinates = JSON.parse(localStorage.getItem('savedCoordinates')) || [];
     savedCoordinates.push([center.lat, center.lng]);
     localStorage.setItem('savedCoordinates', JSON.stringify(savedCoordinates));

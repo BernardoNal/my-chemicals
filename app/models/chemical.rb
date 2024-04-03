@@ -1,6 +1,9 @@
 class Chemical < ApplicationRecord
+  # Validations
   has_many :cart_chemical, dependent: :destroy
   has_many :carts, through: :cart_chemicals
+
+  # Search
   include PgSearch::Model
 
   pg_search_scope :search_by_name,

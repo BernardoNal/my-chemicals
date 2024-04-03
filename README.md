@@ -27,7 +27,7 @@ My Chemicals é uma aplicação web que permite aos usuários gerenciar produtos
 - HTML
 - CSS
 - JavaScript
-- Rails on ruby
+- Ruby on Rails
 - Ajax
 
 

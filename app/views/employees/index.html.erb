@@ -1,49 +1,47 @@
 <div class="container container-view mt-4">
   <div class="title-big mb-2 ">
-  <h1><i class="fa-solid fa-users"></i> Funcionários</h1>
-  <% count_employee = 0 %>
+    <h1><i class="fa-solid fa-users"></i> Funcionários</h1>
+    <% count_employee = 0 %>
   </div>
-<% @farms.each do  |farm|%>
-<% unless farm.employees == [] %>
-  <% count_employee = 1 %>
-  <div class="card-product mt-5">
-    <div class="col-sm-4">
-      <div class="card-small">
-        <h2><i class="fa-brands fa-pagelines"></i> <%= farm.name %></h2>
-        <% farm.employees.each do |employee| %>
-          <div class="card-item">
-            <div class="card-item-content">
-                <span class="employee-name" ><%= employee.user.first_name %>  <%= employee.user.last_name %></span>
-            <% if employee.manager %>
-            <i class="fa-solid fa-user-tie"></i>
-            <% end %>
-            <% unless employee.invite %>
-              <i class="fa-regular fa-hourglass-half"></i>
-            <% end %>
+  <% @farms.each do  |farm|%>
+    <% unless farm.employees == [] %>
+      <% count_employee = 1 %>
+      <div class="card-product mt-5">
+        <div class="col-sm-4">
+          <div class="card-small">
+            <h2><i class="fa-brands fa-pagelines"></i> <%= farm.name %></h2>
+            <% farm.employees.each do |employee| %>
+              <div class="card-item">
+                <div class="card-item-content">
+                  <span class="employee-name" ><%= employee.user.first_name %>  <%= employee.user.last_name %></span>
+                  <% if employee.manager %>
+                    <i class="fa-solid fa-user-tie"></i>
+                  <% end %>
+                  <% unless employee.invite %>
+                    <i class="fa-regular fa-hourglass-half"></i>
+                  <% end %>
+                </div>
+
+                <div class= 'card-item-actions'>
+                  <span class="employee-icon"><%= link_to  employee_path(employee),  data: {turbo_method: :delete}, class:'btn btn-red ma' do  %></span>
+                    <% if employee.invite %>
+                      <i class="fa-solid fa-user-xmark"></i>
+                    <% else %>
+                      <i class="fa-solid fa-xmark"></i>
+                    <% end %>
+                  <% end %>
+                </div>
               </div>
-
-
-            <div class= 'card-item-actions'>
-
-              <span class="employee-icon"><%= link_to  employee_path(employee),  data: {turbo_method: :delete}, class:'btn btn-red ma' do  %></span>
-                <% if employee.invite %>
-                  <i class="fa-solid fa-user-xmark"></i>
-                <% else %>
-                  <i class="fa-solid fa-xmark"></i>
-                <% end %>
-              </div>
             <% end %>
-            </div>
-            <% end %>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
- <% end %>
-<% end %>
+    <% end %>
+  <% end %>
 
-<% if count_employee == 0 %>
-  <h2 class="fw-bold pending-date m-4 fs-3">Não há funcionários disponíveis.</h2>
-<% end %>
+  <% if count_employee == 0 %>
+    <h2 class="fw-bold pending-date m-4 fs-3">Não há funcionários disponíveis.</h2>
+  <% end %>
 </div>
 <div class="btn-plus-sign-container">
   <%= link_to "<i class='fa-solid fa-user-plus'></i>".html_safe, new_employee_path, class: "btn-plus-sign" %>

@@ -1,9 +1,11 @@
 class EmployeesController < ApplicationController
+  # Displays a list of farms accessible to the current user
   def index
     @farms = policy_scope(Farm)
     @user = current_user
   end
 
+  # Prepares a form to create a new employee
   def new
     @employee = Employee.new
     authorize @employee
@@ -11,14 +13,11 @@ class EmployeesController < ApplicationController
     @users = User.all
   end
 
+  # Creates a new employee record
   def create
     @employee = Employee.new(employee_params)
-    @employee.user_cpf = params[:employee][:user_cpf]
     @farms = current_user.farms
-    @user = User.find_by(cpf: params[:employee][:user_cpf])
-    @employee.user = @user
-    @employee.invite = false
-    # 66699966678
+    @employee.user = User.find_by(cpf: @employee.user_cpf)
     authorize @employee
     if @employee.save
       redirect_to employees_path
@@ -28,11 +27,13 @@ class EmployeesController < ApplicationController
     end
   end
 
+  # Displays a list of current user's jobs
   def myjobs
     @employees = current_user.employees
     authorize @employees
   end
 
+  # Updates an employee record to mark as invited
   def update
     @employee = Employee.find(params[:id])
     @employee.user_cpf = @employee.user.cpf
@@ -44,6 +45,8 @@ class EmployeesController < ApplicationController
       render :new, status: :unprocessable_entity
     end
   end
+
+  # Deletes an employee record
   def destroy
     @employee = Employee.find(params[:id])
     authorize @employee
@@ -51,12 +54,12 @@ class EmployeesController < ApplicationController
     flash[:alert] = "Funcionario removido com sucesso."
 
     redirect_to employees_path
-    # render :new, status: :unprocessable_entity
   end
 
   private
 
+  # Defines permitted parameters for creating or updating an employee
   def employee_params
-    params.require(:employee).permit(:manager, :farm_id)
+    params.require(:employee).permit(:manager, :farm_id, :user_cpf)
   end
 end

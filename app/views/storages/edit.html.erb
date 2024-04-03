@@ -1,7 +1,7 @@
 <div class="container">
   <div class="form-shape col-md-6 mx-auto">
-  <%= link_to storages_path, class: 'btn-back text-decoration-none' do %>
-    <i class='fa-solid fa-circle-left'></i>
+    <%= link_to storages_path, class: 'btn-back text-decoration-none' do %>
+      <i class='fa-solid fa-circle-left'></i>
     <% end %>
     <h2 class="form-title">Editar <%= @storage.name %></h2>
     <%= simple_form_for @storage do |f| %>
@@ -10,5 +10,5 @@
       <%= f.input :capacity, label: "Capacidade" %>
       <%= f.button :submit, "Atualizar Galpão", class:'btn-login' %>
     <% end %>
-    </div>
+  </div>
 </div>

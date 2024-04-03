@@ -1,8 +1,5 @@
 class ChemicalsController < ApplicationController
-  def index
-    @chemicals = Chemical.all
-  end
-
+  # Displays details of a specific chemical
   def show
     @chemical = Chemical.find(params[:id])
     authorize @chemical

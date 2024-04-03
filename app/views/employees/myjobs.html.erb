@@ -3,12 +3,12 @@
     <h1><i class="fas fa-warehouse"></i> Trabalhos</h1>
   </div>
 
- <% unless @employees.any? %>
+  <% unless @employees.any? %>
     <h2 class="fw-bold pending-date m-4 fs-3">Não há pêndencias disponíveis para esse período.</h2>
   <% end %>
-<div class="cards">
+  <div class="cards">
     <div class="row">
-     <% @employees.each do  |employee|%>
+      <% @employees.each do  |employee|%>
         <div class="col-sm-4">
           <div class="card-small p-4">
             <div class="card-small-content p-1">
@@ -26,8 +26,8 @@
                     <i class="fa-solid fa-user-xmark"></i>
                   <% end %>
                 </div>
-                <% else %>
-                  <i class="fa-solid fa-user-check"></i>
+              <% else %>
+                <i class="fa-solid fa-user-check"></i>
               <% end %>
             </div>
           </div>
@@ -35,9 +35,6 @@
       <% end %>
     </div>
   </div>
-
-
-
 </div>
 
 <div class="btn-plus-sign-container">

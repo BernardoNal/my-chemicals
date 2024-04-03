@@ -1,25 +1,20 @@
 class CartsController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_cart, only: %i[show record destroy]
 
+  # Displays a list of carts within a specified date range
   def index
     @carts = policy_scope(Cart).order(date_move: :desc)
     Cart.all.each do |cart|
-      if cart.cart_chemicals == []
-        cart.destroy
-      end
+      cart.destroy if cart.cart_chemicals == []
     end
     @start_date = params[:start_date].present? ? Date.parse(params[:start_date]) : Date.current.beginning_of_month
     @end_date = params[:end_date].present? ? Date.parse(params[:end_date]) : Date.current
     @carts = @carts.where(date_move: @start_date..@end_date).group_by(&:date_move)
-    respond_to do |format|
-      format.html
-      format.pdf do
-        pdf = CartPdf.new(@carts).call
-        send_data pdf, filename: "carts_report.pdf", type: "application/pdf"
-      end
-    end
+    render_pdf
   end
 
+  # Displays a list of pending carts
   def pending
     @carts = policy_scope(Cart).where(approved: false)
     authorize @carts
@@ -32,6 +27,7 @@ class CartsController < ApplicationController
     end
   end
 
+  # Initializes a new cart
   def new
     @storage = Storage.find(params[:format])
     @chemicals = Chemical.all
@@ -42,6 +38,7 @@ class CartsController < ApplicationController
     @cart_chemical = CartChemical.new
   end
 
+  # Creates a new cart
   def create
     Cart.where(storage_id: params[:storage_id]).destroy_by(approved: nil)
     @cart = Cart.new
@@ -55,6 +52,7 @@ class CartsController < ApplicationController
     end
   end
 
+  # Displays details of a specific cart
   def show
     @entry = params[:entry]
     @cart = Cart.find(params[:id])
@@ -62,31 +60,55 @@ class CartsController < ApplicationController
     @cart_chemical = CartChemical.new
     @chemicals = Chemical.all.order(product_name: :asc)
     existing_chemical_ids = @cart.cart_chemicals.pluck(:chemical_id)
-    # Remover os chemicals já presentes na lista de chemicals disponíveis
     @chemicals = @chemicals.where.not(id: existing_chemical_ids)
     @cart_chemicals = @cart.cart_chemicals
   end
 
+  # Records a cart
   def record
     @cart = Cart.find(params[:id])
     authorize @cart
-    if @cart.cart_chemicals != []
-      @cart.date_move = Time.now
-      manager = @cart.storage.farm.employees.find_by(user_id: current_user.id)
-      @cart.approved = (manager.present? && manager.manager) || @cart.storage.farm.user == current_user ? true : false
-      if @cart.save
-        redirect_to farms_path(farm_id: @cart.storage.farm_id, storage_id: @cart.storage_id)
-      else
-        render :new, status: :unprocessable_entity
-      end
+    return unless @cart.cart_chemicals != []
+
+    cart_record
+    if @cart.save
+      redirect_to farms_path(farm_id: @cart.storage.farm_id, storage_id: @cart.storage_id)
+    else
+      render :new, status: :unprocessable_entity
     end
   end
 
+  # Deletes a cart
   def destroy
     @cart = Cart.find(params[:id])
     authorize @cart
     @cart.destroy!
 
     redirect_to farms_path
+  end
+
+  private
+
+  # Sets the cart instance variable based on the provided id
+  def set_cart
+    @cart = Cart.find(params[:id])
+  end
+
+  # Renders a PDF format of the carts list
+  def render_pdf
+    respond_to do |format|
+      format.html
+      format.pdf do
+        pdf = CartPdf.new(@carts).call
+        send_data pdf, filename: "carts_report.pdf", type: "application/pdf"
+      end
+    end
+  end
+
+  # Processes the cart record
+  def cart_record
+    @cart.date_move = Time.now
+    manager = @cart.storage.farm.employees.find_by(user_id: current_user.id)
+    @cart.approved = (manager.present? && manager.manager) || @cart.storage.farm.user == current_user ? true : false
   end
 end

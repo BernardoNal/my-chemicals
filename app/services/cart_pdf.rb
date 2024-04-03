@@ -38,7 +38,10 @@ class CartPdf
           carts_group.each do |cart|
             text = "<b>Movimentação de número: </b> #{cart.id}\n" \
                    "<b>Fazenda:</b> #{cart.storage.farm.name}\n" \
-                   "<b>Galpão:</b> #{cart.storage.name}\n<b>Produto(s):</b>"
+                   "<b>Galpão:</b> #{cart.storage.name}\n" \
+                   "<b>Solicitante:</b> #{cart.requestor.first_name.titleize} #{cart.requestor.last_name.titleize}\n" \
+                   "<b>Aprovador:</b> #{cart.approver.first_name.titleize} #{cart.approver.last_name.titleize}\n" \
+                   "<b>Produto(s):</b>"
             pdf.text text, color: "6d7760", inline_format: true
 
             cart.cart_chemicals.each do |cart_chemical|

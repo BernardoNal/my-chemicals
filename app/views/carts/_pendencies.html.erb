@@ -7,7 +7,8 @@
           <div class="col-6">
             <li class="list-group-item d-flex justify-content-between align-items-start py-3" id="bg-color-light-green">
               <div class="ms-2 me-auto">
-                <div><strong class="fs-6">Saída #<%= cart.id %></strong> | Fazenda: <%= cart.storage.farm.name %> | Galpão: <%= cart.storage.name %></div>
+                <div><strong class="fs-6">Saída #<%= cart.id %></strong> | Fazenda: <%= cart.storage.farm.name %> | Galpão: <%= cart.storage.name %> <br>
+                Solicitante: <%= cart.requestor.first_name %> <%= cart.requestor.last_name %></div>
               </div>
               <span id ="bg-color-light-brown" class="badge rounded-pill">Pendente</span>
             </li>

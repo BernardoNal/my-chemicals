@@ -14,7 +14,7 @@
             <div class="card-small-content p-1">
               <div class="card-small-info">
                 <h3><i class="fa-brands fa-pagelines"></i></i> <%= employee.farm.name %></h3>
-                <p>Fazendeiro: <%= employee.farm.user.first_name %> <%= employee.farm.user.last_name %></p>
+                <p>Fazendeiro: <%= employee.farm.user.first_name.titleize %> <%= employee.farm.user.last_name.titleize %></p>
                 <p>Cargo : <%= employee.manager ? 'Gerente' : "Funcionário" %></h5>
               </div>
               <%if employee.invite == false  %>

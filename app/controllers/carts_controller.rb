@@ -43,7 +43,7 @@ class CartsController < ApplicationController
     Cart.where(storage_id: params[:storage_id]).destroy_by(approved: nil)
     @cart = Cart.new
     @storage = Storage.find(params[:storage_id])
-    @cart.storage = @storage
+    set_new_cart
     authorize @cart
     if @cart.save
       redirect_to cart_path(@cart, entry: params[:cart][:entry])
@@ -94,6 +94,13 @@ class CartsController < ApplicationController
     @cart = Cart.find(params[:id])
   end
 
+  # Sets the new cart instance variable
+  def set_new_cart
+    @cart.storage = @storage
+    @cart.requestor_id = current_user.id
+    @cart.approver_id = current_user.id
+  end
+
   # Renders a PDF format of the carts list
   def render_pdf
     respond_to do |format|
@@ -110,5 +117,6 @@ class CartsController < ApplicationController
     @cart.date_move = Time.now
     manager = @cart.storage.farm.employees.find_by(user_id: current_user.id)
     @cart.approved = (manager.present? && manager.manager) || @cart.storage.farm.user == current_user ? true : false
+    @cart.approver_id = current_user.id
   end
 end

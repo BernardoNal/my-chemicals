@@ -18,6 +18,7 @@ class EmployeesController < ApplicationController
     @employee = Employee.new(employee_params)
     @farms = current_user.farms
     @employee.user = User.find_by(cpf: @employee.user_cpf)
+    @employee.invite = false
     authorize @employee
     if @employee.save
       redirect_to employees_path

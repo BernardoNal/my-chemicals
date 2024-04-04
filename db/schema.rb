@@ -10,8 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_15_153406) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_03_184720) do
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pg_trgm"
   enable_extension "plpgsql"
   enable_extension "unaccent"
 
@@ -31,6 +32,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_15_153406) do
     t.boolean "approved"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "approver_id"
+    t.bigint "requestor_id"
+    t.index ["approver_id"], name: "index_carts_on_approver_id"
+    t.index ["requestor_id"], name: "index_carts_on_requestor_id"
     t.index ["storage_id"], name: "index_carts_on_storage_id"
   end
 
@@ -45,6 +50,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_15_153406) do
     t.float "dosage"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["product_name"], name: "index_chemicals_on_product_name", opclass: :gin_trgm_ops, using: :gin
   end
 
   create_table "clients", force: :cascade do |t|
@@ -112,6 +118,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_15_153406) do
   add_foreign_key "cart_chemicals", "carts"
   add_foreign_key "cart_chemicals", "chemicals"
   add_foreign_key "carts", "storages"
+  add_foreign_key "carts", "users", column: "approver_id"
+  add_foreign_key "carts", "users", column: "requestor_id"
   add_foreign_key "employees", "farms"
   add_foreign_key "employees", "users"
   add_foreign_key "farms", "users"

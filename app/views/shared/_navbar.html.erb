@@ -13,7 +13,7 @@
         <% if user_signed_in? %>
           <li class="nav-item dropdown">
           <a href="#" class=" btn nav-account p-2" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Bem vindo <%= current_user.first_name %> <i class="fa-solid fa-caret-down"></i>
+          Bem vindo <%= current_user.first_name.titleize %> <i class="fa-solid fa-caret-down"></i>
           </a>
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
               <%= link_to myfarms_path, class: "dropdown-item" do %>

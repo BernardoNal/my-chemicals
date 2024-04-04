@@ -13,7 +13,7 @@
             <% farm.employees.each do |employee| %>
               <div class="card-item">
                 <div class="card-item-content">
-                  <span class="employee-name" ><%= employee.user.first_name %>  <%= employee.user.last_name %></span>
+                  <span class="employee-name" ><%= employee.user.first_name.titleize %>  <%= employee.user.last_name.titleize %></span>
                   <% if employee.manager %>
                     <i class="fa-solid fa-user-tie"></i>
                   <% end %>

@@ -37,6 +37,8 @@ class CartPdf
 
           carts_group.each do |cart|
             text = "<b>Movimentação de número: </b> #{cart.id}\n" \
+                   "<b>Data da solicitação: </b> #{cart.created_at.strftime("%d-%m-%y %H:%M")}\n" \
+                   "<b>Data da aprovação: </b> #{cart.updated_at.strftime("%d-%m-%y %H:%M")}\n" \
                    "<b>Fazenda:</b> #{cart.storage.farm.name}\n" \
                    "<b>Galpão:</b> #{cart.storage.name}\n" \
                    "<b>Solicitante:</b> #{cart.requestor.first_name.titleize} #{cart.requestor.last_name.titleize}\n" \

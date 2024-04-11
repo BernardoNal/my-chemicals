@@ -58,7 +58,8 @@ class CartsController < ApplicationController
     @cart = Cart.find(params[:id])
     authorize @cart
     @cart_chemical = CartChemical.new
-    @chemicals = Chemical.all.order(product_name: :asc)
+    exit_chemicals
+    @chemicals = @entry == "0" ? @chemicals_exit : Chemical.all.order(product_name: :asc)
     existing_chemical_ids = @cart.cart_chemicals.pluck(:chemical_id)
     @chemicals = @chemicals.where.not(id: existing_chemical_ids)
     @cart_chemicals = @cart.cart_chemicals
@@ -72,6 +73,7 @@ class CartsController < ApplicationController
 
     cart_record
     if @cart.save
+      CartMailer.with(@cart).create_pendence.deliver_now unless @cart.approved
       redirect_to farms_path(farm_id: @cart.storage.farm_id, storage_id: @cart.storage_id)
     else
       render :new, status: :unprocessable_entity
@@ -83,7 +85,6 @@ class CartsController < ApplicationController
     @cart = Cart.find(params[:id])
     authorize @cart
     @cart.destroy!
-
     redirect_to farms_path
   end
 
@@ -118,5 +119,16 @@ class CartsController < ApplicationController
     manager = @cart.storage.farm.employees.find_by(user_id: current_user.id)
     @cart.approved = (manager.present? && manager.manager) || @cart.storage.farm.user == current_user ? true : false
     @cart.approver_id = current_user.id
+  end
+
+  # A collection of chemicals with their total exited quantities.
+  def exit_chemicals
+    @carts = @cart.storage.carts
+    @chemicals_exit = Chemical.joins(:cart_chemical)
+                              .where(cart_chemicals: { cart_id: @carts.ids })
+                              .group('chemicals.id')
+                              .having('SUM(cart_chemicals.quantity) > 0')
+                              .select('chemicals.*, SUM(cart_chemicals.quantity) AS total_quantity')
+                              .order(product_name: :asc)
   end
 end

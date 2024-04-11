@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Olá, <%= @cart.storage.farm.user.first_name.titleize %> <%= @cart.storage.farm.user.last_name.titleize %></h1>
+    <p>
+      Foi criado uma pendecia pelo funcionário <%= @user.first_name.titleize %> <%= @user.last_name.titleize %>.<br>
+    </p>
+    <p>
+      Para verificar esse pendecia, basta acessar ess link: <%= link_to "Pendencias", root_url  %>.
+      <%# @url %>
+    </p>
+    <p>Agradecemos pela sua atenção e tenha um bom dia!</p>
+  </body>
+</html>

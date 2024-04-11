@@ -69,8 +69,9 @@ class CartsController < ApplicationController
     @cart = Cart.find(params[:id])
     authorize @cart
     return unless @cart.cart_chemicals != []
-
     cart_record
+
+    mail_cart_record
     if @cart.save
       redirect_to farms_path(farm_id: @cart.storage.farm_id, storage_id: @cart.storage_id)
     else
@@ -118,5 +119,18 @@ class CartsController < ApplicationController
     manager = @cart.storage.farm.employees.find_by(user_id: current_user.id)
     @cart.approved = (manager.present? && manager.manager) || @cart.storage.farm.user == current_user ? true : false
     @cart.approver_id = current_user.id
+  end
+
+  def mail_cart_record
+
+
+        # Tell the CartMailer to send a welcome email after save
+        CartMailer.with(@cart).create_pendence.deliver_now
+        # format.html { redirect_to(current_user, notice: 'Pendence was successfully created.') }
+        # format.json { render json: current_user, status: :created, location: current_user }
+      # else
+      #   format.html { render action: 'new' }
+      #   format.json { render json: @user.errors, status: :unprocessable_entity }
+      # end
   end
 end

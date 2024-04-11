@@ -18,6 +18,7 @@
   </div>
 
   <div class="card-btn d-flex flex-row-reverse justify-content-evenly">
+
     <%= simple_form_for [storage,cart] do |f|%>
       <%= f.hidden_field :entry, value: 0 %>
       <button name="button" type="submit" class="btn-out-product my-4">
@@ -29,35 +30,34 @@
     <% if (manager.present? && manager.manager) || @storage.farm.user == current_user %>
       <%= simple_form_for [storage, cart] do |f|%>
         <%= f.hidden_field :entry, value: 1 %>
-        <button name="button" type="submit" class="btn-new-product my-4">
+        <button name="button" type="submit" class=" btn-new-product my-4">
           <i class="fa-solid fa-up-long"></i> Entrada de produto
         </button>
       <% end %>
     <% end %>
-
     <h2 class='my-4'>Meus produtos:</h2>
   </div>
 
-  <div id="cart-<%= cart.id %>" class="table-responsive col-12">
+   <div id="cart-<%= cart.id %>" class="table-responsive col-12">
     <table id="search-results-bottom" class="table table-dark table-striped table-bordered ">
       <thead>
         <tr>
-          <th class='text-center' scope="col">Nome</th>
-          <th class='text-center' scope="col">Tipo</th>
-          <th class='text-center' scope="col">Composto</th>
-          <th class='text-center' scope="col">Total em estoque</th>
+          <th class='text-center' scope="col-2">Nome</th>
+          <th class='text-center' scope="col-2">Tipo</th>
+          <th class='text-center' scope="col-2">Composto</th>
+          <th class='text-center' scope="col-2">Total em estoque</th>
         </tr>
       </thead>
       <tbody>
-        <% @chemical_totals.each do |chemical_total, chemical_value| %>
-        <% total_quantity = chemical_value.sum(&:quantity) %>
-        <% chemical = Chemical.find_by(id: chemical_total) %>
-        <tr>
-          <td class='text-center'><%= link_to chemical_path(chemical_total), data: {turbo_frame: :modal}, class: "text-decoration-none text-white" do %> <%= highlight_background(Chemical.find(chemical_total).product_name, params.dig(:search, :query)) %> <% end %></td>
-          <td class='text-center'><%= Chemical.find(chemical_total).type_product %></td>
-          <td class='text-center'><%= Chemical.find(chemical_total).compound_product %></td>
-          <td class='text-center'><%= total_quantity*Chemical.find(chemical_total).amount%> <%= Chemical.find(chemical_total).measurement_unit %> </td>
-        </tr>
+        <% @chemical_totals.each do |chemical| %>
+          <% if chemical.total_quantity > 0   %>
+            <tr>
+              <td class='text-center'><%= link_to chemical_path(chemical), data: {turbo_frame: :modal}, class: "text-decoration-none text-white" do %> <%= highlight_background(chemical.product_name, params.dig(:search, :query)) %> <% end %></td>
+              <td class='text-center'><%= chemical.type_product %></td>
+              <td class='text-center'><%= chemical.compound_product %></td>
+              <td class='text-center'><%= chemical.total_quantity*chemical.amount%> <%= chemical.measurement_unit %> </td>
+            </tr>
+          <% end %>
         <% end %>
 
       </tbody>

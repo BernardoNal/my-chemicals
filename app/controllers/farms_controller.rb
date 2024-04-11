@@ -92,10 +92,12 @@ class FarmsController < ApplicationController
     @storage = Storage.find(params[:storage_id])
     @carts = @storage.carts
     @cart = Cart.new
-    @chemical_totals = CartChemical.joins(:chemical, :cart)
-                                   .where(cart: { approved: true })
-                                   .where(cart: @carts)
-                                   .group_by(&:chemical_id)
+    @chemical_totals = Chemical.joins(:cart_chemical)
+                               .where(cart_chemicals: { cart_id: @carts.ids })
+                               .group('chemicals.id')
+                               .having('SUM(cart_chemicals.quantity) > 0')
+                               .select('chemicals.*, SUM(cart_chemicals.quantity) AS total_quantity')
+                               .order(product_name: :asc)
   end
 
   # Searches for chemicals

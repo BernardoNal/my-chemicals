@@ -6,11 +6,24 @@
   <body>
     <h1>Olá, <%= @cart.storage.farm.user.first_name.titleize %> <%= @cart.storage.farm.user.last_name.titleize %></h1>
     <p>
-      Foi criado uma pendecia pelo funcionário <%= @user.first_name.titleize %> <%= @user.last_name.titleize %>.<br>
+      Foi criado uma pendência para fazenda <%= @cart.storage.farm.name %> no galpão <%= @cart.storage.name %> pelo funcionário <%= @user.first_name.titleize %> <%= @user.last_name.titleize %>.<br>
     </p>
+    <table border="1" >
+    <tr>
+        <td>Produto</td>
+        <td>Quantidade</td>
+    </tr>
+    <% @cart.cart_chemicals.each do |item| %>
+      <tr>
+          <td> <%= item.chemical.product_name %> </td>
+          <td> <%= item.quantity %> </td>
+      </tr>
+    <% end %>
+</table>
+
+
     <p>
-      Para verificar esse pendecia, basta acessar ess link: <%= link_to "Pendencias", root_url  %>.
-      <%# @url %>
+      Para verificar esse pendência, basta acessar ess link: <%= link_to "Pendências", @url  %>.
     </p>
     <p>Agradecemos pela sua atenção e tenha um bom dia!</p>
   </body>

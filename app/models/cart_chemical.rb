@@ -9,13 +9,14 @@ class CartChemical < ApplicationRecord
   validates  :quantity, :chemical_id, presence: true
   validate :check_stock
   validate :negative
+  validate :rounded_number
 
   # Calculates the total quantity for the chemical in the associated cart's storage
   def quantity_total
     return unless chemical_id
 
     CartChemical.joins(:chemical, :cart)
-                .where(chemical: Chemical.find(chemical_id))
+                .where(chemical: chemical)
                 .where(cart: { approved: true, storage_id: cart.storage_id })
                 .sum(:quantity)
   end
@@ -34,5 +35,13 @@ class CartChemical < ApplicationRecord
     return unless (quantity.positive? && entry == '0') || (quantity.negative? && entry == '1')
 
     errors.add(:quantity, message: 'invalid')
+  end
+
+  # Validates the quantity to prevent broken quantities
+  def rounded_number
+    return unless quantity && chemical_id
+    return unless quantity * chemical.amount % 0.5 != 0
+
+    errors.add(:quantity, message: 'invalid for rounding')
   end
 end

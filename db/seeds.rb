@@ -10,7 +10,7 @@ require "cpf_cnpj"
 Chemical.destroy_all
 
 csv_file = Rails.root.join('db/data', 'my_csv_file.csv')
-
+a = 0
 CSV.foreach(csv_file, headers: true) do |row|
   Chemical.create!(
     product_name: row['Produto'],
@@ -18,9 +18,10 @@ CSV.foreach(csv_file, headers: true) do |row|
     type_product: row['CLASSE_AGRONOMICA'],
     area: row['NO_CULTURA'],
     measurement_unit: row['NO_UNIDADE_MEDIDA'],
-    amount: [1, 5, 10, 20, 20, 20, 20, 20].sample
+    amount: row['Amount'].presence || [1, 5, 10, 20, 20, 20, 20, 20].sample
   )
-  puts "Product created..."
+  a += 1
+  puts "Product #{a} created..." if (a % 10).zero?
 end
 
 User.create!(
@@ -31,42 +32,13 @@ User.create!(
   address: 'quintal do espeto',
   cpf: CPF.generate
 )
-User.create!(
-  email: "jordano@email.com",
-  password: '123456',
-  first_name: 'Jordano',
-  last_name: 'Oliveira',
-  address: 'quintal do espeto',
-  cpf: CPF.generate
-)
-User.create!(
-  email: "lucas@email.com",
-  password: '123456',
-  first_name: 'Lucas',
-  last_name: 'Moreno',
-  address: 'quintal do espeto',
-  cpf: CPF.generate
-)
-User.create!(
-  email: "clara@email.com",
-  password: '123456',
-  first_name: 'Clara',
-  last_name: 'Leal',
-  address: 'quintal do espeto',
-  cpf: CPF.generate
-)
+
 
 Farm.create!(name: 'Sol Nascente', size: '500 ha', cep: '49075220', user_id: 1)
-Farm.create!(name: 'Maria da Murta', size: '200 ha', cep: '49075550', user_id: 1)
-Farm.create!(name: 'Lagoa Escura', size: '600 ha', cep: '49075420', user_id: 2)
-
-Employee.create!(manager: false, invite: true, user_id: 4, farm_id: 1)
-Employee.create!(manager: true, invite: false, user_id: 3, farm_id: 1)
 
 Storage.create!(name: "Galpão principal", size: '20 m2', capacity: 1000, farm_id: 1)
 Storage.create!(name: "Galpão da laranja", size: '10 m2', capacity: 400, farm_id: 1)
-Storage.create!(name: "Galpão do Rio", size: '5 m2', capacity: 200, farm_id: 2)
-Storage.create!(name: "Galpão da baixa funda", size: '10 m2', capacity: 400, farm_id: 3)
+
 
 # Chemical.create!(product_name: "Crucial", compound_product: "Glifosato", type_product: 'Herbicida', area: 'Milho,Laranja,Soja', measurement_unit: 'L', amount: 20)
 # Chemical.create!(product_name: "N400", compound_product: "Nitrogenio", type_product: 'Adubo Foliar', area: 'Milho,Laranja,Soja', measurement_unit: 'L', amount: 20)

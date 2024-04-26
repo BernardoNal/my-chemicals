@@ -1,0 +1,7 @@
+one:
+  product_name: "Vorax"
+  compound_product: "Ácido L-Glutâmico"
+  type_product: 'Bio-Fertilizante'
+  area: 'Milho,Laranja,Soja'
+  measurement_unit: 'L'
+  amount: 1

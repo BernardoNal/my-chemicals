@@ -21,7 +21,7 @@ CSV.foreach(csv_file, headers: true) do |row|
     amount: row['Amount'].presence || [1, 5, 10, 20, 20, 20, 20, 20].sample
   )
   a += 1
-  puts "Product #{a} created..." if (a % 10).zero?
+  puts "Product #{a} created..." if (a % 100).zero?
 end
 
 User.create!(

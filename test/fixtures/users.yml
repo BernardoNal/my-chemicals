@@ -1,0 +1,7 @@
+henrique:
+  email: "henrique@email.com"
+  # password: '123456'
+  first_name: 'Henrique'
+  last_name: 'Dias'
+  address: 'quintal do espeto'
+  cpf: 79143178880

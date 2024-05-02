@@ -1,12 +1,12 @@
 require 'rails_helper'
 
-RSpec.describe FarmsController, type: :controller do
-  fixtures :users, :farms
+RSpec.describe StoragesController, type: :controller do
+  fixtures :users, :storages, :farms
 
   describe "GET edit" do
     it "returns a 200" do
       sign_in users(:henrique)
-      get :edit, params: { id: farms(:one).id }
+      get :edit, params: { id: storages(:one).id }
       expect(response).to have_http_status(200)
     end
   end
@@ -15,14 +15,6 @@ RSpec.describe FarmsController, type: :controller do
     it "returns a 200" do
       sign_in users(:henrique)
       get :index
-      expect(response).to have_http_status(200)
-    end
-  end
-
-  describe "GET myfarms" do
-    it "returns a 200" do
-      sign_in users(:henrique)
-      get :myfarms
       expect(response).to have_http_status(200)
     end
   end
@@ -37,31 +29,33 @@ RSpec.describe FarmsController, type: :controller do
 
   describe "POST create" do
     let(:valid_params) do
-      { farm: { name: "Nova Fazenda 2", size: "100 ha", cep: "12345678" } }
+      { storage: {  name: "Galpão principal 2",
+                    size: '20 m2',
+                    capacity: 1000,
+                    farm_id: farms(:one).id } }
     end
 
     let(:invalid_params) do
-      { farm: { name: "", size: "", cep: "" } }
+      { storage: { name: '',
+                   size: '',
+                   capacity: '',
+                   farm_id: '' } }
     end
 
     context "when user is authenticated" do
       before { sign_in users(:henrique) }
 
-      it "creates a new farm with valid parameters" do
-        expect {
-          post :create, params: valid_params
-        }.to change(Farm, :count).by(1)
+      it "creates a new storage with valid parameters" do
+        expect { post :create, params: valid_params }.to change(Storage, :count).by(1)
       end
 
-      it "redirects to myfarms_path after creating a new farm" do
+      it "redirects to storages_path after creating a new storage" do
         post :create, params: valid_params
-        expect(response).to redirect_to(myfarms_path)
+        expect(response).to redirect_to(storages_path)
       end
 
-      it "does not create a new farm with invalid parameters" do
-        expect {
-          post :create, params: invalid_params
-        }.not_to change(Farm, :count)
+      it "does not create a new storage with invalid parameters" do
+        expect { post :create, params: invalid_params }.not_to change(Storage, :count)
       end
 
       it "renders the new template when parameters are invalid" do
@@ -78,18 +72,18 @@ RSpec.describe FarmsController, type: :controller do
   end
 
   describe "PUT update" do
-    it "updates the farm" do
+    it "updates the storage" do
       sign_in users(:henrique)
-      put :update, params: { id: farms(:one).id, farm: { name: "Updated Farm" } }
-      expect(response).to redirect_to(myfarms_path)
+      put :update, params: { id: storages(:one).id, storage: { name: "Updated storage" } }
+      expect(response).to redirect_to(storages_path)
     end
   end
 
   describe "DELETE destroy" do
-    it "deletes the farm" do
+    it "deletes the storage" do
       sign_in users(:henrique)
-      delete :destroy, params: { id: farms(:one).id }
-      expect(response).to redirect_to(myfarms_path)
+      delete :destroy, params: { id: storages(:one).id }
+      expect(response).to redirect_to(storages_path)
     end
   end
 end

@@ -6,5 +6,5 @@ class Farm < ApplicationRecord
   has_many :employees, dependent: :destroy
 
   # Validations
-  validates :name, :size, :cep, presence: true
+  validates :name, :size, :cep,:user_id, presence: true
 end

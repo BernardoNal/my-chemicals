@@ -10,3 +10,9 @@ carlos:
   last_name: 'Dias'
   address: 'quintal do espeto'
   cpf: 90236213016
+rogerio:
+  email: "rogerio@email.com"
+  first_name: 'rogerio'
+  last_name: 'Dias'
+  address: 'quintal do espeto'
+  cpf: 56974952007

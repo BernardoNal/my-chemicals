@@ -1,29 +1,14 @@
 require 'rails_helper'
 
-RSpec.describe FarmsController, type: :controller do
-  fixtures :users, :farms
+RSpec.describe EmployeesController, type:  :controller do
+  fixtures :employees, :users, :farms
   before { sign_in users(:henrique) }
-  describe "GET edit" do
-    it "returns a 200" do
-      get :edit, params: { id: farms(:one).id }
-      expect(response).to have_http_status(200)
-      expect(response).to render_template(:edit)
-    end
-  end
 
   describe "GET index" do
     it "returns a 200" do
       get :index
       expect(response).to have_http_status(200)
       expect(response).to render_template(:index)
-    end
-  end
-
-  describe "GET myfarms" do
-    it "returns a 200" do
-      get :myfarms
-      expect(response).to have_http_status(200)
-      expect(response).to render_template(:myfarms)
     end
   end
 
@@ -35,31 +20,37 @@ RSpec.describe FarmsController, type: :controller do
     end
   end
 
+
   describe "POST create" do
     let(:valid_params) do
-      { farm: { name: "Nova Fazenda 2", size: "100 ha", cep: "12345678" } }
+      { employee: { farm_id: farms(:one).id,
+                    manager: false,
+                    user_cpf: '56974952007',
+                    invite: false } }
     end
 
     let(:invalid_params) do
-      { farm: { name: "", size: "", cep: "" } }
+      { employee: { farm_id: nil,
+                    manager: nil,
+                    user_cpf: ''} }
     end
 
     context "when user is authenticated" do
-      it "creates a new farm with valid parameters" do
+      it "creates a new employee with valid parameters" do
         expect {
           post :create, params: valid_params
-        }.to change(Farm, :count).by(1)
+        }.to change(Employee, :count).by(1)
       end
 
-      it "redirects to myfarms_path after creating a new farm" do
+      it "redirects to employees_path after creating a new employee" do
         post :create, params: valid_params
-        expect(response).to redirect_to(myfarms_path)
+        expect(response).to redirect_to(employees_path)
       end
 
-      it "does not create a new farm with invalid parameters" do
+      it "does not create a new employee with invalid parameters" do
         expect {
           post :create, params: invalid_params
-        }.not_to change(Farm, :count)
+        }.not_to change(Employee, :count)
       end
 
       it "renders the new template when parameters are invalid" do
@@ -74,18 +65,26 @@ RSpec.describe FarmsController, type: :controller do
       end
     end
   end
+  describe "GET myjobs" do
+    it "returns a 200" do
+      get :myjobs
+      expect(response).to have_http_status(200)
+      expect(response).to render_template(:myjobs)
+    end
+  end
+
 
   describe "PUT update" do
-    it "updates the farm" do
-      put :update, params: { id: farms(:one).id, farm: { name: "Updated Farm" } }
-      expect(response).to redirect_to(myfarms_path)
+    it "updates the employee" do
+      put :update, params: { id: employees(:one).id }
+      expect(response).to redirect_to(myjobs_path)
     end
   end
 
   describe "DELETE destroy" do
-    it "deletes the farm" do
-      delete :destroy, params: { id: farms(:one).id }
-      expect(response).to redirect_to(myfarms_path)
+    it "deletes the employee" do
+      delete :destroy, params: { id: employees(:one).id }
+      expect(response).to redirect_to(employees_path)
     end
   end
 end

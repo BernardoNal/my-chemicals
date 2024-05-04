@@ -20,6 +20,9 @@ class EmployeesController < ApplicationController
     @employee.user = User.find_by(cpf: @employee.user_cpf)
     @employee.invite = false
     authorize @employee
+    p @employee
+    @employee.valid?
+    p @employee.errors
     if @employee.save
       redirect_to employees_path
       flash[:alert] = "Convite enviado com sucesso."

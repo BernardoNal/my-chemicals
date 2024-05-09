@@ -1021,7 +1021,7 @@ DICLORETO DE PARAQUATE,Quimico,DICLORETO DE PARAQUATE,HERBICIDA,Soja, LT,Jaguar
 DICLORETO DE PARAQUATE,Quimico,DICLORETO DE PARAQUATE,HERBICIDA,Sorgo, LT,Gli-Up 480 SL
 DICLORETO DE PARAQUATE,Quimico,DICLORETO DE PARAQUATE,HERBICIDA,Abacaxi, LT,Glifosato Nortox 480 BR
 DICLORETO DE PARAQUATE,Quimico,DICLORETO DE PARAQUATE,HERBICIDA,Batata, LT,Turuna
-DICLORETO DE PARAQUATE,Quimico,DICLORETO DE PARAQUATE,HERBICIDA,Café, LT,Nufuron
+DICLORETO DE PARAQUATE,Quimico,DICLORETO DE PARAQUATE,HERBICIDA,Café, G,Nufuron,10
 DICLORETO DE PARAQUATE,Quimico,DICLORETO DE PARAQUATE,HERBICIDA,Trigo, LT,Herbadox 400 EC
 DICLORETO DE PARAQUATE,Quimico,DICLORETO DE PARAQUATE,HERBICIDA,Arroz, LT,Arena
 DICLORETO DE PARAQUATE,Quimico,DICLORETO DE PARAQUATE,HERBICIDA,Algodão, LT,Campeon
@@ -1089,7 +1089,7 @@ Flumioxazina,Quimico,Flumioxazina,HERBICIDA,Batata, LT,Liberty
 Flumioxazina,Quimico,Flumioxazina,HERBICIDA,Citros, LT,Hexazinona - D Nortox
 Flumioxazina,Quimico,Flumioxazina,HERBICIDA,Mandioca, LT,Hexafort
 Flumioxazina,Quimico,Flumioxazina,HERBICIDA,Cebola, LT,Hexanil 750 WG
-Flumioxazina,Quimico,Flumioxazina,HERBICIDA,Soja, LT,Norton,20
+Flumioxazina,Quimico,Flumioxazina,HERBICIDA,Soja, LT,Norton,1
 Flumioxazina,Quimico,Flumioxazina,HERBICIDA,Trigo, LT,Pri-Mordial
 FOMESAFEM,Quimico,FOMESAFEM,HERBICIDA,Algodão, LT,Baris; GLIFOSATO 480 SL PERTERRA; Glifosato  480 SL Sino-Agri;
 FOMESAFEM,Quimico,FOMESAFEM,HERBICIDA,Feijão, LT,Escudo 500 EC
@@ -1217,7 +1217,7 @@ IMAZAPIR,Quimico,IMAZAPIR,HERBICIDA,Girassol, LT,Platon
 Imazaquim,Quimico,Imazaquim,HERBICIDA,Soja, LT,Glyphotal WG
 IMAZETAPIR,Quimico,IMAZETAPIR,HERBICIDA,Sorgo, LT,Potensato
 IMAZETAPIR,Quimico,IMAZETAPIR,HERBICIDA,Arroz, LT,Stone
-IMAZETAPIR,Quimico,IMAZETAPIR,HERBICIDA,Feijões, LT,Alion
+IMAZETAPIR,Quimico,IMAZETAPIR,HERBICIDA,Feijões, LT,Alion,1
 IMAZETAPIR,Quimico,IMAZETAPIR,HERBICIDA,Grão-de-bico, LT,Glyphon
 IMAZETAPIR,Quimico,IMAZETAPIR,HERBICIDA,Amendoim, LT,Diquash 200 SL
 IMAZETAPIR,Quimico,IMAZETAPIR,HERBICIDA,Feijão, LT,Cultifix
@@ -1377,7 +1377,11 @@ QUIZALOFOPE-P-ETÍLICO,Quimico,QUIZALOFOPE-P-ETÍLICO,HERBICIDA,Feijão-caupi, L
 QUIZALOFOPE-P-ETÍLICO,Quimico,QUIZALOFOPE-P-ETÍLICO,HERBICIDA,Soja, LT,Glifosato K Atanor
 QUIZALOFOPE-P-ETÍLICO,Quimico,QUIZALOFOPE-P-ETÍLICO,HERBICIDA,Trigo, LT,Bleran
 QUIZALOFOPE-P-ETÍLICO,Quimico,QUIZALOFOPE-P-ETÍLICO,HERBICIDA,Citros, LT,Gopan
-QUIZALOFOPE-P-ETÍLICO,Quimico,QUIZALOFOPE-P-ETÍLICO,HERBICIDA,Centeio, LT,Glufosinate-Ammonium 200 SL Yonon; Glufosinato 200 Agroimport; Glufosinato YNN 200 SL Perterra; Loyer SL; Clavengo;
+QUIZALOFOPE-P-ETÍLICO,Quimico,QUIZALOFOPE-P-ETÍLICO,HERBICIDA,Qualquer, LT,Glufosinate-Ammonium 200 SL Yonon,20
+QUIZALOFOPE-P-ETÍLICO,Quimico,QUIZALOFOPE-P-ETÍLICO,HERBICIDA,Centeio, LT,Glufosinato 200 Agroimport
+QUIZALOFOPE-P-ETÍLICO,Quimico,QUIZALOFOPE-P-ETÍLICO,HERBICIDA,Centeio, LT,Glufosinato YNN 200 SL Perterra
+QUIZALOFOPE-P-ETÍLICO,Quimico,QUIZALOFOPE-P-ETÍLICO,HERBICIDA,Centeio, LT,Loyer SL
+QUIZALOFOPE-P-ETÍLICO,Quimico,QUIZALOFOPE-P-ETÍLICO,HERBICIDA,Centeio, LT,Clavengo
 QUIZALOFOPE-P-ETÍLICO,Quimico,QUIZALOFOPE-P-ETÍLICO,HERBICIDA,Batata, LT,Pastor; Zapar;
 QUIZALOFOPE-P-ETÍLICO,Quimico,QUIZALOFOPE-P-ETÍLICO,HERBICIDA,Cevada, LT,"2,4-D Agroimport"
 QUIZALOFOPE-P-ETÍLICO,Quimico,QUIZALOFOPE-P-ETÍLICO,HERBICIDA,Lentilha, LT,Soyatop Xtra
@@ -1456,7 +1460,7 @@ Setoxidim,Quimico,Setoxidim,HERBICIDA,Algodão, LT,Limpa
 Setoxidim,Quimico,Setoxidim,HERBICIDA,Milho, LT,"2,4-D Nortox 970 WG"
 Setoxidim,Quimico,Setoxidim,HERBICIDA,Feijão, LT,Baguera
 Setoxidim,Quimico,Setoxidim,HERBICIDA,Soja, LT,Liminar 500 SC
-SIMAZINA,Quimico,SIMAZINA,HERBICIDA,Cacau, LT,Off Road
+GLUFOSINATO,Quimico,GLUFOSINATO,HERBICIDA,Citrus, LT,Off Road,20
 SIMAZINA,Quimico,SIMAZINA,HERBICIDA,Citros, LT,TordonUltra-S
 SIMAZINA,Quimico,SIMAZINA,HERBICIDA,Banana, LT,TronadorUltra-S
 SIMAZINA,Quimico,SIMAZINA,HERBICIDA,Abacaxi, LT,Dontor Ultra
@@ -1731,9 +1735,11 @@ ALFA-CIPERMETRINA,Quimico,ALFA-CIPERMETRINA,INSETICIDA,Nabo, LT,Polo 500 SC
 ALFA-CIPERMETRINA,Quimico,ALFA-CIPERMETRINA,INSETICIDA,Abacaxi, LT,Sumifog 70
 ALFA-CIPERMETRINA,Quimico,ALFA-CIPERMETRINA,INSETICIDA,Amora, LT,Actellic 500 EC
 ALFA-CIPERMETRINA,Quimico,ALFA-CIPERMETRINA,INSETICIDA,Aveia, LT,Supermetrina Agria 500
-ALFA-CIPERMETRINA,Quimico,ALFA-CIPERMETRINA,INSETICIDA,Chicória, LT,Cefanol; Acefato 750 Tide; Socker 750; Socker SP;
+ALFA-CIPERMETRINA,Quimico,ALFA-CIPERMETRINA,INSETICIDA,Chicória, LT,Cefanol; Acefato 750 Tide
+ALFA-CIPERMETRINA,Quimico,ALFA-CIPERMETRINA,INSETICIDA,Feijão, LT,Socker 750; Socker SP;
 ALFA-CIPERMETRINA,Quimico,ALFA-CIPERMETRINA,INSETICIDA,Espinafre, LT,Natur'l Óleo
-ALFA-CIPERMETRINA,Quimico,ALFA-CIPERMETRINA,INSETICIDA,Feijão, LT,Cruiser 350 FS; Domeron; Vitalis;
+ALFA-CIPERMETRINA,Quimico,ALFA-CIPERMETRINA,INSETICIDA,Feijão, LT,Cruiser 350 FS; Domeron;
+ALFA-CIPERMETRINA,Quimico,ALFA-CIPERMETRINA,INSETICIDA,Feijão, LT,Vitalis
 ALFA-CIPERMETRINA,Quimico,ALFA-CIPERMETRINA,INSETICIDA,Nectarina, LT,Argenfrut RV
 ALFA-CIPERMETRINA,Quimico,ALFA-CIPERMETRINA,INSETICIDA,Nêspera, LT,Turbine 500 WG
 ALFA-CIPERMETRINA,Quimico,ALFA-CIPERMETRINA,INSETICIDA,Acelga, LT,Carbine 500 WG
@@ -1927,6 +1933,7 @@ BETA-CIPERMETRINA,Quimico,BETA-CIPERMETRINA,INSETICIDA,Almeirão, LT,Terra Forte
 BETA-CIPERMETRINA,Quimico,BETA-CIPERMETRINA,INSETICIDA,Couve-chinesa, LT,Fortenza 600 FS; Onipax;
 BETA-CIPERMETRINA,Quimico,BETA-CIPERMETRINA,INSETICIDA,Melão, LT,Kaiso Sorbie BR
 BETA-CIPERMETRINA,Quimico,BETA-CIPERMETRINA,INSETICIDA,Milho, KG,Maestro FS,10
+BETA-CIPERMETRINA,Quimico,BETA-CIPERMETRINA,INSETICIDA,Milho, KG,Maestro WG,1
 BETA-CIPERMETRINA,Quimico,BETA-CIPERMETRINA,INSETICIDA,Repolho, LT,Eficax
 BETA-CIPERMETRINA,Quimico,BETA-CIPERMETRINA,INSETICIDA,Rúcula, LT,Chiave Sup
 BETA-CIPERMETRINA,Quimico,BETA-CIPERMETRINA,INSETICIDA,Grão-de-bico, LT,Herold SC
@@ -2080,7 +2087,8 @@ Ciantraniliprole,Quimico,Ciantraniliprole,INSETICIDA,Feijão, LT,Sortic
 Ciantraniliprole,Quimico,Ciantraniliprole,INSETICIDA,Maxixe, LT,Haffor
 Ciantraniliprole,Quimico,Ciantraniliprole,INSETICIDA,Pepino, LT,Dinno
 Ciantraniliprole,Quimico,Ciantraniliprole,INSETICIDA,Maçã, LT,Starkle
-Ciantraniliprole,Quimico,Ciantraniliprole,INSETICIDA,Cana-de-açúcar, LT,Zeus; Estrela;
+Ciantraniliprole,Quimico,Ciantraniliprole,INSETICIDA,Cana-de-açúcar, LT,Zeus
+Ciantraniliprole,Quimico,Ciantraniliprole,INSETICIDA,Cana-de-açúcar, LT,Estrela
 Ciantraniliprole,Quimico,Ciantraniliprole,INSETICIDA,Marmelo, LT,Maxsan; Possante;
 Ciantraniliprole,Quimico,Ciantraniliprole,INSETICIDA,Chuchu, LT,Piriproxifem CCAB 100 EC
 Ciantraniliprole,Quimico,Ciantraniliprole,INSETICIDA,Couve-chinesa, LT,ÍmparBR
@@ -2488,13 +2496,24 @@ Ureia ,Quimico, Ureia ,Adubo,Citros/Milho, KG,Ureia,50
 --- ,Quimico, --- ,Adjuvante e Redutor de ph,Qualquer, LT,Lower 7,1
 Mancozebe ,Quimico, Mancozebe ,Fungicida,Qualquer, KG,Ditahne NT,10
 Mancozebe ,Quimico, Mancozebe ,Fungicida,Qualquer, KG,Mancozeb Nortox,10
-Fósforo ,Quimico,Fósforo ,Fertilizante Foliar,Soja/Milho/Feijão, LT,Multi P30,1
+Fósforo ,Quimico,Fósforo ,Fertilizante Foliar,Soja/Milho/Feijão, LT,Multifol P30,5
 Espirodiclofeno ,Quimico,Espirodiclofeno ,Acaricida,Café/Citros, LT,Esteio,1
 Magnésio,Quimico,Magnésio,Fertilizante Foliar,Qualquer, LT,Mastermix Magnésio,10
 Cálcio e Boro,Quimico,Cálcio e Boro,Fertilizante Foliar,Qualquer, LT,Glutamin Florada,20
 Cobre e Enxofre,Quimico,Cobre e Enxofre,Fertilizante Foliar,Qualquer, LT,Cuprus 150,10
 Cobre, Quimico, Cobre,Fertilizante Foliar,Qualquer, LT,Zeus Cobre,10
 Bacillus Thuringiensis ,Quimico, Bacillus Thuringiensis ,Inseticida,Qualquer, KG,Dipel WP,1
+Bacillus Thuringiensis ,Quimico, Bacillus Thuringiensis ,Inseticida,Qualquer, LT,Dipel ES-NT,10
 Zinco,Quimico,Zinco,Fertilizante Foliar,Milho, KG,Xcellence,10
 Cálcio,Quimico,Cálcio,Fertilizante Foliar,Qualquer, LT,Mastermix CAB,20
 Quelato de Manganês,Quimico,Quelato de Manganês,Fertilizante Foliar,Qualquer, LT,Progen Detox BR,5
+Fósforo e Molibdênio,Quimico,Fósforo e Molibdênio,Fertilizante Foliar,Qualquer, LT,SynFlex,0,1
+--- ,Quimico, --- ,Adjuvante e Redutor de ph,Qualquer, LT,Urano ab+,1
+Cálcio e Magnésio,Quimico,Cálcio e Magnésio,Fertilizante Foliar,Milho, KG,Geopolimero,5
+---,Quimico,---,Fertilizante Foliar,Qualquer, LT,Vita Flex,20
+---,Quimico,---,Fertilizante Foliar,Citros, LT,Mastermix Citrus,20
+Nitrogênio e Oxído de POTÁSSIO,Quimico,Nitrogênio e Oxído de POTÁSSIO,Fertilizante Foliar,Qualquer, LT,Fertiactyl,5
+Boro  Manganês e Zinco,Quimico,Boro  Manganês e Zinco,Fertilizante Foliar,Qualquer, LT,LIQUI-PLEX VEGETABLES,5
+--- ,Quimico, --- ,Adjuvante e Redutor de ph,Qualquer, LT,Kento Desseca,20
+N P K ,Quimico, N P K ,Adubo,Citros/Milho, KG,N-16-16-16,50
+N P K ,Quimico, N P K ,Adubo,Citros/Milho, TON,NPK-15-15-15,1

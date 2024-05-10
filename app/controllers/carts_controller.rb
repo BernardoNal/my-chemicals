@@ -4,13 +4,18 @@ class CartsController < ApplicationController
 
   # Displays a list of carts within a specified date range
   def index
-    @carts = policy_scope(Cart).order(date_move: :desc)
     Cart.all.each do |cart|
       cart.destroy if cart.cart_chemicals == []
     end
+    @carts = policy_scope(Cart).order(updated_at: :desc)
+    @chemicals = Chemical.all.order(product_name: :asc)
     @start_date = params[:start_date].present? ? Date.parse(params[:start_date]) : Date.current.beginning_of_month
     @end_date = params[:end_date].present? ? Date.parse(params[:end_date]) : Date.current
-    @carts = @carts.where(date_move: @start_date..@end_date).group_by(&:date_move)
+
+    @carts = params[:chemical].to_i > 0 ? @carts.joins(cart_chemicals: :chemical)
+                    .where(date_move: @start_date..@end_date, cart_chemicals: { chemical_id: params[:chemical] })
+                    .group_by(&:date_move) : @carts.where(date_move: @start_date..@end_date).group_by(&:date_move)
+
     render_pdf
   end
 
@@ -104,10 +109,11 @@ class CartsController < ApplicationController
 
   # Renders a PDF format of the carts list
   def render_pdf
+    @one_chemical = params[:chemical].to_i > 0 ? Chemical.find(params[:chemical]) : false
     respond_to do |format|
       format.html
       format.pdf do
-        pdf = CartPdf.new(@carts).call
+        pdf = CartPdf.new(@carts, @one_chemical).call
         send_data pdf, filename: "carts_report.pdf", type: "application/pdf"
       end
     end

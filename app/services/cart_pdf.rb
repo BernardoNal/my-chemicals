@@ -1,18 +1,17 @@
 require 'prawn'
 
 class CartPdf
-  attr_reader :carts
+  attr_reader :carts, :one_chemical
 
-  def initialize(carts)
+  def initialize(carts, singular)
     @carts = carts
+    @one_chemical = singular
   end
 
   def call
     header_height = 60
     top_margin = header_height + 10
     Prawn::Document.new(margin: [top_margin, 40, 40, 40]) do |pdf|
-      pdf.repeat :all do
-      end
       pdf.canvas do
         pdf.repeat :all do
           space_from_top = 0
@@ -29,40 +28,78 @@ class CartPdf
         pdf.text_box "Relatório de Movimentação", at: [pdf.bounds.left, pdf.bounds.top - -47], width: pdf.bounds.width, height: 30, align: :center, size: 20
       end
       pdf.move_down 5
-      if carts.any?
+      if carts.any? && one_chemical == false
         carts.each_with_index do |(date_move, carts_group), index|
-          pdf.start_new_page if index > 0 # Inicia uma nova página para cada data, exceto a primeira
-          pdf.text "Data de Movimentação: #{date_move}", style: :bold, color: "6d7760", align: :center, size: 15
+          # pdf.start_new_page if index > 0 # Inicia uma nova página para cada data, exceto a primeira
+          pdf.text "Data: #{date_move.strftime("%d-%m-%y")} ", style: :bold, color: "6d7760", align: :center, size: 15
           pdf.move_down 10
 
           carts_group.each do |cart|
-            text = "<b>Movimentação de número: </b> #{cart.id}\n" \
-                   "<b>Data da solicitação: </b> #{cart.created_at.strftime("%d-%m-%y %H:%M")}\n" \
+            text = "<b>Registro: </b> #{cart.id}\n" \
+                   "<b>Data da solicitação: </b> #{cart.created_at.strftime("%d-%m-%y %H:%M")} | " \
                    "<b>Data da aprovação: </b> #{cart.updated_at.strftime("%d-%m-%y %H:%M")}\n" \
-                   "<b>Fazenda:</b> #{cart.storage.farm.name}\n" \
+                   "<b>Fazenda:</b> #{cart.storage.farm.name} | " \
                    "<b>Galpão:</b> #{cart.storage.name}\n" \
-                   "<b>Solicitante:</b> #{cart.requestor.first_name.titleize} #{cart.requestor.last_name.titleize}\n" \
-                   "<b>Aprovador:</b> #{cart.approver.first_name.titleize} #{cart.approver.last_name.titleize}\n" \
+                   "<b>Solicitante:</b> #{cart.requestor.first_name.titleize} #{cart.requestor.last_name.titleize} | " \
+                   "<b>Aprovador:</b> #{cart.approver.first_name.titleize} #{cart.approver.last_name.titleize}\n \n" \
                    "<b>Produto(s):</b>"
-            pdf.text text, color: "6d7760", inline_format: true
+            pdf.text text, color: "343434", inline_format: true
 
             cart.cart_chemicals.each do |cart_chemical|
-              text = " • #{cart_chemical.chemical.product_name} - <b> Movimentação: </b> " \
+              text = "• #{cart_chemical.chemical.product_name} - <b> Mov: </b> " \
                      "#{cart_chemical.quantity * cart_chemical.chemical.amount} " \
                      "#{cart_chemical.chemical.measurement_unit}"
-              pdf.text text, color: "6d7760", inline_format: true
+              if cart_chemical.quantity.positive?
+                pdf.text text, color: "6d7760", inline_format: true
+              else
+                pdf.text text, color: "8f4445", inline_format: true
+              end
               pdf.move_down 0
             end
 
-            text="\n"
+            text="\n\n"
             pdf.text text, color: "6d7760", inline_format: true
           end
 
           pdf.move_down 5
         end
       else
-        pdf.move_down 20
-        pdf.text "No carts available for this period.", color: "6d7760", align: :center, size: 12
+        carts.each_with_index do |(date_move, carts_group), index|
+          # pdf.start_new_page if index > 0 # Inicia uma nova página para cada data, exceto a primeira
+          pdf.text "Data: #{date_move.strftime("%d-%m-%y")} \n#{one_chemical.product_name}", style: :bold, color: "6d7760", align: :center, size: 15
+          pdf.move_down 10
+
+          carts_group.each do |cart|
+            text = "<b>Registro: </b> #{cart.id} | " \
+                   "<b>Fazenda:</b> #{cart.storage.farm.name} | " \
+                   "<b>Galpão:</b> #{cart.storage.name}\n" \
+                   "<b>Solicitante:</b> #{cart.requestor.first_name.titleize} #{cart.requestor.last_name.titleize} | " \
+                   "<b>Aprovador:</b> #{cart.approver.first_name.titleize} #{cart.approver.last_name.titleize}\n \n"
+
+            pdf.text text, color: "343434", inline_format: true
+
+            cart.cart_chemicals.each do |cart_chemical|
+              if cart_chemical.chemical == one_chemical
+                text = "• <b> Mov: </b> " \
+                      "#{cart_chemical.quantity * cart_chemical.chemical.amount} " \
+                      "#{cart_chemical.chemical.measurement_unit}"
+                if cart_chemical.quantity.positive?
+                  pdf.text text, color: "6d7760", inline_format: true
+                else
+                  pdf.text text, color: "8f4445", inline_format: true
+                end
+                pdf.move_down 0
+              end
+            end
+
+            text="\n\n"
+            pdf.text text, color: "6d7760", inline_format: true
+          end
+
+          pdf.move_down 5
+        end
+        # pdf.move_down 20
+        # pdf.text "No carts available for this period.", color: "6d7760", align: :center, size: 12
       end
       options = {
         at: [pdf.bounds.right - 50, 0],

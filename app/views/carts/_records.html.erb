@@ -4,7 +4,7 @@
     <ol class="list-group list-group-numbered">
       <% carts_grouped_by_date.each do |cart| %>
         <div class="row">
-          <div class="col-9">
+          <div class="col-sm-9">
             <li class="list-group-item d-flex justify-content-between align-items-start py-3" id="bg-color-light-green">
               <div class="ms-2 me-auto">
                 <strong class="fs-6">Registro #<%= cart.id %></strong> | Fazenda: <%= cart.storage.farm.name %> | Galpão: <%= cart.storage.name %>
@@ -28,10 +28,12 @@
                   </thead>
                   <tbody>
                     <% cart.cart_chemicals.each do |cart_chemical| %>
+                      <% unless @one_chemical && @one_chemical != cart_chemical.chemical %>
                       <tr class='<%= cart_chemical.quantity < 0 ? "table-danger" : "table-success" %>'>
                         <td class='text-center'><%= link_to cart_chemical.chemical.product_name, chemical_path(cart_chemical.chemical), data: {turbo_frame: :modal}, class: "text-decoration-none text-dark" %></td>
                         <td class='text-center'><%= cart_chemical.quantity %> uni</td>
                       </tr>
+                      <% end %>
                     <% end %>
                   </tbody>
                 </table>

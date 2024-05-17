@@ -1,0 +1,18 @@
+henrique:
+  email: "henrique@email.com"
+  first_name: 'Henrique'
+  last_name: 'Dias'
+  address: 'quintal do espeto'
+  cpf: 79143178880
+carlos:
+  email: "carlos@email.com"
+  first_name: 'Carlos'
+  last_name: 'Dias'
+  address: 'quintal do espeto'
+  cpf: 90236213016
+rogerio:
+  email: "rogerio@email.com"
+  first_name: 'rogerio'
+  last_name: 'Dias'
+  address: 'quintal do espeto'
+  cpf: 56974952007

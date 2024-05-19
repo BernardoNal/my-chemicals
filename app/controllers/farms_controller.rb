@@ -12,6 +12,7 @@ class FarmsController < ApplicationController
     farm_select
     storage_select
     search_chemical
+    render_pdf
   end
 
   # Renders form to create a new farm
@@ -110,4 +111,16 @@ class FarmsController < ApplicationController
       # @carts = Cart.all
     end
   end
+
+  # Renders a PDF format of the chemical table
+  def render_pdf
+    respond_to do |format|
+      format.html
+      format.pdf do
+        pdf = ChemicalsPdf.new(@chemical_totals, @storage).call
+        send_data pdf, filename: "chemicals_report.pdf", type: "application/pdf"
+      end
+    end
+  end
+
 end

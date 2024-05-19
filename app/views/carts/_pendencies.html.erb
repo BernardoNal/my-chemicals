@@ -4,11 +4,11 @@
     <ol class="list-group list-group-numbered">
       <% carts_with_same_date.each do |cart| %>
         <div class="row">
-          <div class="col-6">
+          <div class="col-md-8">
             <li class="list-group-item d-flex justify-content-between align-items-start py-3" id="bg-color-light-green">
-              <div class="ms-2 me-auto">
-                <div><strong class="fs-6">Saída #<%= cart.id %></strong> | Fazenda: <%= cart.storage.farm.name %> | Galpão: <%= cart.storage.name %> <br>
-                Solicitante: <%= cart.requestor.first_name.titleize %> <%= cart.requestor.last_name.titleize %></div>
+              <div>
+                <strong class="fs-6">Saída #<%= cart.id %></strong> | Fazenda: <%= cart.storage.farm.name %> | Galpão: <%= cart.storage.name %> <br>
+                Solicitante: <%= cart.requestor.first_name.titleize %> <%= cart.requestor.last_name.titleize %>
               </div>
               <span id ="bg-color-light-brown" class="badge rounded-pill">Pendente</span>
             </li>

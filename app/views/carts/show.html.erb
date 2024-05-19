@@ -22,7 +22,7 @@
           <% @cart_chemicals.each do |item| %>
             <div class="card-item">
               <div class="card-item-content">
-                <%= item.chemical.product_name %> <%= item.chemical.amount %><%= item.chemical.measurement_unit %> (x<%= @entry == "1" ? item.quantity : -item.quantity %>)
+                <%= item.chemical.product_name %> -<b><%= item.chemical.amount * (@entry == "1" ? item.quantity : -item.quantity) %><%= item.chemical.measurement_unit %></b>
               </div>
 
               <div class="card-item-actions">

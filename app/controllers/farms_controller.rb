@@ -12,6 +12,7 @@ class FarmsController < ApplicationController
     farm_select
     storage_select
     search_chemical
+    render_pdf
   end
 
   # Renders form to create a new farm

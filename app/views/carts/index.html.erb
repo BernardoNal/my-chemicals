@@ -19,7 +19,6 @@
           <div class="form-group col-sm-4 m-2">
             <%= label_tag :chemical, 'Químicos' %>
            <%= select_tag :chemical, options_for_select([["Todos", "all"]] + @chemicals.map { |chemical| ["#{chemical.product_name} (#{chemical.amount}#{chemical.measurement_unit})", chemical.id] }, params[:chemical]), class: 'form-control' %>
-
           </div>
         </div>
         <div class="d-flex  m-1 justify-content-between">

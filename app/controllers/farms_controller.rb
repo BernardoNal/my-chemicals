@@ -117,7 +117,7 @@ class FarmsController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf do
-        pdf = ChemicalsPdf.new(@chemical_totals).call
+        pdf = ChemicalsPdf.new(@chemical_totals, @storage).call
         send_data pdf, filename: "chemicals_report.pdf", type: "application/pdf"
       end
     end

@@ -1,10 +1,11 @@
 require 'prawn'
 
 class ChemicalsPdf
-  attr_reader :chemicals
+  attr_reader :chemical_totals, :storage
 
-  def initialize(chemicals)
-    @chemicals = chemicals
+  def initialize(chemical_totals,storage)
+    @chemical_totals = chemical_totals
+    @storage = storage
   end
 
   def call
@@ -25,49 +26,30 @@ class ChemicalsPdf
         pdf.fill_color "F4F4F4"
         pdf.text_box "MyChemicals", at: [pdf.bounds.width - 560, pdf.bounds.top - -46], width: 100, height: 20, size: 15
         pdf.text_box "Estoque do Químicos", at: [pdf.bounds.left, pdf.bounds.top - -47], width: pdf.bounds.width, height: 30, align: :center, size: 20
+        pdf.text "Fazenda: #{@storage.farm.name} - #{@storage.name}", style: :bold, color: "6d7760", align: :center, size: 16
+        pdf.text "Data: #{Time.now.strftime("%d-%m-%y")} ", style: :bold, color: "6d7760", align: :center, size: 15
       end
       pdf.move_down 5
-      # if carts.any? && one_chemical == false
-      #   carts.each_with_index do |(date_move, carts_group), index|
-      #     # pdf.start_new_page if index > 0 # Inicia uma nova página para cada data, exceto a primeira
-      #     pdf.text "Data: #{date_move.strftime("%d-%m-%y")} ", style: :bold, color: "6d7760", align: :center, size: 15
-      #     pdf.move_down 10
 
-      #     carts_group.each do |cart|
-      #       text = "<b>Registro: </b> #{cart.id}\n" \
-      #              "<b>Data da solicitação: </b> #{cart.created_at.strftime("%d-%m-%y %H:%M")} | " \
-      #              "<b>Data da aprovação: </b> #{cart.updated_at.strftime("%d-%m-%y %H:%M")}\n" \
-      #              "<b>Fazenda:</b> #{cart.storage.farm.name} | " \
-      #              "<b>Galpão:</b> #{cart.storage.name}\n" \
-      #              "<b>Solicitante:</b> #{cart.requestor.first_name.titleize} #{cart.requestor.last_name.titleize} | " \
-      #              "<b>Aprovador:</b> #{cart.approver.first_name.titleize} #{cart.approver.last_name.titleize}\n \n" \
-      #              "<b>Produto(s):</b>"
-      #       pdf.text text, color: "343434", inline_format: true
+      if chemical_totals.any?
+        chemical_totals.each_with_index do |chemical, index|
+          if chemical.total_quantity > 0
+              # pdf.start_new_page if index > 0 # Inicia uma nova página para cada data, exceto a primeira
+              pdf.move_down 10
 
-      #       cart.cart_chemicals.each do |cart_chemical|
-      #         text = "• #{cart_chemical.chemical.product_name} - <b> Mov: </b> " \
-      #                "#{cart_chemical.quantity * cart_chemical.chemical.amount} " \
-      #                "#{cart_chemical.chemical.measurement_unit}"
-      #         if cart_chemical.quantity.positive?
-      #           pdf.text text, color: "6d7760", inline_format: true
-      #         else
-      #           pdf.text text, color: "8f4445", inline_format: true
-      #         end
-      #         pdf.move_down 0
-      #       end
+              text = "<b>#{index+1}:  #{chemical.product_name}</b> (#{chemical.type_product.titleize}) - #{chemical.total_quantity*chemical.amount}#{chemical.measurement_unit}\n" \
 
-      #       text="\n\n"
-      #       pdf.text text, color: "6d7760", inline_format: true
-      #     end
+              pdf.text text, color: "343434", inline_format: true
+          end
+        end
 
-      #     pdf.move_down 5
-      #   end
-      # else
 
-      #   end
-      #   # pdf.move_down 20
-      #   # pdf.text "No carts available for this period.", color: "6d7760", align: :center, size: 12
-      # end
+
+
+      else
+        pdf.move_down 20
+        pdf.text "Sem Quimícos nesse filtragem.", color: "6d7760", align: :center, size: 12
+      end
       options = {
         at: [pdf.bounds.right - 50, 0],
         width: 80,

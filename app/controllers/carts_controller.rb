@@ -13,8 +13,8 @@ class CartsController < ApplicationController
     @end_date = params[:end_date].present? ? Date.parse(params[:end_date]) : Date.current
 
     @carts = params[:chemical].to_i > 0 ? @carts.joins(cart_chemicals: :chemical)
-                    .where(date_move: @start_date..@end_date, cart_chemicals: { chemical_id: params[:chemical] })
-                    .group_by(&:date_move) : @carts.where(date_move: @start_date..@end_date).group_by(&:date_move)
+                                                .where(date_move: @start_date..@end_date, cart_chemicals: { chemical_id: params[:chemical] })
+                                                .group_by(&:date_move) : @carts.where(date_move: @start_date..@end_date).group_by(&:date_move)
 
     render_pdf
   end
@@ -78,7 +78,8 @@ class CartsController < ApplicationController
 
     cart_record
     if @cart.save
-      CartMailer.with(@cart).create_pendence.deliver_now unless @cart.approved
+      #currently only works in development
+      #CartMailer.with(@cart).create_pendence.deliver_now unless @cart.approved
       redirect_to farms_path(farm_id: @cart.storage.farm_id, storage_id: @cart.storage_id)
     else
       render :new, status: :unprocessable_entity
@@ -131,7 +132,7 @@ class CartsController < ApplicationController
   def exit_chemicals
     @carts = @cart.storage.carts
     @chemicals_exit = Chemical.joins(:cart_chemical)
-                              .where(cart_chemicals: { cart_id: @carts.ids })
+                              .where(cart_chemicals: { cart_id: @carts.where(approved: true).ids })
                               .group('chemicals.id')
                               .having('SUM(cart_chemicals.quantity) > 0')
                               .select('chemicals.*, SUM(cart_chemicals.quantity) AS total_quantity')

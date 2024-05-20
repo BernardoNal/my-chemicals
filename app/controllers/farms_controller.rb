@@ -94,7 +94,7 @@ class FarmsController < ApplicationController
     @carts = @storage.carts
     @cart = Cart.new
     @chemical_totals = Chemical.joins(:cart_chemical)
-                               .where(cart_chemicals: { cart_id: @carts.ids })
+                               .where(cart_chemicals: { cart_id: @carts.where(approved: true).ids })
                                .group('chemicals.id')
                                .having('SUM(cart_chemicals.quantity) > 0')
                                .select('chemicals.*, SUM(cart_chemicals.quantity) AS total_quantity')

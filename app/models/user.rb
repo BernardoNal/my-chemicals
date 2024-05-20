@@ -7,6 +7,8 @@ class User < ApplicationRecord
   # has_many :employee_farms, through: :marm, source: :farm VER DEPOIS
   has_many :farms, dependent: :destroy
   has_many :storages, through: :farms
+  has_many :approved_carts, class_name: 'Cart', foreign_key: 'approver_id'
+  has_many :requestor_carts, class_name: 'Cart', foreign_key: 'requestor_id'
 
   # Validations
   validates :cpf, uniqueness: true

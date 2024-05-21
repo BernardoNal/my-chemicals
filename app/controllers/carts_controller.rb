@@ -91,7 +91,7 @@ class CartsController < ApplicationController
     @cart = Cart.find(params[:id])
     authorize @cart
     @cart.destroy!
-    redirect_to farms_path
+    redirect_to pending_path
   end
 
   private
@@ -115,7 +115,7 @@ class CartsController < ApplicationController
       format.html
       format.pdf do
         pdf = CartPdf.new(@carts, @one_chemical).call
-        send_data pdf, filename: "carts_report.pdf", type: "application/pdf"
+        send_data pdf, filename: "Relatório de movimentação.pdf", type: "application/pdf"
       end
     end
   end

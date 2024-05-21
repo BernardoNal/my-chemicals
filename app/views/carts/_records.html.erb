@@ -29,10 +29,10 @@
                   <tbody>
                     <% cart.cart_chemicals.each do |cart_chemical| %>
                       <% unless @one_chemical && @one_chemical != cart_chemical.chemical %>
-                      <tr class='<%= cart_chemical.quantity < 0 ? "table-danger" : "table-success" %>'>
-                        <td class='text-center'><%= link_to cart_chemical.chemical.product_name, chemical_path(cart_chemical.chemical), data: {turbo_frame: :modal}, class: "text-decoration-none text-dark" %></td>
-                        <td class='text-center'><%= cart_chemical.quantity %> uni</td>
-                      </tr>
+                        <tr class='<%= cart_chemical.quantity < 0 ? "table-danger" : "table-success" %>'>
+                          <td class='text-center'><%= link_to cart_chemical.chemical.product_name, chemical_path(cart_chemical.chemical), data: {turbo_frame: :modal}, class: "text-decoration-none text-dark" %></td>
+                          <td class='text-center'><%= cart_chemical.quantity %> x (<%= (cart_chemical.chemical.amount).round(1)%> <%= cart_chemical.chemical.measurement_unit %>)</td>
+                        </tr>
                       <% end %>
                     <% end %>
                   </tbody>

@@ -69,7 +69,7 @@
               <td class='text-center'><%= link_to chemical_path(chemical), data: {turbo_frame: :modal}, class: "text-decoration-none text-white" do %> <%= highlight_background(chemical.product_name, params.dig(:search, :query)) %> <% end %></td>
               <td class='text-center'><%= chemical.type_product.titleize %></td>
               <td class='text-center d-none d-sm-table-cell'><%= chemical.compound_product %></td>
-              <td class='text-center'><%= chemical.total_quantity*chemical.amount%> <%= chemical.measurement_unit %> </td>
+              <td class='text-center'><%= (chemical.total_quantity*chemical.amount).round(1)%> <%= chemical.measurement_unit %> </td>
             </tr>
           <% end %>
         <% end %>

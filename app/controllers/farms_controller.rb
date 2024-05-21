@@ -118,7 +118,7 @@ class FarmsController < ApplicationController
       format.html
       format.pdf do
         pdf = ChemicalsPdf.new(@chemical_totals, @storage).call
-        send_data pdf, filename: "chemicals_report.pdf", type: "application/pdf"
+        send_data pdf, filename: "#{Time.now.strftime("%d_%m_%y")}-Estoque de químicos.pdf", type: "application/pdf"
       end
     end
   end

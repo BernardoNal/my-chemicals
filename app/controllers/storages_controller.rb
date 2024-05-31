@@ -56,7 +56,7 @@ class StoragesController < ApplicationController
 
   # Permits storage parameters
   def storage_params
-    params.require(:storage).permit(:name, :size, :capacity, :farm_id)
+    params.require(:storage).permit(:name, :size, :farm_id)
   end
 
   # Sets the storage instance variable based on the provided id

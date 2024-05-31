@@ -36,8 +36,8 @@ User.create!(
 
 Farm.create!(name: 'Sol Nascente', size: '500 ha', cep: '49075220', user_id: 1)
 
-Storage.create!(name: "Galpão principal", size: '20 m2', capacity: 1000, farm_id: 1)
-Storage.create!(name: "Galpão da laranja", size: '10 m2', capacity: 400, farm_id: 1)
+Storage.create!(name: "Galpão principal", size: '20 m2', farm_id: 1)
+Storage.create!(name: "Galpão da laranja", size: '10 m2', farm_id: 1)
 
 
 # Chemical.create!(product_name: "Crucial", compound_product: "Glifosato", type_product: 'Herbicida', area: 'Milho,Laranja,Soja', measurement_unit: 'L', amount: 20)

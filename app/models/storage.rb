@@ -4,5 +4,5 @@ class Storage < ApplicationRecord
   has_many :carts, dependent: :destroy
 
   # Validations
-  validates :farm_id, :name, :size, :capacity, presence: true
+  validates :farm_id, :name, :size, presence: true
 end

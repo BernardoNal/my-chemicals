@@ -93,12 +93,26 @@ class FarmsController < ApplicationController
     @storage = Storage.find(params[:storage_id])
     @carts = @storage.carts
     @cart = Cart.new
-    @chemical_totals = Chemical.joins(:cart_chemical)
+    @chemical_totals = Chemical.joins(:cart_chemicals)
                                .where(cart_chemicals: { cart_id: @carts.where(approved: true).ids })
                                .group('chemicals.id')
                                .having('SUM(cart_chemicals.quantity) > 0')
-                               .select('chemicals.*, SUM(cart_chemicals.quantity) AS total_quantity')
-                               .order(product_name: :asc)
+                               .select('chemicals.*, SUM(cart_chemicals.quantity) AS total_quantity,
+                                       (SUM(cart_chemicals.quantity)*chemicals.amount) AS total')
+    filter
+  end
+
+  def filter
+    case params[:filter]
+    when "1"
+      @chemical_totals = @chemical_totals.order(type_product: :asc)
+    when "2"
+      @chemical_totals = @chemical_totals.order(total: :desc)
+    when "3"
+      @chemical_totals = @chemical_totals.order(compound_product: :asc)
+    else
+      @chemical_totals = @chemical_totals.order(product_name: :asc)
+    end
   end
 
   # Searches for chemicals

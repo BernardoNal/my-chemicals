@@ -29,17 +29,15 @@ class CartPdf
       end
       pdf.move_down 5
       if carts.any? && one_chemical == false
-        carts.each_with_index do |(date_move, carts_group), index|
+        carts.each do |(date_move, carts_group)|
           # pdf.start_new_page if index > 0 # Inicia uma nova página para cada data, exceto a primeira
           pdf.text "Data: #{date_move.strftime("%d-%m-%y")} ", style: :bold, color: "6d7760", align: :center, size: 15
           pdf.move_down 10
 
           carts_group.each do |cart|
-            text = "<b>Registro: </b> #{cart.id}\n" \
-                   "<b>Data da solicitação: </b> #{cart.created_at.strftime("%d-%m-%y %H:%M")} | " \
+            text = "<b>Data da solicitação: </b> #{cart.created_at.strftime("%d-%m-%y %H:%M")} | " \
                    "<b>Data da aprovação: </b> #{cart.updated_at.strftime("%d-%m-%y %H:%M")}\n" \
-                   "<b>Fazenda:</b> #{cart.storage.farm.name} | " \
-                   "<b>Galpão:</b> #{cart.storage.name}\n" \
+                   "<b>Fazenda:</b> #{cart.storage.farm.name} | <b>Galpão:</b> #{cart.storage.name}\n" \
                    "<b>Solicitante:</b> #{cart.requestor.first_name.titleize} #{cart.requestor.last_name.titleize} | " \
                    "<b>Aprovador:</b> #{cart.approver.first_name.titleize} #{cart.approver.last_name.titleize}\n \n" \
                    "<b>Produto(s):</b>"
@@ -61,18 +59,19 @@ class CartPdf
             pdf.text text, color: "6d7760", inline_format: true
           end
 
-          pdf.move_down 5
+          pdf.move_down 6
         end
       else
-        carts.each_with_index do |(date_move, carts_group), index|
-          # pdf.start_new_page if index > 0 # Inicia uma nova página para cada data, exceto a primeira
-          pdf.text "Data: #{date_move.strftime("%d-%m-%y")} \n#{one_chemical.product_name}", style: :bold, color: "6d7760", align: :center, size: 15
+        pdf.text "Químico: #{one_chemical.product_name}", style: :bold, align: :center, size: 24
+        pdf.move_down 5
+
+        carts.each do |(date_move, carts_group)|
+          pdf.text "Data: #{date_move.strftime("%d-%m-%y")} \n", style: :bold, color: "6d7760", align: :center, size: 15
           pdf.move_down 10
 
           carts_group.each do |cart|
             text = "<b>Registro: </b> #{cart.id} | " \
-                   "<b>Fazenda:</b> #{cart.storage.farm.name} | " \
-                   "<b>Galpão:</b> #{cart.storage.name}\n" \
+                   "<b>Fazenda:</b> #{cart.storage.farm.name} | <b>Galpão:</b> #{cart.storage.name}\n" \
                    "<b>Solicitante:</b> #{cart.requestor.first_name.titleize} #{cart.requestor.last_name.titleize} | " \
                    "<b>Aprovador:</b> #{cart.approver.first_name.titleize} #{cart.approver.last_name.titleize}\n \n"
 
@@ -96,7 +95,7 @@ class CartPdf
             pdf.text text, color: "6d7760", inline_format: true
           end
 
-          pdf.move_down 5
+          pdf.move_down 6
         end
         # pdf.move_down 20
         # pdf.text "No carts available for this period.", color: "6d7760", align: :center, size: 12

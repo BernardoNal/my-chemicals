@@ -1,26 +1,18 @@
 <%= render "shared/modal", title: "Detalhes do produto"  do %>
-  <div class="container mt-3 p-2">
-    <table class="table table-dark table-striped table-bordered">
-      <thead>
-        <tr>
-          <th class="table-width">Nome</th>
-          <th class="table-width">Composto</th>
-          <th class="table-width">Tipo</th>
-          <th class="table-width">Area de atuação</th>
-          <th class="table-width">Medida</th>
-          <th class="table-width">Embalagem</th>
-        </tr>
-        </thead>
-      <tbody>
-        <tr>
-          <td><%= @chemical.product_name %></td>
-          <td><%= @chemical.compound_product %></td>
-          <td><%= @chemical.type_product %></td>
-          <td><%= @chemical.area %></td>
-          <td><%= @chemical.measurement_unit %></td>
-          <td><%= @chemical.amount %></td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="col-10 mx-auto ">
+    <div class="card-small row">
+        <h2><strong>Químico</strong>: <%= @chemical.product_name %></h2>
+      <div class="col-md-4 my-2">
+        <p><strong>Composto</strong>: <%= @chemical.compound_product %></p>
+        <p><strong>Tipo</strong>: <%= @chemical.type_product.titleize %></p>
+      </div>
+      <div class="col-md-4 my-2">
+        <p><strong>Medida</strong>: <%= @chemical.measurement_unit %></p>
+        <p><strong>Embalagem</strong>: <%= @chemical.amount %></p>
+      </div>
+      <div class="col-md-4 my-2">
+        <p><strong>Area de atuação</strong>: <%= @chemical.area %></p>
+      </div>
+    </div>
   </div>
 <% end %>

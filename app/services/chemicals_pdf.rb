@@ -35,12 +35,13 @@ class ChemicalsPdf
       if chemical_totals.any?
         chemical_totals.each_with_index do |chemical, index|
           if chemical.total_quantity > 0
-              # pdf.start_new_page if index > 0 # Inicia uma nova página para cada data, exceto a primeira
-              pdf.move_down 10
+            # pdf.start_new_page if index > 0 # Inicia uma nova página para cada data, exceto a primeira
+            pdf.move_down 10
 
-              text = "<b>#{index+1}:  #{chemical.product_name}</b> (#{chemical.type_product.titleize}) - #{chemical.total_quantity*chemical.amount}#{chemical.measurement_unit}\n" \
-                     "-------------------------------------------------------------------------------------"
-              pdf.text text, color: "343434", inline_format: true
+            text = "<b>#{index + 1}:  #{chemical.product_name}</b> " \
+                   "(#{chemical.type_product.titleize}) - #{chemical.total.round(1)}#{chemical.measurement_unit}\n" \
+                   "-------------------------------------------------------------------------------------"
+            pdf.text text, color: "343434", inline_format: true
           end
         end
 

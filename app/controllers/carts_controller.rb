@@ -8,7 +8,10 @@ class CartsController < ApplicationController
       cart.destroy if cart.cart_chemicals == []
     end
     @carts = policy_scope(Cart).order(updated_at: :desc)
-    @chemicals = Chemical.all.order(product_name: :asc)
+    @chemicals = Chemical.joins(:cart_chemicals)
+    .where(cart_chemicals: { cart_id: @carts.ids })
+    .distinct
+    .order(product_name: :asc)
     @start_date = params[:start_date].present? ? Date.parse(params[:start_date]) : Date.current.beginning_of_month
     @end_date = params[:end_date].present? ? Date.parse(params[:end_date]) : Date.current
 

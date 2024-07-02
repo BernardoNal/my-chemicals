@@ -93,7 +93,7 @@ class FarmsController < ApplicationController
     @storage = Storage.find(params[:storage_id])
     @carts = @storage.carts
     @cart = Cart.new
-    @chemical_totals = Chemical.joins(:cart_chemical)
+    @chemical_totals = Chemical.joins(:cart_chemicals)
                                .where(cart_chemicals: { cart_id: @carts.where(approved: true).ids })
                                .group('chemicals.id')
                                .having('SUM(cart_chemicals.quantity) > 0')

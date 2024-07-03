@@ -1,0 +1,26 @@
+ <%= simple_form_for @chemical do |f| %>
+    <div class="row">
+      <div class="col-sm-6">
+       <%= f.input :product_name, label: "Nome", input_html: { value: @chemical.product_name&.titleize } %>
+      </div>
+      <div class="col-sm-6">
+        <%= f.input :compound_product, label: "Composto Principal" %>
+      </div>
+    </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <%= f.input :type_product, label: "Categoria", as: :select,
+                      collection: Chemical::TYPE_PRODUCTS.map(&:titleize) %>
+        </div>
+        <div class="col-sm-4">
+          <%= f.input :measurement_unit, collection: [['KG', 'KG'], ['LT', 'LT'], ['TON', 'TON']], label: "Unidade" , hint: ("KG, LT, ..." ) %>
+        </div>
+        <div class="col-sm-4">
+          <%= f.input :amount,as: :select, collection: Chemical::AMOUNTS, label: "Embalagem", hint: ("( x ) LT" ) %>
+        </div>
+      </div>
+      <%= f.input :area, label: "Área de atuação", hint: ("Citrus, Milho, ..." ) %>
+      <div class="col-4 mx-auto">
+      <%= f.button :submit, class: "btn-login my-2" %>
+      </div>
+    <% end %>

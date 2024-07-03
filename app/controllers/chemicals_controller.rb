@@ -1,6 +1,13 @@
 class ChemicalsController < ApplicationController
   before_action :set_chemical, only: %i[edit update destroy]
 
+  def index
+    @chemicals = policy_scope(Chemical).limit(20)
+    if params[:product_name].present?
+      @chemicals = @chemicals.where('product_name ILIKE ?', "%#{params[:product_name]}%")
+    end
+  end
+
   # Displays details of a specific chemical
   def show
     @chemical = Chemical.find(params[:id])

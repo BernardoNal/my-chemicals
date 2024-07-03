@@ -17,8 +17,8 @@ class ChemicalPolicy < ApplicationPolicy
 
   class Scope < Scope
     # NOTE: Be explicit about which records you allow access to!
-    # def resolve
-    #   scope.all
-    # end
+    def resolve
+      scope.all.order(product_name: :asc)
+    end
   end
 end

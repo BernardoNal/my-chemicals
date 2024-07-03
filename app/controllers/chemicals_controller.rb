@@ -3,6 +3,7 @@ class ChemicalsController < ApplicationController
 
   def index
     @chemicals = policy_scope(Chemical).limit(20)
+    authorize @chemicals
     if params[:product_name].present?
       @chemicals = @chemicals.where('product_name ILIKE ?', "%#{params[:product_name]}%")
     end

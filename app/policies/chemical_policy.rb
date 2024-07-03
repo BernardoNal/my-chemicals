@@ -1,24 +1,32 @@
 class ChemicalPolicy < ApplicationPolicy
+  def index?
+    user.admin?
+  end
+
   def show?
     true
   end
 
   def new?
-    true
+    user.admin?
   end
 
   def create?
-    true
+    user.admin?
+  end
+
+  def edit?
+    user.admin?
   end
 
   def update?
-    true
+    user.admin?
   end
 
   class Scope < Scope
     # NOTE: Be explicit about which records you allow access to!
     def resolve
-      scope.all.order(product_name: :asc)
+        scope.all.order(product_name: :asc)
     end
   end
 end

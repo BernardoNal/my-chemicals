@@ -27,4 +27,8 @@ class User < ApplicationRecord
   def farmer?
     farms.any?
   end
+
+  def admin?
+    is_admin
+  end
 end

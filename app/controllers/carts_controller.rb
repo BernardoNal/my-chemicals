@@ -125,6 +125,7 @@ class CartsController < ApplicationController
 
   # Processes the cart record
   def cart_record
+    @cart.description = params[:cart][:description]
     @cart.date_move = Time.now
     manager = @cart.storage.farm.employees.find_by(user_id: current_user.id)
     @cart.approved = (manager.present? && manager.manager) || @cart.storage.farm.user == current_user ? true : false

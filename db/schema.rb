@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_03_130011) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_04_170011) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -34,6 +34,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_03_130011) do
     t.datetime "updated_at", null: false
     t.bigint "approver_id"
     t.bigint "requestor_id"
+    t.string "description"
     t.index ["approver_id"], name: "index_carts_on_approver_id"
     t.index ["requestor_id"], name: "index_carts_on_requestor_id"
     t.index ["storage_id"], name: "index_carts_on_storage_id"

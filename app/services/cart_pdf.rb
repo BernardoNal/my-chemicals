@@ -39,8 +39,11 @@ class CartPdf
                    "<b>Data da aprovação: </b> #{cart.updated_at.strftime("%d-%m-%y %H:%M")}\n" \
                    "<b>Fazenda:</b> #{cart.storage.farm.name} | <b>Galpão:</b> #{cart.storage.name}\n" \
                    "<b>Solicitante:</b> #{cart.requestor.first_name.titleize} #{cart.requestor.last_name.titleize} | " \
-                   "<b>Aprovador:</b> #{cart.approver.first_name.titleize} #{cart.approver.last_name.titleize}\n \n" \
-                   "<b>Produto(s):</b>"
+                   "<b>Aprovador:</b> #{cart.approver.first_name.titleize} #{cart.approver.last_name.titleize}\n"
+            if cart.description.present?
+              text += "<b>Descrição:</b> #{cart.description}\n"
+            end
+            text += "\n<b>Produto(s):</b>"
             pdf.text text, color: "343434", inline_format: true
 
             cart.cart_chemicals.each do |cart_chemical|
@@ -55,7 +58,7 @@ class CartPdf
               pdf.move_down 0
             end
 
-            text="\n\n"
+            text = "\n\n"
             pdf.text text, color: "6d7760", inline_format: true
           end
 
@@ -80,8 +83,8 @@ class CartPdf
             cart.cart_chemicals.each do |cart_chemical|
               if cart_chemical.chemical == one_chemical
                 text = "• <b> Mov: </b> " \
-                      "#{cart_chemical.quantity * cart_chemical.chemical.amount} " \
-                      "#{cart_chemical.chemical.measurement_unit}"
+                       "#{cart_chemical.quantity * cart_chemical.chemical.amount} " \
+                       "#{cart_chemical.chemical.measurement_unit}"
                 if cart_chemical.quantity.positive?
                   pdf.text text, color: "6d7760", inline_format: true
                 else

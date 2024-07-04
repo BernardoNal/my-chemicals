@@ -9,6 +9,10 @@
               <div>
                 <strong class="fs-6">Saída #<%= cart.id %></strong> | Fazenda: <%= cart.storage.farm.name %> | Galpão: <%= cart.storage.name %> <br>
                 Solicitante: <%= cart.requestor.first_name.titleize %> <%= cart.requestor.last_name.titleize %>
+                <% if cart.description.present? %>
+                  <br> <strong> Descrição:</strong>
+                  <%= cart.description %>
+                <% end %>
               </div>
               <span id ="bg-color-light-brown" class="badge rounded-pill">Pendente</span>
             </li>

@@ -125,6 +125,7 @@ class CartsController < ApplicationController
 
   # Processes the cart record
   def cart_record
+    @cart.description = params[:cart][:description]
     @cart.date_move = Time.now
     manager = @cart.storage.farm.employees.find_by(user_id: current_user.id)
     @cart.approved = (manager.present? && manager.manager) || @cart.storage.farm.user == current_user ? true : false
@@ -134,7 +135,7 @@ class CartsController < ApplicationController
   # A collection of chemicals with their total exited quantities.
   def exit_chemicals
     @carts = @cart.storage.carts
-    @chemicals_exit = Chemical.joins(:cart_chemical)
+    @chemicals_exit = Chemical.joins(:cart_chemicals)
                               .where(cart_chemicals: { cart_id: @carts.where(approved: true).ids })
                               .group('chemicals.id')
                               .having('SUM(cart_chemicals.quantity) > 0')

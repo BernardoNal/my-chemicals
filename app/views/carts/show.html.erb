@@ -3,15 +3,24 @@
   <div class="row">
     <div class=" col-md-6">
       <div class="form-shape col-md-8 mx-auto">
-        <%= link_to farms_path(farm_id: @cart.storage.farm_id, storage_id: @cart.storage_id), class: 'btn-back text-decoration-none' do %>
-          <i class='fa-solid fa-circle-left'></i>
-        <% end %>
+      <div class="row my-2">
+        <div class="col-4">
+          <%= link_to farms_path(farm_id: @cart.storage.farm_id, storage_id: @cart.storage_id), class: 'btn-back text-decoration-none' do %>
+            <i class='fa-solid fa-circle-left'></i>
+          <% end %>
+        </div>
+        <div class="col-4">
+          <h3 class="form-title"><%= @entry == "1" ? "Entrada" : "Saída" %></h3>
+        </div>
+      </div>
         <% @entry.nil? ? @entry = params[:cart_chemical][:entry] : '' %>
-        <h3 class="form-title"><%= @entry == "1" ? "Entrada" : "Saída" %></h3>
         <%= render partial: 'carts/cartchemical',locals: { cart: @cart, cart_chemical: @cart_chemical, chemicals: @chemicals, entry: @entry } %>
       </div>
-      <div class="d-flex col-md-4 mx-auto mt-5">
-        <%= link_to "Finalizar",cart_record_path(@cart),  data: {turbo_method: :patch}, class:'btn-login px-5 py-2 text-center' %>
+      <div class="form-shape  col-md-8 mx-auto mt-3">
+       <%= simple_form_for @cart , url: cart_record_path(@cart) do |f| %>
+        <%= f.input :description,as: :text ,label: "Descrição da #{@entry == "1" ? "Entrada" : "Saída"}", hint: "Preencher somente antes de finalizar" %>
+        <%= f.button :submit, "Finalizar", class: "my-2 btn-login" %>
+      <% end %>
       </div>
     </div>
 

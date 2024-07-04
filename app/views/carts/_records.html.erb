@@ -14,6 +14,10 @@
                   <br> Solicitante: <%= cart.requestor.first_name.titleize %> <%= cart.requestor.last_name.titleize %>
                   | Aprovador: <%= cart.approver.first_name.titleize %> <%= cart.approver.last_name.titleize %>
                 <% end %>
+                <% if cart.description.present? %>
+                  <br> <strong> Descrição:</strong>
+                  <%= cart.description %>
+                <% end %>
               </div>
               <span id ="bg-color-light-brown" class="badge rounded-pill">Aprovado</span>
             </li>

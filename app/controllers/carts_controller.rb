@@ -135,7 +135,7 @@ class CartsController < ApplicationController
   # A collection of chemicals with their total exited quantities.
   def exit_chemicals
     @carts = @cart.storage.carts
-    @chemicals_exit = Chemical.joins(:cart_chemical)
+    @chemicals_exit = Chemical.joins(:cart_chemicals)
                               .where(cart_chemicals: { cart_id: @carts.where(approved: true).ids })
                               .group('chemicals.id')
                               .having('SUM(cart_chemicals.quantity) > 0')

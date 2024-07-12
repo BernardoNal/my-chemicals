@@ -18,7 +18,7 @@ class CartChemical < ApplicationRecord
     CartChemical.joins(:chemical, :cart)
                 .where(chemical: chemical)
                 .where(cart: { approved: true, storage_id: cart.storage_id })
-                .sum(:quantity)
+                .sum(:quantity).round(3)
   end
 
   # Validates the quantity against stock limits
@@ -40,7 +40,7 @@ class CartChemical < ApplicationRecord
   # Validates the quantity to prevent broken quantities
   def rounded_number
     return unless quantity && chemical_id
-    return unless quantity * chemical.amount % 0.5 != 0
+    return unless quantity * chemical.amount % 0.25 != 0
 
     errors.add(:quantity, message: 'invalid for rounding')
   end

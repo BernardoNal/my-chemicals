@@ -18,14 +18,14 @@ class CartChemical < ApplicationRecord
     CartChemical.joins(:chemical, :cart)
                 .where(chemical: chemical)
                 .where(cart: { approved: true, storage_id: cart.storage_id })
-                .sum(:quantity)
+                .sum(:quantity).round(3)
   end
 
   # Validates the quantity against stock limits
   def check_stock
     return unless quantity && chemical_id && cart_id
+    raise
     return unless quantity_total < -quantity && entry == '0'
-
     errors.add(:quantity, message: 'above limit')
   end
 

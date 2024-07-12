@@ -24,8 +24,8 @@ class CartChemical < ApplicationRecord
   # Validates the quantity against stock limits
   def check_stock
     return unless quantity && chemical_id && cart_id
-    raise
     return unless quantity_total < -quantity && entry == '0'
+
     errors.add(:quantity, message: 'above limit')
   end
 
@@ -40,7 +40,7 @@ class CartChemical < ApplicationRecord
   # Validates the quantity to prevent broken quantities
   def rounded_number
     return unless quantity && chemical_id
-    return unless quantity * chemical.amount % 0.5 != 0
+    return unless quantity * chemical.amount % 0.25 != 0
 
     errors.add(:quantity, message: 'invalid for rounding')
   end

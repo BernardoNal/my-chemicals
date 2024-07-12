@@ -39,7 +39,7 @@ class ChemicalsPdf
             pdf.move_down 10
 
             text = "<b>#{index + 1}:  #{chemical.product_name}</b> " \
-                   "(#{chemical.type_product.titleize}) - #{chemical.total.round(1)}#{chemical.measurement_unit}\n" \
+                   "(#{chemical.type_product.titleize}) - #{chemical.total.round(2)}#{chemical.measurement_unit}\n" \
                    "-------------------------------------------------------------------------------------"
             pdf.text text, color: "343434", inline_format: true
           end

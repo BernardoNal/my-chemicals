@@ -10,7 +10,8 @@ My Chemicals é uma aplicação web que permite aos usuários gerenciar produtos
 
 - Criar sua fazenda e seu galpão.
 - Realizar entrada/saida produtos químicos no galpão.
-- Vizualizar todas as entradas e saídas realizadas.
+- Geração de PDF do estoque.
+- Vizualizar todas as entradas e saídas realizadas e gerar pdf delas.
 - Pesquisar produtos químicos por nome.
 - Convidar Funcionarios para aumentar time de controle de químicos.
 

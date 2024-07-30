@@ -10,11 +10,37 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_04_170011) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_30_184735) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
   enable_extension "unaccent"
+
+  create_table "activities", force: :cascade do |t|
+    t.date "date_start"
+    t.date "date_end"
+    t.text "description"
+    t.string "name"
+    t.string "type"
+    t.string "area"
+    t.integer "forecast_days"
+    t.text "resources"
+    t.string "place"
+    t.bigint "farm_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["farm_id"], name: "index_activities_on_farm_id"
+  end
+
+  create_table "activity_chemicals", force: :cascade do |t|
+    t.bigint "activity_id", null: false
+    t.bigint "chemical_id", null: false
+    t.float "quantity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["activity_id"], name: "index_activity_chemicals_on_activity_id"
+    t.index ["chemical_id"], name: "index_activity_chemicals_on_chemical_id"
+  end
 
   create_table "cart_chemicals", force: :cascade do |t|
     t.bigint "chemical_id", null: false
@@ -90,6 +116,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_04_170011) do
     t.index ["user_id"], name: "index_farms_on_user_id"
   end
 
+  create_table "responsibles", force: :cascade do |t|
+    t.string "name"
+    t.bigint "employee_id"
+    t.bigint "activity_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["activity_id"], name: "index_responsibles_on_activity_id"
+    t.index ["employee_id"], name: "index_responsibles_on_employee_id"
+  end
+
   create_table "storages", force: :cascade do |t|
     t.bigint "farm_id", null: false
     t.string "name"
@@ -116,6 +152,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_04_170011) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "activities", "farms"
+  add_foreign_key "activity_chemicals", "activities"
+  add_foreign_key "activity_chemicals", "chemicals"
   add_foreign_key "cart_chemicals", "carts"
   add_foreign_key "cart_chemicals", "chemicals"
   add_foreign_key "carts", "storages"
@@ -124,5 +163,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_04_170011) do
   add_foreign_key "employees", "farms"
   add_foreign_key "employees", "users"
   add_foreign_key "farms", "users"
+  add_foreign_key "responsibles", "activities"
+  add_foreign_key "responsibles", "employees"
   add_foreign_key "storages", "farms"
 end

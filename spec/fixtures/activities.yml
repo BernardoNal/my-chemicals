@@ -1,0 +1,13 @@
+one:
+  date_start: <%= Date.today %>
+  date_end: <%= Date.today + 7.days %>
+  name: "Plantio de Milho"
+  area: "campo"
+  farm: one
+
+two:
+  date_start: <%= Date.today + 30.days %>
+  date_end: <%= Date.today + 35.days %>
+  name: "Colheita de Soja"
+  area: "campo"
+  farm: one

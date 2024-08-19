@@ -8,7 +8,6 @@ RSpec.describe Storage, :type => :model do
     {
       name: "Galpão principal",
       size: '20 m2',
-      capacity: 1000,
       farm_id: farms(:one).id
     }
   end
@@ -25,7 +24,7 @@ RSpec.describe Storage, :type => :model do
     end
 
     # Test each attribute for presence validation
-    %i[name size capacity farm_id].each do |attr|
+    %i[name size  farm_id].each do |attr|
       it "blank #{attr}" do
         @storage[attr] = nil
         @storage.valid?

@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Chemical, type: :model do
   let(:valid_attributes) do
     {
-      product_name: "Vorax",
+      product_name: "---------",
       compound_product: "Ácido L-Glutâmico",
       type_product: 'Bio-Fertilizante',
       area: 'Milho,Laranja,Soja',

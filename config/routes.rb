@@ -3,11 +3,11 @@ Rails.application.routes.draw do
   devise_for :users
   root to: "farms#index"
   resources :farms do
-    resources :activities, only: %i[index show new create]
+    resources :activities, only: %i[index]
   end
   get "myfarms" => 'farms#myfarms'
 
-  resources :activities, except: %i[index show new create]
+  resources :activities, except: %i[index]
   # namespace :activities do
   #   resources :activities
   # end

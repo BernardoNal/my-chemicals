@@ -1,0 +1,2 @@
+class ResponsiblesController < ApplicationController
+end

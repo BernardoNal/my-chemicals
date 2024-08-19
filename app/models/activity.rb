@@ -4,7 +4,7 @@ class Activity < ApplicationRecord
   has_many :activity_chemicals, dependent: :destroy
   has_many :chemicals, through: :activity_chemicals
 
-  validates :name, :type, :area, :farm_id, presence: true
+  validates :name, :farm_id, presence: true
    # Validação de formato
    validates :name, format: { with: /\A[a-zA-Z0-9\s]+\z/, message: "só permite letras e números" }
 

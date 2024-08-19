@@ -10,9 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_30_184735) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_19_005746) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "pg_trgm"
   enable_extension "plpgsql"
   enable_extension "unaccent"
 
@@ -21,7 +20,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_30_184735) do
     t.date "date_end"
     t.text "description"
     t.string "name"
-    t.string "type"
+    t.string "activity_type"
     t.string "area"
     t.integer "forecast_days"
     t.text "resources"
@@ -77,7 +76,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_30_184735) do
     t.float "dosage"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["product_name"], name: "index_chemicals_on_product_name", opclass: :gin_trgm_ops, using: :gin
   end
 
   create_table "clients", force: :cascade do |t|

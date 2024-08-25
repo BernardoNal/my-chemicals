@@ -7,7 +7,13 @@ Rails.application.routes.draw do
   end
   get "myfarms" => 'farms#myfarms'
 
-  resources :activities, except: %i[index]
+  resources :activities, except: %i[index] do
+    resources :activity_chemicals, only: %i[new create]
+    resources :responsibles, only: %i[new create]
+  end
+
+  resources :activity_chemicals, only: %i[destroy]
+  resources :responsibles, only: %i[destroy]
   # namespace :activities do
   #   resources :activities
   # end

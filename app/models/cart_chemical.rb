@@ -32,7 +32,7 @@ class CartChemical < ApplicationRecord
   # Validates the quantity to prevent negative quantities
   def negative
     return unless quantity && chemical_id && cart_id
-    return unless (quantity.positive? && entry == '0') || (quantity.negative? && entry == '1')
+    return unless (quantity.positive? && entry == '0') || (quantity.negative? && entry == '1') || quantity == 0
 
     errors.add(:quantity, message: 'invalid')
   end

@@ -27,8 +27,7 @@ class ChemicalsController < ApplicationController
     if @chemical.save
       flash[:alert] = "Químico criado com sucesso."
 
-      redirect_to root_path
-      # redirect_to mychemicals_path
+      redirect_to chemicals_path
     else
       render :new, status: :unprocessable_entity
     end

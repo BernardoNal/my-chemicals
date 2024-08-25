@@ -3,7 +3,6 @@ class StoragesController < ApplicationController
   # Displays a list of storages
   def index
     @storages = policy_scope(Storage)
-    @farms = Farm.all
   end
 
   # Renders form to create a new storage

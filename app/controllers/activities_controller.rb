@@ -1,9 +1,14 @@
 class ActivitiesController < ApplicationController
-  before_action :set_activity, only: %i[edit update destroy]
+  before_action :set_activity, only: %i[show edit update destroy]
   # Displays a list of activities
   def index
     @activities = policy_scope(Activity)
     @farms = Farm.all
+  end
+
+  # Displays details of a specific activity
+  def show
+    authorize @activity
   end
 
   # Renders form to create a new activity

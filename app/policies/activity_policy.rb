@@ -1,5 +1,7 @@
 class ActivityPolicy < ApplicationPolicy
-
+  def show?
+    record.farm.user == user
+  end
   def new?
     record.farm.user == user
   end

@@ -2,7 +2,7 @@ class CartChemicalsController < ApplicationController
   # Renders a form to create a new CartChemical
   def new
     @cart_chemical = CartChemical.new
-    authorize @cart_checimal
+    authorize @cart_chemical
     @cart = Cart.find(params[:id])
     @chemicals = Chemical.all
   end

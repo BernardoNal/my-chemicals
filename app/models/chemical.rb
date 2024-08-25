@@ -8,7 +8,7 @@ class Chemical < ApplicationRecord
   TYPE_PRODUCTS = ["INSETICIDA", "Adjuvante e Redutor de Espuma", "Fungicida", "FEROMÔNIO SINTÉTICO",
                    "Adjuvante e Redutor de ph", "Fertilizante Foliar", "NEMATICIDA E INSETICIDA",
                    "Acaricida", "Herbicida", "Adubo", "NEMATICIDA", "HERBICIDA", "REGULADOR DE CRESCIMENTO",
-                   "HERBICIDA E REGULADOR DE CRESCIMENTO", "FUNGICIDA", "Ferilizante Mineral Misto",
+                   "HERBICIDA E REGULADOR DE CRESCIMENTO", "Ferilizante Mineral Misto",
                    "INSETICIDA E ACARICIDA", "Adjuvante", "Biofertilizante"]
 
   AMOUNTS = [1, 5, 10, 20, 50, 100]

@@ -1,3 +1,10 @@
-<% @activities.each do |activity| %>
-  <p>Nome:<%= activity.name %></p>
-<% end %>
+<div class="container container-view my-4">
+<h1>Minhas Atividades</h1>
+  <% @activities.each do |activity| %>
+    <p>Nome:<%= activity.name %></p>
+  <% end %>
+</div>
+
+<div class="btn-plus-sign-container">
+  <%= link_to "<i class='fa-solid fa-circle-plus'></i>".html_safe, new_activity_path, class: "btn-plus-sign" %>
+</div>

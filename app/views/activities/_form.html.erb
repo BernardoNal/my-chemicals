@@ -1,0 +1,37 @@
+<%= simple_form_for [@farm, @activity] do |f| %>
+ <div class="row">
+    <div class="col-6 ">
+       <%= f.input :name, label: "Nome", hint: "Nome da atividade" %>
+    </div>
+    <div class="col-6">
+      <%= f.input :farm_id, as: :select, collection: @farms, label: "Fazendas", include_blank: 'Selecione a fazenda'  %>
+    </div>
+  </div>
+  <div class="row mb-3">
+   <div class="form-group col-sm-6">
+      <%= label_tag :date_start, 'Início' %>
+      <%= date_field_tag :date_end, @start_date, class: 'form-control ' %>
+    </div>
+    <div class="form-group col-sm-6">
+      <%= label_tag :end_date, 'Fim' %>
+      <%= date_field_tag :end_date, @end_date, class: 'form-control ' %>
+    </div>
+  </div>
+  <%= f.input :description,as: :text, label: "Descrição" %>
+  <div class="row mb-3">
+    <div class="col-4">
+      <%= f.input :activity_type, label: "Tipo de atividade", hint: "Adubação, Pulverização, Gradeamento" %>
+    </div>
+    <div class="col-4">
+      <%= f.input :area, label: "Area de atuação", hint: "Citrus, Pecuária, Milho,..." %>
+    </div>
+    <div class="col-4">
+      <%= f.input :place, label: "Local", hint: "sítio novo, pasto do feno, ..."  %>
+    </div>
+  </div>
+  <%= f.input :resources, label: "Recursos", hint: "Adubos,equipamentos" %>
+  <div class="col-6 mx-auto">
+    <%= f.button :submit, class: "btn-login my-2 " %>
+    <%# <%= f.button :submit, "teste", class: "btn-login my-2 " %>
+  </div>
+<% end %>

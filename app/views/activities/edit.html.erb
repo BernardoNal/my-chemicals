@@ -1,16 +1,12 @@
+
 <div class="container container-view mt-4">
-  <div class="form-shape col-md-4 mx-auto">
+  <div class="form-shape col-md-8 mx-auto">
     <%= link_to activities_path, class: 'btn-back text-decoration-none' do %>
       <i class='fa-solid fa-circle-left'></i>
     <% end %>
-    <h2 class="form-title pb-2">Editar nova Atividade</h2>
-    <%= simple_form_for [@farm, @activity] do |f| %>
-      <%= f.input :name, label: "Nome" %>
-      <%= f.input :description,as: :text, label: "Descrição" %>
-      <%= f.input :date_start, label: "Data de início" %>
-      <%= f.input :date_end, label: "Data de encerramento" %>
-      <%= f.input :farm_id, as: :select, collection: @farms, label: "Fazendas" %>
-      <%= f.button :submit, class: "btn-login my-2" %>
-    <% end %>
+    <h2 class="form-title pb-3">Editar nova Atividade</h2>
+    <div class="mx-3">
+      <%= render "form" %>
+    </div>
   </div>
 </div>

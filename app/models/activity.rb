@@ -5,8 +5,6 @@ class Activity < ApplicationRecord
   has_many :chemicals, through: :activity_chemicals
 
   validates :name, :farm_id, presence: true
-   # Validação de formato
-   validates :name, format: { with: /\A[a-zA-Z0-9\s]+\z/, message: "só permite letras e números" }
 
    # Validação de valores numéricos
   validates :forecast_days, numericality: { only_integer: true, greater_than_or_equal_to: 0 }, allow_nil: true

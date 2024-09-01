@@ -3,10 +3,10 @@ class ActivityPolicy < ApplicationPolicy
     record.farm.user == user
   end
   def new?
-    record.farm.user == user
+    true
   end
   def create?
-    record.farm.user == user
+    true
   end
 
   def edit?

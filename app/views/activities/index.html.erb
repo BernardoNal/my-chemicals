@@ -2,33 +2,35 @@
    <div class="title-big">
     <h1><i class="fas fa-user"></i> Atividades</h1>
   </div>
-  <div class="table-responsive col-12">
-    <table class="table table-striped table-bordered text-ssm">
-              <thead class="table-secondary">
+
+  <div class="table-responsive col-12 mt-5">
+    <table class="table table-striped-columns text-center ">
+              <thead class="table-bg fs-5">
                   <tr>
-                      <th scope="col">Nome</th>
-                      <th class='text-center d-none d-sm-table-cell' scope="col">Descrição</th>
-                      <th class='text-center d-none d-sm-table-cell' scope="col">Tipo</th>
-                       <th class='text-center d-sm-none d-table-cell' scope="col">Período</th>
-                      <th class='text-center d-none d-sm-table-cell' scope="col-6">Data de Início</th>
-                      <th class='text-center d-none d-sm-table-cell' scope="col">Data de Fim</th>
-                      <th class='text-center' scope="col">Fazenda</th>
+                      <th class='text-dgreen fs-5 col-2' scope="col">Atividade</th>
+                      <th class='text-dgreen d-none d-sm-table-cell' scope="col">Descrição</th>
+                      <th class='text-dgreen col-1 d-none d-sm-table-cell' scope="col">Tipo</th>
+                       <th class='text-dgreen d-sm-none d-table-cell' scope="col">Período</th>
+                      <th class='text-dgreen d-none d-sm-table-cell' scope="col-6">Data de Início</th>
+                      <th class='text-dgreen d-none d-sm-table-cell' scope="col">Data de Fim</th>
+                      <th class='text-dgreen' scope="col">Fazenda</th>
+                      <th class='text-dgreen col-1' scope="col"></th>
                   </tr>
               </thead>
-              <tbody>
+              <tbody class="table-group-divider">
                   <% @activities.each do |activity| %>
                     <tr>
-                      <td><%= activity.name %></td>
-                      <td class='text-center d-none d-sm-table-cell'><%= activity.description %></td>
-                      <td class='text-center d-none d-sm-table-cell'><%= activity.activity_type %></td>
-                      <td class='text-center d-sm-none d-table-cell'><%= activity.date_start.strftime('%d/%m/%Y') %> <br> a <%= activity.date_end.strftime('%d/%m/%Y') %> </td>
-                      <td class='text-center d-none d-sm-table-cell'><%= activity.date_start.strftime('%d/%m/%Y') %></td>
-                      <td class='text-center d-none d-sm-table-cell'><%= activity.date_end.strftime('%d/%m/%Y') %></td>
-                      <td class='text-center'><%= activity.farm.name%></td>
+                      <td class='text-dgreen col-2'><%= activity.name %></td>
+                      <td class='text-dgreen d-none d-sm-table-cell col-3'><%= activity.description.truncate(27) %></td>
+                      <td class='text-dgreen d-none d-sm-table-cell'><%= activity.activity_type %></td>
+                      <td class='text-dgreen d-sm-none d-table-cell'><%= activity.date_start.strftime('%d/%m/%Y') %> <br> a <%= activity.date_end.strftime('%d/%m/%Y') %> </td>
+                      <td class='text-dgreen d-none d-sm-table-cell'><%= activity.date_start.strftime('%d/%m/%Y') %></td>
+                      <td class='text-dgreen d-none d-sm-table-cell'><%= activity.date_end.strftime('%d/%m/%Y') %></td>
+                      <td class='text-dgreen'><%= activity.farm.name%></td>
+                      <td class='text-dgreen col-1'><i class="fa-solid fa-circle-info"></i></td>
                     </tr>
                   <% end %>
 
-<td class="table-test">...</td>
               </tbody>
           </table>
   </div>

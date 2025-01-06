@@ -43,44 +43,31 @@ Farm.create!(name: 'Sol Nascente', size: '500 ha', cep: '49075220', user_id: 1)
 Storage.create!(name: "Galpão principal", size: '20 m2', farm_id: 1)
 Storage.create!(name: "Galpão da laranja", size: '10 m2', farm_id: 1)
 
-# Criação de activities
-  activity1 = Activity.create!(
-    date_start: Date.today - 7,
-    date_end: Date.today - 1,
-    description: "Plantio de soja na área norte da fazenda",
-    name: "Plantio de Soja",
-    activity_type: "Plantio",
-    area: "Norte",
-    forecast_days: 6,
-    resources: "Tratores, sementes de soja",
-    place: "Campo A",
+# Arrays para armazenar dados de exemplo
+  activity_types = ["Plantio", "Colheita", "Irrigação", "Fertilização", "Pulverização"]
+  areas = ["Norte", "Sul", "Leste", "Oeste", "Central"]
+  places = ["Campo A", "Campo B", "Campo C", "Campo D", "Campo E"]
+# Criação de 10 activities
+10.times do |i|
+  activity = Activity.create!(
+    date_start: Date.today - (i * 10 + 7),
+    date_end: Date.today - (i * 10 + 1),
+    description: "#{activity_types[i % activity_types.size]} na área #{areas[i % areas.size]}",
+    name: "#{activity_types[i % activity_types.size]} #{areas[i % areas.size]}",
+    activity_type: activity_types[i % activity_types.size],
+    area: areas[i % areas.size],
+    forecast_days: rand(1..10),
+    resources: "Recursos #{i + 1}",
+    place: places[i % places.size],
     farm_id: 1
   )
 
-  activity2 = Activity.create!(
-    date_start: Date.today - 15,
-    date_end: Date.today - 10,
-    description: "Irrigação da área sul para preparo do solo",
-    name: "Irrigação do Sul",
-    activity_type: "Irrigação",
-    area: "Sul",
-    forecast_days: 5,
-    resources: "Sistema de irrigação, energia elétrica",
-    place: "Campo B",
-    farm_id: 1
-  )
-
-# Criação de activity_chemicals
+  # Criação de activity_chemicals para cada atividade
   ActivityChemical.create!(
-    activity_id: activity1.id,
-    chemical_id: 1,
-    quantity: 20.5
+    activity_id: activity.id,
+    chemical_id: (i % 5) + 1, # Alterna entre IDs de químicos 1 a 5
+    quantity: rand(5.0..50.0).round(2) # Quantidades aleatórias
   )
-
-  ActivityChemical.create!(
-    activity_id: activity2.id,
-    chemical_id: 2,
-    quantity: 10.0
-  )
+end
 
 # Chemical.create!(product_name: "Lower 7", compound_product: "Ureia", type_product: 'Redutor de pH', area: 'Milho,Laranja,Soja', measurement_unit: 'L', amount: 5)

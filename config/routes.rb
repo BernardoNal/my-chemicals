@@ -2,12 +2,10 @@ Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   devise_for :users
   root to: "farms#index"
-  resources :farms do
-    resources :activities, only: %i[index]
-  end
+  resources :farms
   get "myfarms" => 'farms#myfarms'
 
-  resources :activities, except: %i[index] do
+  resources :activities do
     resources :activity_chemicals, only: %i[new create]
     resources :responsibles, only: %i[new create]
   end

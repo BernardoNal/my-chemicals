@@ -43,10 +43,44 @@ Farm.create!(name: 'Sol Nascente', size: '500 ha', cep: '49075220', user_id: 1)
 Storage.create!(name: "Galpão principal", size: '20 m2', farm_id: 1)
 Storage.create!(name: "Galpão da laranja", size: '10 m2', farm_id: 1)
 
+# Criação de activities
+  activity1 = Activity.create!(
+    date_start: Date.today - 7,
+    date_end: Date.today - 1,
+    description: "Plantio de soja na área norte da fazenda",
+    name: "Plantio de Soja",
+    activity_type: "Plantio",
+    area: "Norte",
+    forecast_days: 6,
+    resources: "Tratores, sementes de soja",
+    place: "Campo A",
+    farm_id: 1
+  )
 
-# Chemical.create!(product_name: "Crucial", compound_product: "Glifosato", type_product: 'Herbicida', area: 'Milho,Laranja,Soja', measurement_unit: 'L', amount: 20)
-# Chemical.create!(product_name: "N400", compound_product: "Nitrogenio", type_product: 'Adubo Foliar', area: 'Milho,Laranja,Soja', measurement_unit: 'L', amount: 20)
-# Chemical.create!(product_name: "Atrazina Nortox 500 SC", compound_product: "Atrasina", type_product: 'Herbicida', area: 'Milho,Laranja,Soja', measurement_unit: 'L', amount: 20)
-# Chemical.create!(product_name: "Vorax", compound_product: "Ácido L-Glutâmico", type_product: 'Bio-Fertilizante', area: 'Milho,Laranja,Soja', measurement_unit: 'L', amount: 1)
-# Chemical.create!(product_name: "Pumma", compound_product: "Mix de Nutrientes", type_product: 'Fertilizante Mineral', area: 'Milho,Laranja,Soja', measurement_unit: 'KG', amount: 25)
+  activity2 = Activity.create!(
+    date_start: Date.today - 15,
+    date_end: Date.today - 10,
+    description: "Irrigação da área sul para preparo do solo",
+    name: "Irrigação do Sul",
+    activity_type: "Irrigação",
+    area: "Sul",
+    forecast_days: 5,
+    resources: "Sistema de irrigação, energia elétrica",
+    place: "Campo B",
+    farm_id: 1
+  )
+
+# Criação de activity_chemicals
+  ActivityChemical.create!(
+    activity_id: activity1.id,
+    chemical_id: 1,
+    quantity: 20.5
+  )
+
+  ActivityChemical.create!(
+    activity_id: activity2.id,
+    chemical_id: 2,
+    quantity: 10.0
+  )
+
 # Chemical.create!(product_name: "Lower 7", compound_product: "Ureia", type_product: 'Redutor de pH', area: 'Milho,Laranja,Soja', measurement_unit: 'L', amount: 5)

@@ -23,13 +23,17 @@
   </div>
   <div class="col-11 mx-auto mt-4">
         <div class="row card-small p-0">
-        <% @chemicals.in_groups_of((@chemicals.size / 4.0).ceil, false).each do |chemical_group| %>
-        <div class="col-md-3 border">
-          <% chemical_group.each do |chemical| %>
-            <p class="m-3 p-1"><i class='fa-solid fa-flask'></i> <%= link_to chemical.product_name, edit_chemical_path(chemical), class: "text-decoration-none text-dark" %></p>
+        <% if @chemicals.count > 0 %>
+          <% @chemicals.in_groups_of((@chemicals.size / 4.0).ceil, false).each do |chemical_group| %>
+            <div class="col-md-3 border">
+              <% chemical_group.each do |chemical| %>
+                <p class="m-3 p-1"><i class='fa-solid fa-flask'></i> <%= link_to chemical.product_name, edit_chemical_path(chemical), class: "text-decoration-none text-dark" %></p>
+              <% end %>
+            </div>
           <% end %>
-        </div>
-      <% end %>
+        <% else %>
+          <h2 class="fw-bold pending-date m-4 fs-3">Químico não encontrado.</h2>
+        <% end %>
         </div>
   </div>
 

@@ -12,16 +12,20 @@ Chemical.destroy_all
 csv_file = Rails.root.join('db/data', 'my_csv_file.csv')
 a = 0
 CSV.foreach(csv_file, headers: true) do |row|
-  Chemical.create!(
-    product_name: row['Produto'],
-    compound_product: row['DS_INGREDIENTE_ATIVO'],
-    type_product: row['CLASSE_AGRONOMICA'],
-    area: row['NO_CULTURA'],
-    measurement_unit: row['NO_UNIDADE_MEDIDA'],
-    amount: row['Amount'].presence || [1, 5, 10, 20, 20, 20, 20, 20].sample
-  )
-  a += 1
-  puts "Product #{a} created..." if (a % 10).zero?
+  # begin
+    Chemical.create!(
+      product_name: row['Produto'],
+      compound_product: row['DS_INGREDIENTE_ATIVO'],
+      type_product: row['CLASSE_AGRONOMICA'],
+      area: row['NO_CULTURA'],
+      measurement_unit: row['NO_UNIDADE_MEDIDA'],
+      amount: row['Amount'].presence || [1, 5, 10, 20, 20, 20, 20, 20].sample
+    )
+    a += 1
+    puts "Product #{a} created..." if (a % 100).zero?
+  # rescue => e
+  #   puts "Error on line #{a + 1}: #{e.message}"
+  # end
 end
 
 User.create!(

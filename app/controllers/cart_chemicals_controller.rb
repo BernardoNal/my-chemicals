@@ -17,6 +17,7 @@ class CartChemicalsController < ApplicationController
     if @cart_chemical.save
       redirect_to cart_path(@cart, entry: params[:cart_chemical][:entry])
     else
+      @entry = params[:cart_chemical][:entry]
       render 'carts/show', status: :unprocessable_entity
     end
   end

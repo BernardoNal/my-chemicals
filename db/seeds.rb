@@ -43,10 +43,31 @@ Farm.create!(name: 'Sol Nascente', size: '500 ha', cep: '49075220', user_id: 1)
 Storage.create!(name: "Galpão principal", size: '20 m2', farm_id: 1)
 Storage.create!(name: "Galpão da laranja", size: '10 m2', farm_id: 1)
 
+# Arrays para armazenar dados de exemplo
+  activity_types = ["Plantio", "Colheita", "Irrigação", "Fertilização", "Pulverização"]
+  areas = ["Norte", "Sul", "Leste", "Oeste", "Central"]
+  places = ["Campo A", "Campo B", "Campo C", "Campo D", "Campo E"]
+# Criação de 10 activities
+10.times do |i|
+  activity = Activity.create!(
+    date_start: Date.today - (i * 10 + 7),
+    date_end: Date.today - (i * 10 + 1),
+    description: "#{activity_types[i % activity_types.size]} na área #{areas[i % areas.size]}",
+    name: "#{activity_types[i % activity_types.size]} #{areas[i % areas.size]}",
+    activity_type: activity_types[i % activity_types.size],
+    area: areas[i % areas.size],
+    forecast_days: rand(1..10),
+    resources: "Recursos #{i + 1}",
+    place: places[i % places.size],
+    farm_id: 1
+  )
 
-# Chemical.create!(product_name: "Crucial", compound_product: "Glifosato", type_product: 'Herbicida', area: 'Milho,Laranja,Soja', measurement_unit: 'L', amount: 20)
-# Chemical.create!(product_name: "N400", compound_product: "Nitrogenio", type_product: 'Adubo Foliar', area: 'Milho,Laranja,Soja', measurement_unit: 'L', amount: 20)
-# Chemical.create!(product_name: "Atrazina Nortox 500 SC", compound_product: "Atrasina", type_product: 'Herbicida', area: 'Milho,Laranja,Soja', measurement_unit: 'L', amount: 20)
-# Chemical.create!(product_name: "Vorax", compound_product: "Ácido L-Glutâmico", type_product: 'Bio-Fertilizante', area: 'Milho,Laranja,Soja', measurement_unit: 'L', amount: 1)
-# Chemical.create!(product_name: "Pumma", compound_product: "Mix de Nutrientes", type_product: 'Fertilizante Mineral', area: 'Milho,Laranja,Soja', measurement_unit: 'KG', amount: 25)
+  # Criação de activity_chemicals para cada atividade
+  ActivityChemical.create!(
+    activity_id: activity.id,
+    chemical_id: (i % 5) + 1, # Alterna entre IDs de químicos 1 a 5
+    quantity: rand(5.0..50.0).round(2) # Quantidades aleatórias
+  )
+end
+
 # Chemical.create!(product_name: "Lower 7", compound_product: "Ureia", type_product: 'Redutor de pH', area: 'Milho,Laranja,Soja', measurement_unit: 'L', amount: 5)

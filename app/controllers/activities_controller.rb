@@ -3,7 +3,7 @@ class ActivitiesController < ApplicationController
   # Displays a list of activities
   def index
     @activities = policy_scope(Activity)
-    @farms = Farm.all
+    # @farms = Farm.all
   end
 
   # Displays details of a specific activity
@@ -24,7 +24,7 @@ class ActivitiesController < ApplicationController
     @activity = Activity.new(activity_params)
     authorize @activity
     if @activity.save
-      redirect_to farm_activities_path(@activity.farm)
+      redirect_to activities_path(@activity.farm)
       flash[:alert] = "Atividade criada com sucesso."
     else
       render :new, status: :unprocessable_entity
@@ -62,11 +62,24 @@ class ActivitiesController < ApplicationController
 
   # Permits activity parameters
   def activity_params
-    params.require(:activity).permit(:name, :farm_id)
+    params.require(:activity).permit(:name, :activity_type, :date_start, :date_end, :description, :farm_id)
   end
 
   # Sets the activity instance variable based on the provided id
   def set_activity
     @activity = Activity.find(params[:id])
+  end
+
+  def filter
+    case params[:filter]
+    when "1"
+      @activities = @activities.order(name: :asc)
+    when "2"
+      @activities = @activities.order(activity_type: :desc)
+    when "3"
+      @activities = @activities.order(date_start: :asc)
+    else
+      @activities = @activities.order(date_end: :desc)
+    end
   end
 end

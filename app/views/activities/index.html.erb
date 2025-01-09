@@ -2,8 +2,8 @@
    <div class="title-big">
     <h1><i class="fas fa-user"></i> Atividades</h1>
   </div>
-     <% offset = params[:set].to_i || 0 %>
      <% total_activities = 15 %>
+     <% offset = params[:set].to_i % total_activities == 0 ? params[:set].to_i : 0 %>
 
   <div class="table-responsive col-12 mt-3">
     <table class="table table-striped-columns text-center ">
@@ -29,7 +29,12 @@
                       <td class='text-dgreen d-none d-sm-table-cell'><%= activity.date_start&.strftime('%d/%m/%Y') %></td>
                       <td class='text-dgreen d-none d-sm-table-cell'><%= activity.date_end&.strftime('%d/%m/%Y') %></td>
                       <td class='text-dgreen'><%= activity.farm.name%></td>
-                      <td class='text-dgreen col-1'><i class="fa-solid fa-circle-info"></i></td>
+                      <td class='text-dgreen col-1'>
+                        <%= link_to activity_path(activity), data: {turbo_frame: :modal}, class: "text-decoration-none text-blue" do %>  <i class="fa-solid fa-circle-info"></i> <% end %>
+                        <%= link_to activity_path(activity), class: "text-dgreen text-decoration-none" do %>
+                          <i class="fa-solid fa-circle-info"></i>
+                        <% end %>
+                      </td>
                     </tr>
                   <% end %>
 
@@ -43,7 +48,7 @@
                 <% end %>
                 Página <%=(offset/total_activities)+1 %>
                 <% if offset+total_activities < @activities.count %>
-                  <%= link_to activities_path(set: offset+5), class: "text-dgreen text-decoration-none" do %>
+                  <%= link_to activities_path(set: offset+total_activities), class: "text-dgreen text-decoration-none" do %>
                     <i class="fa-solid fa-arrow-right"></i>
                   <% end %>
                 <% end %>

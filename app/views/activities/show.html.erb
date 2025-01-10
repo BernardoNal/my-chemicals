@@ -1,7 +1,51 @@
-<%= render "shared/modal", title: "Detalhes da atividade "  do %>
-  <div class="col-10 mx-auto ">
-    <div class="card-small row">
-     <p>Nome:<%= @activity.name %></p>
+<div class="container container-view my-4">
+  <div class="title-big">
+    <h1><i class="fa-solid fa-list-check"></i>  </i> Atividade</h1>
+  </div>
+  <div class="row p-2">
+
+    <div class="col-7">
+      <div class="card-small row">
+         <div class="d-flex justify-content-between align-items-center my-2">
+            <%= link_to activities_path(), class: 'btn-back text-decoration-none me-2' do %>
+              <i class='fa-solid fa-circle-left'></i>
+            <% end %>
+            <h2 class=" py-2 text-center flex-grow-1 mb-0"><%= @activity.name %></h2>
+          </div>
+        <div class="col-6">
+          <p class ="py-3">Categoria: <%= @activity.activity_type %></p>
+          <p class ="py-3">Descrição: <%= @activity.description %></p>
+          <p class ="py-3">Químicos:
+            <% @activity.activity_chemicals.each do |chemical| %>
+              <div class ="px-5 py-2">   <%= chemical.chemical.product_name %> ( <%= chemical.quantity %><%= chemical.chemical.measurement_unit %> )</div>
+            <% end %>
+          </p>
+        </div>
+        <div class="col-6">
+          <p class ="py-3">Período: <%= @activity.date_start&.strftime('%d/%m/%Y') %> a <%= @activity.date_end&.strftime('%d/%m/%Y') %> (<%= @activity.forecast_days %> dias)</p>
+          <p class ="py-3">Fazenda: <%= @activity.farm.name %></p>
+          <p class ="py-3">Local: <%= @activity.place %>, <%= @activity.area %></p>
+          <p class ="py-3">Recursos: <%= @activity.resources %></p>
+          <p class ="py-3">Responsáveis:
+            <% @activity.responsibles.each do |responsible| %>
+              <%= responsible.name %> /
+            <% end %>
+          </p>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="col-4 mx-5">
+      <div class="card-small">
+        <p class ="py-2">Químicos</p>
+
+      </div>
+      <div class="card-small">
+        <p class ="py-2">Responsáveis</p>
+
+      </div>
     </div>
   </div>
-<% end %>
+
+</div>

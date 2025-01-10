@@ -38,12 +38,25 @@
 
     <div class="col-4 mx-5">
       <div class="card-small">
-        <p class ="py-2">Químicos</p>
+        <h3 class ="form-title">Químicos</h3>
+          <div class="form-shape  col-md-8 mx-auto mt-3">
+            <%= simple_form_for [@activity, @activity_chemical]  do |f| %>
+              <%= f.input :chemical_id, as: :select, collection: Chemical.all.map { |chemical| ["#{chemical.product_name.truncate(30)} (#{chemical.amount}#{chemical.measurement_unit})", chemical.id] }, label: "Químico" %>
+              <%= f.input :quantity, input_html: { min: 0 }, label: "Quantidade" %>
+              <%= f.button :submit, "Adicionar", class: "my-2 btn-login" %>
+             <% end %>
+          </div>
 
       </div>
       <div class="card-small">
-        <p class ="py-2">Responsáveis</p>
-
+        <h3 class ="form-title">Responsáveis</h3>
+          <div class="form-shape  col-md-8 mx-auto mt-3">
+            <%= simple_form_for [@activity, @responsible]  do |f| %>
+              <%= f.input :employee_id, as: :select, collection: @activity.farm.employees.map { |employee| ["#{employee.user.full_name}"]} , label: "Funcionário" %>
+              <%= f.input :name, label: "Nome" %>
+              <%= f.button :submit, "Adicionar", class: "my-2 btn-login" %>
+             <% end %>
+          </div>
       </div>
     </div>
   </div>

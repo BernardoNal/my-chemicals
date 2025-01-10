@@ -9,6 +9,8 @@ class ActivitiesController < ApplicationController
   # Displays details of a specific activity
   def show
     authorize @activity
+    @activity_chemical = ActivityChemical.new
+    @responsible = Responsible.new
   end
 
   # Renders form to create a new activity
@@ -24,7 +26,7 @@ class ActivitiesController < ApplicationController
     @activity = Activity.new(activity_params)
     authorize @activity
     if @activity.save
-      redirect_to activities_path(@activity.farm)
+      redirect_to activity_path(@activity)
       flash[:alert] = "Atividade criada com sucesso."
     else
       render :new, status: :unprocessable_entity

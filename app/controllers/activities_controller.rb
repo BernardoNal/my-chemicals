@@ -11,6 +11,7 @@ class ActivitiesController < ApplicationController
     authorize @activity
     @activity_chemical = ActivityChemical.new
     @responsible = Responsible.new
+    @chemicals = @activity.available_chemicals
   end
 
   # Renders form to create a new activity

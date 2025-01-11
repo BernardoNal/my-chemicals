@@ -12,6 +12,7 @@ class ActivitiesController < ApplicationController
     @activity_chemical = ActivityChemical.new
     @responsible = Responsible.new
     @chemicals = @activity.available_chemicals
+    @employees = @activity.available_responsibles
   end
 
   # Renders form to create a new activity

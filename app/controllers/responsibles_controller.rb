@@ -15,9 +15,9 @@ class ResponsiblesController < ApplicationController
   def create
     @activity_chemical = ActivityChemical.new
     @responsible = Responsible.new(responsible_params)
-    @responsible.valid?
     @activity = Activity.find(params[:activity_id])
     @chemicals = @activity.available_chemicals
+    @employees = @activity.available_responsibles
     @responsible.activity = @activity
     authorize @responsible
     if @responsible.save
@@ -42,6 +42,6 @@ class ResponsiblesController < ApplicationController
 
   # Defines permitted parameters for creating or updating an responsible
   def responsible_params
-    params.require(:responsible).permit(:activity_id, :employee_id)
+    params.require(:responsible).permit(:name, :activity_id, :employee_id)
   end
 end

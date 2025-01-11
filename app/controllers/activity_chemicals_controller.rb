@@ -8,6 +8,7 @@ class ActivityChemicalsController < ApplicationController
       authorize @activity_chemical
       @activity = Activity.find(params[:activity_id])
       @chemicals = @activity.available_chemicals
+      @employees = @activity.available_responsibles
       if @activity_chemical.save
         redirect_to activity_path(@activity)
       else

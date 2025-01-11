@@ -20,6 +20,11 @@ class Activity < ApplicationRecord
     Chemical.where.not(id: existing_chemical_ids).order(product_name: :asc)
   end
 
+  def available_responsibles
+    existing_employee_ids = responsibles.pluck(:employee_id).compact
+    Employee.where.not(id: existing_employee_ids)
+  end
+
   private
 
   def start_date_before_end_date

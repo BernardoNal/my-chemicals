@@ -1,22 +1,18 @@
 class ActivityChemicalsController < ApplicationController
     # Renders a form to create a new ActivityChemical
-    def new
-      @activity_chemical = ActivityChemical.new
-      authorize @activity_chemical
-      @activity = Activity.find(params[:activity_id])
-      @chemicals = Chemical.all
-    end
 
     # Creates a new ActivityChemical
     def create
+      @responsible = Responsible.new
       @activity_chemical = ActivityChemical.new(activity_chemical_params)
       authorize @activity_chemical
       @activity = Activity.find(params[:activity_id])
-      init_activity_chemical
+      @chemicals = @activity.available_chemicals
+      @employees = @activity.available_responsibles
       if @activity_chemical.save
         redirect_to activity_path(@activity)
       else
-        render 'activitys/show', status: :unprocessable_entity
+        render 'activities/show', status: :unprocessable_entity
       end
     end
 
@@ -37,12 +33,4 @@ class ActivityChemicalsController < ApplicationController
       params.require(:activity_chemical).permit(:quantity, :chemical_id)
     end
 
-
-    # Initializes a new ActivityChemical
-    def init_activity_chemical
-      @activity_chemical.activity = @activity
-      @activity_chemicals = @activity.activity_chemicals
-      existing_chemical_ids = @activity.activity_chemicals.pluck(:chemical_id)
-      @chemicals = Chemical.all.order(product_name: :asc).where.not(id: existing_chemical_ids)
-    end
 end

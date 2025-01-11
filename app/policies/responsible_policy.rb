@@ -5,11 +5,11 @@ class ResponsiblePolicy < ApplicationPolicy
   end
 
   def create?
-    record.farm.user == user
+    record.activity.farm.user == user
   end
 
   def destroy?
-    record.farm.user == user
+    record.activity.farm.user == user
   end
 
   class Scope < Scope

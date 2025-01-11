@@ -15,6 +15,16 @@ class Activity < ApplicationRecord
   # Validação personalizada para garantir que date_start seja menor que date_end
   validate :start_date_before_end_date
 
+  def available_chemicals
+    existing_chemical_ids = activity_chemicals.pluck(:chemical_id)
+    Chemical.where.not(id: existing_chemical_ids).order(product_name: :asc)
+  end
+
+  def available_responsibles
+    existing_employee_ids = responsibles.pluck(:employee_id).compact
+    Employee.where.not(id: existing_employee_ids)
+  end
+
   private
 
   def start_date_before_end_date

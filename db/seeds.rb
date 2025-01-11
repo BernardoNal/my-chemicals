@@ -70,4 +70,29 @@ Storage.create!(name: "Galpão da laranja", size: '10 m2', farm_id: 1)
   )
 end
 
+Responsible.create!([
+  {
+    name: "Carlos Oliveira",
+
+    activity_id: 1  # Substitua com um ID válido de um registro em activities
+  },
+  {
+    name: "Fernanda Souza",
+    activity_id: 2
+  },
+  {
+    name: "Rafael Silva",
+    activity_id: 3
+  },
+  {
+    name: "Juliana Costa",
+    activity_id: 4
+  },
+  {
+    name: "Mariana Almeida",
+    activity_id: 5
+  }
+])
+
+
 # Chemical.create!(product_name: "Lower 7", compound_product: "Ureia", type_product: 'Redutor de pH', area: 'Milho,Laranja,Soja', measurement_unit: 'L', amount: 5)

@@ -2,9 +2,9 @@
   <div class="title-big">
     <h1><i class="fa-solid fa-list-check"></i>  </i> Atividade</h1>
   </div>
-  <div class="row p-2">
+  <div class="row px-4">
 
-    <div class="col-7">
+    <div class="col-md-7 mb-2">
       <div class="card-small row">
          <div class="d-flex justify-content-between align-items-center my-2">
             <%= link_to activities_path(), class: 'btn-back text-decoration-none me-2' do %>
@@ -14,12 +14,12 @@
              <%= link_to  edit_activity_path(@activity), class: "text-dgreen text-decoration-none" do %> <i class="fa-regular fa-pen-to-square"></i> <% end %>
             </h2>
           </div>
-        <div class="col-6">
+        <div class="col-md-6">
           <p class ="py-3">Categoria: <%= @activity.activity_type %></p>
           <p class ="py-3">Descrição: <%= @activity.description %></p>
           <p class ="py-3">Químicos:
             <% @activity.activity_chemicals.each do |chemical| %>
-              <div class ="px-5 py-2">
+              <div class ="px-4 py-2">
                 <%= chemical.chemical.product_name %> ( <%= chemical.quantity %><%= chemical.chemical.measurement_unit %> )
                 (<%= link_to  activity_chemical_path(chemical),  data: {turbo_method: :delete}, class:' text-danger text-decoration-none' do  %>
                   <i class="far fa-trash-alt"></i>
@@ -28,7 +28,7 @@
             <% end %>
           </p>
         </div>
-        <div class="col-6">
+        <div class="col-md-6">
           <p class ="py-3">Período: <%= @activity.date_start&.strftime('%d/%m/%Y') %> a <%= @activity.date_end&.strftime('%d/%m/%Y') %> (<%= @activity.forecast_days %> dias)</p>
           <p class ="py-3">Fazenda: <%= @activity.farm.name %></p>
           <p class ="py-3">Local: <%= @activity.place %>, <%= @activity.area %></p>
@@ -46,7 +46,7 @@
       </div>
     </div>
 
-    <div class="col-4 mx-5">
+    <div class="col-md-4 mx-md-5">
       <div class="card-small">
         <h3 class ="form-title">Químicos</h3>
           <div class="form-shape  col-md-8 mx-auto mt-3">

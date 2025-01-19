@@ -10,14 +10,21 @@
             <%= link_to activities_path(), class: 'btn-back text-decoration-none me-2' do %>
               <i class='fa-solid fa-circle-left'></i>
             <% end %>
-            <h2 class=" py-2 text-center flex-grow-1 mb-0"><%= @activity.name %></h2>
+            <h2 class=" py-2 text-center flex-grow-1 mb-0"><%= @activity.name %>
+             <%= link_to  edit_activity_path(@activity), class: "text-dgreen text-decoration-none" do %> <i class="fa-regular fa-pen-to-square"></i> <% end %>
+            </h2>
           </div>
         <div class="col-6">
           <p class ="py-3">Categoria: <%= @activity.activity_type %></p>
           <p class ="py-3">Descrição: <%= @activity.description %></p>
           <p class ="py-3">Químicos:
             <% @activity.activity_chemicals.each do |chemical| %>
-              <div class ="px-5 py-2">   <%= chemical.chemical.product_name %> ( <%= chemical.quantity %><%= chemical.chemical.measurement_unit %> )</div>
+              <div class ="px-5 py-2">
+                <%= chemical.chemical.product_name %> ( <%= chemical.quantity %><%= chemical.chemical.measurement_unit %> )
+                (<%= link_to  activity_chemical_path(chemical),  data: {turbo_method: :delete}, class:' text-danger text-decoration-none' do  %>
+                  <i class="far fa-trash-alt"></i>
+                <% end %>)
+              </div>
             <% end %>
           </p>
         </div>
@@ -28,7 +35,10 @@
           <p class ="py-3">Recursos: <%= @activity.resources %></p>
           <p class ="py-3">Responsáveis:
             <% @activity.responsibles.each do |responsible| %>
-              <%= responsible.name || responsible.employee.user.full_name %> /
+              <%= responsible.name || responsible.employee.user.full_name %>
+              (<%= link_to  responsible_path(responsible),  data: {turbo_method: :delete}, class:' text-danger text-decoration-none' do  %>
+                  <i class="far fa-trash-alt"></i>
+                <% end %>) /
             <% end %>
           </p>
         </div>

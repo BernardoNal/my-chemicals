@@ -30,6 +30,7 @@
                       <td class='text-dgreen d-none d-sm-table-cell'><%= activity.date_end&.strftime('%d/%m/%Y') %></td>
                       <td class='text-dgreen'><%= activity.farm.name%></td>
                       <td class='text-dgreen col-1'>
+                         <%= link_to  edit_activity_path(activity), class: "text-dgreen text-decoration-none" do %> <i class="fa-regular fa-pen-to-square"></i> <% end %>
                         <%= link_to activity_path(activity), class: "text-dgreen text-decoration-none" do %>
                           <i class="fa-solid fa-circle-info"></i>
                         <% end %>

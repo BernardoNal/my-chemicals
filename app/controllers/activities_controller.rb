@@ -26,6 +26,7 @@ class ActivitiesController < ApplicationController
   def create
     @farms = current_user.farms
     @activity = Activity.new(activity_params)
+    set_datas
     authorize @activity
     if @activity.save
       redirect_to activity_path(@activity)
@@ -43,9 +44,10 @@ class ActivitiesController < ApplicationController
 
   # Updates a activity
   def update
+    set_datas
     authorize @activity
     if @activity.update(activity_params)
-      redirect_to farm_activities_path(@activity.farm)
+      redirect_to activity_path(@activity)
       flash[:alert] = "Atividade atualizada com sucesso."
 
     else
@@ -66,12 +68,17 @@ class ActivitiesController < ApplicationController
 
   # Permits activity parameters
   def activity_params
-    params.require(:activity).permit(:name, :activity_type, :date_start, :date_end, :description, :farm_id)
+    params.require(:activity).permit(:name, :description, :activity_type, :area, :place, :resources, :farm_id,)
   end
 
   # Sets the activity instance variable based on the provided id
   def set_activity
     @activity = Activity.find(params[:id])
+  end
+
+  def set_datas
+    @activity.date_start =params[:date_start]
+    @activity.date_end = params[:date_end]
   end
 
   def filter

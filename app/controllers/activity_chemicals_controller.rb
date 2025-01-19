@@ -21,7 +21,7 @@ class ActivityChemicalsController < ApplicationController
       @activity_chemical = ActivityChemical.find(params[:id])
       authorize @activity_chemical
       @activity_chemical.destroy
-      flash[:alert] = "Item excluído com sucesso."
+      flash[:alert] = "Químico excluído com sucesso."
 
       redirect_to activity_path(@activity_chemical.activity)
     end

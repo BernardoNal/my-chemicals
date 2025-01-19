@@ -30,12 +30,12 @@ class ResponsiblesController < ApplicationController
 
   # Deletes an responsible record
   def destroy
-    @responsible = responsible.find(params[:id])
+    @responsible = Responsible.find(params[:id])
     authorize @responsible
     @responsible.destroy
     flash[:alert] = "Funcionario removido com sucesso."
 
-    redirect_to responsibles_path
+    redirect_to activity_path(@responsible.activity)
   end
 
   private

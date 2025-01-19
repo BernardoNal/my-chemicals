@@ -5,7 +5,7 @@
      <% total_activities = 15 %>
      <% offset = params[:set].to_i % total_activities == 0 ? params[:set].to_i : 0 %>
 
-  <div class="table-responsive col-12 mt-3">
+  <div class="table-responsive col-12 mt-2">
     <table class="table  text-center ">
               <thead class="table-bg fs-5">
                   <tr>
@@ -16,7 +16,7 @@
                       <th class='text-dgreen d-none d-sm-table-cell' scope="col-6">Data de Início</th>
                       <th class='text-dgreen d-none d-sm-table-cell' scope="col">Data de Fim</th>
                       <th class='text-dgreen' scope="col">Fazenda</th>
-                      <th class='text-dgreen col-1' scope="col"></th>
+                      <th class='text-dgreen col-1 ' scope="col"></th>
                   </tr>
               </thead>
               <tbody class="table-group-divider">
@@ -30,6 +30,8 @@
                       <td class='text-dgreen d-none d-sm-table-cell'><%= activity.date_end&.strftime('%d/%m/%Y') %></td>
                       <td class='text-dgreen'><%= activity.farm.name%></td>
                       <td class='text-dgreen col-1'>
+                         <%= link_to  edit_activity_path(activity), class: "text-dgreen text-decoration-none" do %> <i class="fa-regular fa-pen-to-square"></i> <% end %>
+                         &nbsp;
                         <%= link_to activity_path(activity), class: "text-dgreen text-decoration-none" do %>
                           <i class="fa-solid fa-circle-info"></i>
                         <% end %>

@@ -10,11 +10,11 @@
   <div class="row mb-3">
    <div class="form-group col-sm-6">
       <%= label_tag :date_start, 'Início' %>
-      <%= date_field_tag :date_end, @start_date, class: 'form-control ' %>
+      <%= date_field_tag :date_start, @activity.date_start, class: 'form-control ' %>
     </div>
     <div class="form-group col-sm-6">
-      <%= label_tag :end_date, 'Fim' %>
-      <%= date_field_tag :end_date, @end_date, class: 'form-control ' %>
+      <%= label_tag :date_end, 'Fim' %>
+      <%= date_field_tag :date_end, @activity.date_end, class: 'form-control ' %>
     </div>
   </div>
   <%= f.input :description,as: :text, label: "Descrição" %>
@@ -32,6 +32,5 @@
   <%= f.input :resources, label: "Recursos", hint: "Adubos,equipamentos" %>
   <div class="col-6 mx-auto">
     <%= f.button :submit, class: "btn-login my-2 " %>
-    <%# <%= f.button :submit, "teste", class: "btn-login my-2 " %>
   </div>
 <% end %>

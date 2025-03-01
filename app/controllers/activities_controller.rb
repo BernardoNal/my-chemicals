@@ -3,7 +3,11 @@ class ActivitiesController < ApplicationController
   # Displays a list of activities
   def index
     @activities = policy_scope(Activity)
-    # @farms = Farm.all
+
+    @start_date = params[:start_date].present? ? Date.parse(params[:start_date]) : Date.current.beginning_of_month
+    @end_date = params[:end_date].present? ? Date.parse(params[:end_date]) : Date.current
+    @types= @activities.distinct.pluck(:activity_type)
+    @farms = current_user.farms
   end
 
   # Displays details of a specific activity

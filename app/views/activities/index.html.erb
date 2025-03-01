@@ -6,20 +6,20 @@
     <%= form_with(url:activities_path,  method: :get, local: true) do |form| %>
             <div class="d-flex row justify-content-between ">
               <div class=" col-sm-3 mb-1">
-                <%= label_tag :start_date, 'De' %>
-                <%= date_field_tag :start_date, @start_date, class: 'form-control border border-dark' %>
+                <%= label_tag :date_start, 'De' %>
+                <%= date_field_tag :date_start, @date_start, class: 'form-control border border-dark' %>
               </div>
                <div class=" col-sm-3 mb-1 ">
-                <%= label_tag :end_date, 'Até' %>
-                <%= date_field_tag :end_date, @end_date, class: 'form-control border border-dark' %>
+                <%= label_tag :date_end, 'Até' %>
+                <%= date_field_tag :date_end, @date_end, class: 'form-control border border-dark' %>
               </div>
               <div class=" col-sm-2 mb-1 ">
                 <%= label_tag :type, 'Tipo de atividade' %>
-                <%= select_tag :type, options_for_select([["Todos", "all"]] + @types , params[:type]), class: 'form-control border border-dark' %>
+                <%= select_tag :type, options_for_select([["Todos", ""]] + @types , params[:type]), class: 'form-control border border-dark' %>
               </div>
               <div class=" col-sm-2 mb-1 ">
                 <%= label_tag :farm, 'Fazenda' %>
-                <%= select_tag :farm, options_for_select([["Todos", "all"]] + @farms.pluck(:name) , params[:farm]), class: 'form-control border border-dark' %>
+                <%= select_tag :farm, options_for_select([["Todos", ""]] + @farms.map { |farm| ["#{farm.name} ", farm.id] } , params[:farm]), class: 'form-control border border-dark' %>
               </div>
              <div class=" col-sm-1 m-1  d-flex justify-content-center">
                 <%= submit_tag 'Filtrar', class: 'btn btn-login mt-4 mb-3' %>

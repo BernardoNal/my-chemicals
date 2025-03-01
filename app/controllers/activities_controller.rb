@@ -4,10 +4,11 @@ class ActivitiesController < ApplicationController
   def index
     @activities = policy_scope(Activity)
 
-    @start_date = params[:start_date].present? ? Date.parse(params[:start_date]) : Date.current.beginning_of_month
-    @end_date = params[:end_date].present? ? Date.parse(params[:end_date]) : Date.current
+    @date_start = params[:date_start].present? ? Date.parse(params[:date_start]) : Date.current.beginning_of_month
+    @date_end = params[:date_end].present? ? Date.parse(params[:date_end]) : Date.current
     @types= @activities.distinct.pluck(:activity_type)
     @farms = current_user.farms
+    filter
   end
 
   # Displays details of a specific activity
@@ -85,7 +86,7 @@ class ActivitiesController < ApplicationController
     @activity.date_end = params[:date_end]
   end
 
-  def filter
+  def filter_order
     case params[:filter]
     when "1"
       @activities = @activities.order(name: :asc)
@@ -97,4 +98,19 @@ class ActivitiesController < ApplicationController
       @activities = @activities.order(date_end: :desc)
     end
   end
+
+  def filter
+    filters = {}
+
+    if params[:date_start].present? || params[:date_end].present?
+      filters[:date_start] = @date_start..@date_end
+      filters[:date_end] = @date_start..@date_end
+    end
+
+    filters[:activity_type] = params[:type] if params[:type].present?
+    filters[:farm_id] = params[:farm] if params[:farm].present?
+
+    @activities = @activities.where(filters) if filters.present?
+  end
+
 end

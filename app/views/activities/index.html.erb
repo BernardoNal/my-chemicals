@@ -1,59 +1,114 @@
 <div class="container container-view my-4">
    <div class="title-big">
-    <h1><i class="fa-solid fa-list-check"></i>  </i> Atividades</h1>
+    <%= link_to activities_path, class: "text-decoration-none" do %>
+      <h1><i class="fa-solid fa-list-check"></i>  </i> Atividades</h1>
+    <% end %>
   </div>
-     <% total_activities = 15 %>
+  <div class="card-small bg-white py-1 px-2 m-1">
+    <%= form_with(url:activities_path,  method: :get, local: true) do |form| %>
+      <div class="d-flex row justify-content-between m-1">
+  <%# Campo "De" %>
+  <div class="col-6 col-lg-2 mb-1">
+    <div class="form-group">
+      <%= label_tag :date_start, 'De' %>
+      <%= date_field_tag :date_start, @date_start, class: 'form-control border border-dark' %>
+    </div>
+  </div>
+
+  <%# Campo "Até" %>
+  <div class="col-6 col-lg-2 mb-1">
+    <div class="form-group">
+      <%= label_tag :date_end, 'Até' %>
+      <%= date_field_tag :date_end, @date_end, class: 'form-control border border-dark' %>
+    </div>
+  </div>
+
+  <%# Campo "Tipo de atividade" %>
+  <div class="col-6 col-lg-2 mb-1">
+    <div class="form-group">
+      <%= label_tag :type, 'Tipo de atividade' %>
+      <%= select_tag :type, options_for_select([["Todos", ""]] + @types, params[:type]), class: 'form-control border border-dark' %>
+    </div>
+  </div>
+
+  <%# Campo "Fazenda" %>
+  <div class="col-6 col-lg-2 mb-1">
+    <div class="form-group">
+      <%= label_tag :farm, 'Fazenda' %>
+      <%= select_tag :farm, options_for_select([["Todos", ""]] + @farms.map { |farm| ["#{farm.name} ", farm.id] }, params[:farm]), class: 'form-control border border-dark' %>
+    </div>
+  </div>
+
+  <%# Botões "Filtrar" e "Limpar" centralizados %>
+  <div class="col-6 col-lg-2 text-smallX text-center mt-4 mx-sm-0 mx-auto ">
+    <%= button_tag type: 'submit', class: 'btn btn-login mb-2' do %>
+      Filtrar <i class="fa-solid fa-filter"></i>
+    <% end %>
+
+    <%= link_to activities_path, class: "link-danger link-underline-opacity-25 link-underline-opacity-100-hover" do %>
+      <i class="fa-solid fa-circle-minus"></i> Limpar o filtro
+    <% end %>
+  </div>
+</div>
+
+    <% end %>
+  </div>
+     <% total_activities = 10 %>
      <% offset = params[:set].to_i % total_activities == 0 ? params[:set].to_i : 0 %>
-
-  <div class="table-responsive col-12 mt-2">
-    <table class="table  text-center ">
-              <thead class="table-bg fs-5">
-                  <tr>
-                      <th class='text-dgreen fs-5 col-2' scope="col">Atividade <%= link_to "<i class='fa-solid fa-circle-plus'></i>".html_safe, new_activity_path, class: "text-dgreen fs-5" %></th>
-                      <th class='text-dgreen d-none d-sm-table-cell' scope="col">Descrição</th>
-                      <th class='text-dgreen col-1 d-none d-sm-table-cell' scope="col">Tipo</th>
-                       <th class='text-dgreen d-sm-none d-table-cell' scope="col">Período</th>
-                      <th class='text-dgreen d-none d-sm-table-cell' scope="col-6">Data de Início</th>
-                      <th class='text-dgreen d-none d-sm-table-cell' scope="col">Data de Fim</th>
-                      <th class='text-dgreen' scope="col">Fazenda</th>
-                      <th class='text-dgreen col-1 ' scope="col"></th>
-                  </tr>
-              </thead>
-              <tbody class="table-group-divider">
-                  <% @activities.limit(total_activities).offset(offset).each do |activity| %>
+  <% if @activities.present? %>
+    <div class="table-responsive col-12 mt-2">
+      <table class="table  text-center ">
+                <thead class="table-bg fs-5">
                     <tr>
-                      <td class='text-dgreen col-2'><%= activity.name %></td>
-                      <td class='text-dgreen d-none d-sm-table-cell col-3'><%= activity.description&.truncate(27) %></td>
-                      <td class='text-dgreen d-none d-sm-table-cell'><%= activity.activity_type %></td>
-                      <td class='text-dgreen d-sm-none d-table-cell'><%= activity.date_start&.strftime('%d/%m/%Y') %> <br> a <%= activity.date_end&.strftime('%d/%m/%Y') %> </td>
-                      <td class='text-dgreen d-none d-sm-table-cell'><%= activity.date_start&.strftime('%d/%m/%Y') %></td>
-                      <td class='text-dgreen d-none d-sm-table-cell'><%= activity.date_end&.strftime('%d/%m/%Y') %></td>
-                      <td class='text-dgreen'><%= activity.farm.name%></td>
-                      <td class='text-dgreen col-1'>
-                         <%= link_to  edit_activity_path(activity), class: "text-dgreen text-decoration-none" do %> <i class="fa-regular fa-pen-to-square"></i> <% end %>
-                         &nbsp;
-                        <%= link_to activity_path(activity), class: "text-dgreen text-decoration-none" do %>
-                          <i class="fa-solid fa-circle-info"></i>
-                        <% end %>
-                      </td>
+                        <th class='text-dgreen fs-5 col-2' scope="col">Atividade <%= link_to "<i class='fa-solid fa-circle-plus'></i>".html_safe, new_activity_path, class: "text-dgreen fs-5" %></th>
+                        <th class='text-dgreen d-none d-sm-table-cell' scope="col">Descrição</th>
+                        <th class='text-dgreen col-1 d-none d-sm-table-cell' scope="col">Tipo</th>
+                        <th class='text-dgreen d-sm-none d-table-cell' scope="col">Período</th>
+                        <th class='text-dgreen d-none d-sm-table-cell' scope="col-6">Data de Início</th>
+                        <th class='text-dgreen d-none d-sm-table-cell' scope="col">Data de Fim</th>
+                        <th class='text-dgreen' scope="col">Fazenda</th>
+                        <th class='text-dgreen col-1 ' scope="col"></th>
                     </tr>
-                  <% end %>
+                </thead>
+                <tbody class="table-group-divider">
+                    <% @activities.limit(total_activities).offset(offset).each do |activity| %>
+                      <tr>
+                        <td class='text-dgreen col-2'><%= activity.name %></td>
+                        <td class='text-dgreen d-none d-sm-table-cell col-3'><%= activity.description&.truncate(27) %></td>
+                        <td class='text-dgreen d-none d-sm-table-cell'><%= activity.activity_type %></td>
+                        <td class='text-dgreen d-sm-none d-table-cell'><%= activity.date_start&.strftime('%d/%m/%Y') %> <br> a <%= activity.date_end&.strftime('%d/%m/%Y') %> </td>
+                        <td class='text-dgreen d-none d-sm-table-cell'><%= activity.date_start&.strftime('%d/%m/%Y') %></td>
+                        <td class='text-dgreen d-none d-sm-table-cell'><%= activity.date_end&.strftime('%d/%m/%Y') %></td>
+                        <td class='text-dgreen'><%= activity.farm.name%></td>
+                        <td class='text-dgreen col-1'>
+                          <%= link_to  edit_activity_path(activity), class: "text-dgreen text-decoration-none" do %> <i class="fa-regular fa-pen-to-square"></i> <% end %>
+                          &nbsp;
+                          <%= link_to activity_path(activity), class: "text-dgreen text-decoration-none" do %>
+                            <i class="fa-solid fa-circle-info"></i>
+                          <% end %>
+                        </td>
+                      </tr>
+                    <% end %>
 
-              </tbody>
-          </table>
-  </div>
-              <p class="icon-lg-right "> <% if offset > 0 %>
-                  <%= link_to activities_path(set: offset-total_activities), class: "text-dgreen text-decoration-none" do %>
-                    <i class="fa-solid fa-arrow-left"></i>
-                  <% end %>
-                <% end %>
-                Página <%=(offset/total_activities)+1 %>
-                <% if offset+total_activities < @activities.count %>
-                  <%= link_to activities_path(set: offset+total_activities), class: "text-dgreen text-decoration-none" do %>
-                    <i class="fa-solid fa-arrow-right"></i>
-                  <% end %>
-                <% end %>
-              </p>
+                </tbody>
+            </table>
+    </div>
+    <p class="icon-lg-right "> <% if offset > 0 %>
+        <%= link_to activities_path(request.query_parameters.merge(set: offset - total_activities)), class: "text-dgreen text-decoration-none" do %>
+          <i class="fa-solid fa-arrow-left"></i>
+        <% end %>
+      <% end %>
+      Página <%=(offset/total_activities)+1 %>
+      <% if offset+total_activities < @activities.count %>
+        <%= link_to activities_path(request.query_parameters.merge(set: offset + total_activities)), class: "text-dgreen text-decoration-none" do %>
+          <i class="fa-solid fa-arrow-right"></i>
+        <% end %>
+      <% end %>
+    </p>
+  <% else %>
+    <h2 class="fw-bold pending-date m-4 fs-3">Atividades não encontradas.</h2>
+  <% end %>
+
 </div>
 
 <div class="btn-plus-sign-container">

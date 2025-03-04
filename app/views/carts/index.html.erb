@@ -22,7 +22,9 @@
           </div>
         </div>
         <div class="d-flex  m-1 justify-content-between">
-            <%= submit_tag 'Filtrar', class: 'btn btn-primary m-3' %>
+            <%= button_tag type: 'submit', class: 'btn btn-login m-3 px-4', style: "width: auto;" do %>
+              Filtrar <i class="fa-solid fa-filter"></i>
+            <% end %>
             <% if @carts.any? { |date_move, carts| carts.any? } %>
               <%= link_to  carts_path(format: :pdf,start_date: @start_date,end_date: @end_date,chemical: params[:chemical]), class: " btn-plus-sign  mx-3 my-2  " do %>
                 <i class="fa-solid fa-file-pdf"></i>

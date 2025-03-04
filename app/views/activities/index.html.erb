@@ -4,30 +4,54 @@
       <h1><i class="fa-solid fa-list-check"></i>  </i> Atividades</h1>
     <% end %>
   </div>
-  <div class="card-small bg-white p-2 m-1">
+  <div class="card-small bg-white py-1 px-2 m-1">
     <%= form_with(url:activities_path,  method: :get, local: true) do |form| %>
-            <div class="d-flex row justify-content-between ">
-              <div class=" col-sm-3 mb-1">
-                <%= label_tag :date_start, 'De' %>
-                <%= date_field_tag :date_start, @date_start, class: 'form-control border border-dark' %>
-              </div>
-               <div class=" col-sm-3 mb-1 ">
-                <%= label_tag :date_end, 'Até' %>
-                <%= date_field_tag :date_end, @date_end, class: 'form-control border border-dark' %>
-              </div>
-              <div class=" col-sm-2 mb-1 ">
-                <%= label_tag :type, 'Tipo de atividade' %>
-                <%= select_tag :type, options_for_select([["Todos", ""]] + @types , params[:type]), class: 'form-control border border-dark' %>
-              </div>
-              <div class=" col-sm-2 mb-1 ">
-                <%= label_tag :farm, 'Fazenda' %>
-                <%= select_tag :farm, options_for_select([["Todos", ""]] + @farms.map { |farm| ["#{farm.name} ", farm.id] } , params[:farm]), class: 'form-control border border-dark' %>
-              </div>
-             <div class=" col-sm-1 m-1  d-flex justify-content-center">
-                <%= submit_tag 'Filtrar', class: 'btn btn-login mt-4 mb-3' %>
-              </div>
-            </div>
-            <% end %>
+      <div class="d-flex row justify-content-between m-1">
+  <%# Campo "De" %>
+  <div class="col-6 col-lg-2 mb-1">
+    <div class="form-group">
+      <%= label_tag :date_start, 'De' %>
+      <%= date_field_tag :date_start, @date_start, class: 'form-control border border-dark' %>
+    </div>
+  </div>
+
+  <%# Campo "Até" %>
+  <div class="col-6 col-lg-2 mb-1">
+    <div class="form-group">
+      <%= label_tag :date_end, 'Até' %>
+      <%= date_field_tag :date_end, @date_end, class: 'form-control border border-dark' %>
+    </div>
+  </div>
+
+  <%# Campo "Tipo de atividade" %>
+  <div class="col-6 col-lg-2 mb-1">
+    <div class="form-group">
+      <%= label_tag :type, 'Tipo de atividade' %>
+      <%= select_tag :type, options_for_select([["Todos", ""]] + @types, params[:type]), class: 'form-control border border-dark' %>
+    </div>
+  </div>
+
+  <%# Campo "Fazenda" %>
+  <div class="col-6 col-lg-2 mb-1">
+    <div class="form-group">
+      <%= label_tag :farm, 'Fazenda' %>
+      <%= select_tag :farm, options_for_select([["Todos", ""]] + @farms.map { |farm| ["#{farm.name} ", farm.id] }, params[:farm]), class: 'form-control border border-dark' %>
+    </div>
+  </div>
+
+  <%# Botões "Filtrar" e "Limpar" centralizados %>
+  <div class="col-6 col-lg-2 text-smallX text-center mt-4 mx-sm-0 mx-auto ">
+    <%= button_tag type: 'submit', class: 'btn btn-login mb-2' do %>
+      Filtrar <i class="fa-solid fa-filter"></i>
+    <% end %>
+
+    <%= link_to activities_path, class: "link-danger link-underline-opacity-25 link-underline-opacity-100-hover" do %>
+      <i class="fa-solid fa-circle-minus"></i> Limpar o filtro
+    <% end %>
+  </div>
+</div>
+
+    <% end %>
   </div>
      <% total_activities = 10 %>
      <% offset = params[:set].to_i % total_activities == 0 ? params[:set].to_i : 0 %>

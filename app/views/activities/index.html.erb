@@ -4,11 +4,11 @@
       <h1><i class="fa-solid fa-list-check"></i>  </i> Atividades</h1>
     <% end %>
   </div>
-  <div class="card-small bg-white py-1 px-2 m-1">
+  <div class="card-small bg-white py-2 px-4 ">
     <%= form_with(url:activities_path,  method: :get, local: true) do |form| %>
-      <div class="d-flex row justify-content-between m-1">
+      <div class="d-flex row justify-content-between ">
   <%# Campo "De" %>
-  <div class="col-6 col-lg-2 mb-1">
+  <div class="col-6 col-lg-2 mb-1 ">
     <div class="form-group">
       <%= label_tag :date_start, 'De' %>
       <%= date_field_tag :date_start, @date_start, class: 'form-control border border-dark' %>
@@ -16,7 +16,7 @@
   </div>
 
   <%# Campo "Até" %>
-  <div class="col-6 col-lg-2 mb-1">
+  <div class="col-6 col-lg-2 mb-1 ">
     <div class="form-group">
       <%= label_tag :date_end, 'Até' %>
       <%= date_field_tag :date_end, @date_end, class: 'form-control border border-dark' %>
@@ -24,15 +24,15 @@
   </div>
 
   <%# Campo "Tipo de atividade" %>
-  <div class="col-6 col-lg-2 mb-1">
+  <div class="col-6 col-lg-2 mb-1 ">
     <div class="form-group">
-      <%= label_tag :type, 'Tipo de atividade' %>
+      <%= label_tag :type, 'Tipo de ativ.' %>
       <%= select_tag :type, options_for_select([["Todos", ""]] + @types, params[:type]), class: 'form-control border border-dark' %>
     </div>
   </div>
 
   <%# Campo "Fazenda" %>
-  <div class="col-6 col-lg-2 mb-1">
+  <div class="col-6 col-lg-2 mb-1 ">
     <div class="form-group">
       <%= label_tag :farm, 'Fazenda' %>
       <%= select_tag :farm, options_for_select([["Todos", ""]] + @farms.map { |farm| ["#{farm.name} ", farm.id] }, params[:farm]), class: 'form-control border border-dark' %>
@@ -40,15 +40,23 @@
   </div>
 
   <%# Botões "Filtrar" e "Limpar" centralizados %>
-  <div class="col-6 col-lg-2 text-smallX text-center mt-4 mx-sm-0 mx-auto ">
-    <%= button_tag type: 'submit', class: 'btn btn-login mb-2' do %>
-      Filtrar <i class="fa-solid fa-filter"></i>
-    <% end %>
+  <div class="col-6 col-lg-2 text-smallX text-center mt-4 mx-0 px-2 d-flex justify-content-between  ">
+    <div class="">
+      <%= button_tag type: 'submit', class: 'btn btn-login mb-2 ' do %>
+        <i class="fa-solid fa-filter"></i>Filtrar
+      <% end %>
 
-    <%= link_to activities_path, class: "link-danger link-underline-opacity-25 link-underline-opacity-100-hover" do %>
-      <i class="fa-solid fa-circle-minus"></i> Limpar o filtro
-    <% end %>
+      <%= link_to activities_path, class: "link-danger link-underline-opacity-25 link-underline-opacity-100-hover" do %>
+        <i class="fa-solid fa-circle-minus"></i>Limpar
+      <% end %>
+    </div>
+    <div class="mx-3">
+      <%= link_to  farms_path(format: :pdf), class: "btn-plus-sign" do %>
+        <i class="fa-solid fa-file-pdf"></i>
+      <% end %>
+    </div>
   </div>
+
 </div>
 
     <% end %>

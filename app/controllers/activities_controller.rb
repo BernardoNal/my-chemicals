@@ -50,7 +50,6 @@ class ActivitiesController < ApplicationController
 
   # Updates a activity
   def update
-    raise
     set_datas
     authorize @activity
     if @activity.update(activity_params)
@@ -104,7 +103,7 @@ class ActivitiesController < ApplicationController
   def filter
     filters = {}
 
-    if params[:date_start].present? || params[:date_end].present?
+    if params[:date_start].present? && params[:date_end].present?
       filters[:date_start] = @date_start..@date_end
       filters[:date_end] = @date_start..@date_end
     end
@@ -117,6 +116,7 @@ class ActivitiesController < ApplicationController
 
    # Renders a PDF format of the chemical table
    def render_pdf
+    # raise
     last = params[:date_start].present?
     respond_to do |format|
       format.html

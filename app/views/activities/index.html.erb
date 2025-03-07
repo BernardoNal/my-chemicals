@@ -11,7 +11,7 @@
   <div class="col-6 col-lg-2 mb-1 ">
     <div class="form-group">
       <%= label_tag :date_start, 'De' %>
-      <%= date_field_tag :date_start, @date_start, class: 'form-control border border-dark' %>
+      <%= date_field_tag :date_start, params[:date_start], class: 'form-control border border-dark' %>
     </div>
   </div>
 
@@ -19,7 +19,7 @@
   <div class="col-6 col-lg-2 mb-1 ">
     <div class="form-group">
       <%= label_tag :date_end, 'Até' %>
-      <%= date_field_tag :date_end, @date_end, class: 'form-control border border-dark' %>
+      <%= date_field_tag :date_end, params[:date_end], class: 'form-control border border-dark' %>
     </div>
   </div>
 
@@ -51,7 +51,7 @@
       <% end %>
     </div>
     <div class="mx-3">
-      <%= link_to  activities_path(format: :pdf), class: "btn-plus-sign" do %>
+      <%= link_to activities_path({ format: :pdf }.merge(request.query_parameters)), class: "btn-plus-sign" do %>
         <i class="fa-solid fa-file-pdf"></i>
       <% end %>
     </div>

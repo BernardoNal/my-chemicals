@@ -33,17 +33,38 @@ class ActivitiesPdf
         pdf.text "Período: #{@date_start.strftime("%d-%m-%y")} a #{@date_end.strftime("%d-%m-%y")} ", style: :bold, color: "6d7760", align: :center, size: 15
       end
       pdf.move_down 5
+      separator = "-------------------------------------------------------------------------------------------"
 
       if activities.any?
-        activities.each_with_index do |activity, index|
+        activities.order(date_end: :desc).each_with_index do |activity, index|
 
             pdf.move_down 10
 
-            text = "<b>#{index + 1}:  #{activity.name}</b> " \
-                   "(#{activity.activity_type.titleize}) - \n" \
-                   "-------------------------------------------------------------------------------------"
-            pdf.text text, color: "343434", inline_format: true
+            text = "<b>#{index + 1}:  #{activity.name}</b> (#{activity.activity_type.titleize}) - #{activity.description} \n" \
+                   "Realizado entre #{@date_start.strftime("%d-%m-%y")} a #{@date_end.strftime("%d-%m-%y")} \n"
+            if activity.responsibles.present?
+                            text += "Por: "
+                            activity.responsibles.each do |responsible|
+                              text += " #{responsible.name} /"
+                            end
+                            text += "\n"
+            end
 
+            if activity.activity_chemicals.present?
+              text += "\n<b>Químicos usados:</b>"
+              pdf.text text, color: "343434", inline_format: true
+              activity.activity_chemicals.each do |chemical|
+                text = "• #{chemical.chemical.product_name} - <b> Mov: </b> " \
+                       "#{chemical.quantity} " \
+                       "#{chemical.chemical.measurement_unit}"
+                  pdf.text text, color: "6d7760", inline_format: true
+                pdf.move_down 0
+              end
+            else
+              pdf.text text, color: "343434", inline_format: true
+            end
+            pdf.move_down 15
+          pdf.text separator, color: "343434", inline_format: true
         end
 
 
@@ -51,7 +72,7 @@ class ActivitiesPdf
 
       else
         pdf.move_down 20
-        pdf.text "Sem Atvidades nesse filtragem.", color: "6d7760", align: :center, size: 12
+        pdf.text "Sem Atvidades nessa filtragem.", color: "6d7760", align: :center, size: 12
       end
       options = {
         at: [pdf.bounds.right - 50, 0],

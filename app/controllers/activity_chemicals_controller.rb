@@ -9,6 +9,7 @@ class ActivityChemicalsController < ApplicationController
       @activity = Activity.find(params[:activity_id])
       @chemicals = @activity.available_chemicals
       @employees = @activity.available_responsibles
+      @activity_chemical.activity = @activity
       if @activity_chemical.save
         redirect_to activity_path(@activity)
       else

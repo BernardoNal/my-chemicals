@@ -1,10 +1,13 @@
 require 'prawn'
 
-class ActivitiessPdf
+class ActivitiesPdf
   attr_reader :activities
 
-  def initialize(activities)
+  def initialize(activities,date_start,date_end,last)
     @activities = activities
+    @date_start = date_start
+    @date_end = date_end
+    @last = last
   end
 
   def call
@@ -24,11 +27,11 @@ class ActivitiessPdf
       pdf.repeat :all do
         pdf.fill_color "F4F4F4"
         pdf.text_box "MyChemicals", at: [pdf.bounds.width - 560, pdf.bounds.top - -46], width: 100, height: 20, size: 15
-        pdf.text_box "Estoque do Químicos", at: [pdf.bounds.left, pdf.bounds.top - -47], width: pdf.bounds.width, height: 30, align: :center, size: 20
+        pdf.text_box "Histórico de Atividades", at: [pdf.bounds.left, pdf.bounds.top - -47], width: pdf.bounds.width, height: 30, align: :center, size: 20
       end
-
-      pdf.text "Fazenda: #{@storage.farm.name} - #{@storage.name}", style: :bold, color: "6d7760", align: :center, size: 16
-      pdf.text "Data: #{Time.now.strftime("%d-%m-%y")} ", style: :bold, color: "6d7760", align: :center, size: 15
+      if @last
+        pdf.text "Período: #{@date_start.strftime("%d-%m-%y")} a #{@date_end.strftime("%d-%m-%y")} ", style: :bold, color: "6d7760", align: :center, size: 15
+      end
       pdf.move_down 5
 
       if activities.any?
@@ -36,10 +39,10 @@ class ActivitiessPdf
 
             pdf.move_down 10
 
-            # text = "<b>#{index + 1}:  #{chemical.product_name}</b> " \
-            #        "(#{chemical.type_product.titleize}) - #{chemical.total.round(2)}#{chemical.measurement_unit}\n" \
-            #        "-------------------------------------------------------------------------------------"
-            # pdf.text text, color: "343434", inline_format: true
+            text = "<b>#{index + 1}:  #{activity.name}</b> " \
+                   "(#{activity.activity_type.titleize}) - \n" \
+                   "-------------------------------------------------------------------------------------"
+            pdf.text text, color: "343434", inline_format: true
 
         end
 

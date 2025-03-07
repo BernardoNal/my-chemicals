@@ -9,6 +9,7 @@ class ActivitiesController < ApplicationController
     @types= @activities.distinct.pluck(:activity_type)
     @farms = current_user.farms
     filter
+    render_pdf
   end
 
   # Displays details of a specific activity
@@ -49,6 +50,7 @@ class ActivitiesController < ApplicationController
 
   # Updates a activity
   def update
+    raise
     set_datas
     authorize @activity
     if @activity.update(activity_params)
@@ -112,5 +114,18 @@ class ActivitiesController < ApplicationController
 
     @activities = @activities.where(filters) if filters.present?
   end
+
+   # Renders a PDF format of the chemical table
+   def render_pdf
+    last = params[:date_start].present?
+    respond_to do |format|
+      format.html
+      format.pdf do
+        pdf = ActivitiesPdf.new(@activities,@date_start, @date_end,last).call
+        send_data pdf, filename: "#{Time.now.strftime("%d_%m_%y")}-Atividades.pdf", type: "application/pdf"
+      end
+    end
+  end
+
 
 end

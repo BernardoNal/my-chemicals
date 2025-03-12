@@ -8,31 +8,31 @@
     <%= form_with(url:activities_path,  method: :get, local: true) do |form| %>
       <div class="d-flex row  ">
 
-        <div class="col-12 col-lg-4 mb-1 ">
+        <div class="col-12 col-lg-4 mb-2 ">
           <%= label_tag :search, 'Buscar', class: "form-label" %>
           <%= text_field_tag :search, params[:search],placeholder: "Atividades...", class: 'form-control form-control-sm border border-dark' %>
         </div>
-        <div class="col-12 col-lg-3 mb-1 d-flex justify-content-between">
+        <div class="col-12 col-lg-3 mb-2 d-flex justify-content-between">
           <div class="me-2">
             <%= label_tag :date_start, 'De', class: "form-label" %>
-            <%= date_field_tag :date_start, params[:date_start], class: 'form-control form-control-sm border border-dark' %>
+            <%= date_field_tag :date_start, params[:date_start], class: 'form-control form-control-sm border border-dark  rounded-4' %>
           </div>
           <div class="ms-2">
             <%= label_tag :date_end, 'Até' , class: "form-label" %>
-            <%= date_field_tag :date_end, params[:date_end], class: 'form-control form-control-sm border border-dark' %>
+            <%= date_field_tag :date_end, params[:date_end], class: 'form-control form-control-sm border border-dark  rounded-4' %>
           </div>
         </div>
 
 
 
-        <div class="col-6 col-lg-3 mb-1 d-flex justify-content-evenly">
+        <div class="col-6 col-lg-3 mb-2 d-flex justify-content-evenly">
           <div class="mx-1">
             <%= label_tag :type, 'Tipo', class: "form-label" %>
-            <%= select_tag :type, options_for_select([["Todos", ""]] + @types, params[:type]), class: 'form-control form-control-sm border border-dark' %>
+            <%= select_tag :type, options_for_select([["Todos", ""]] + @types, params[:type]), class: 'form-control form-control-sm border border-dark rounded-4' %>
           </div>
           <div class="mx-1">
             <%= label_tag :farm, 'Fazenda' , class: "form-label" %>
-            <%= select_tag :farm, options_for_select([["Todas", ""]] + @farms.map { |farm| ["#{farm.name} ", farm.id] }, params[:farm]), class: 'form-control form-control-sm border border-dark' %>
+            <%= select_tag :farm, options_for_select([["Todas", ""]] + @farms.map { |farm| ["#{farm.name} ", farm.id] }, params[:farm]), class: 'form-control form-control-sm border border-dark rounded-4' %>
           </div>
         </div>
 
@@ -42,7 +42,7 @@
 
         <div class="col-6 col-lg-2 text-smallX text-center mt-4 mx-0  d-flex justify-content-between  ">
           <div class="">
-            <%= button_tag type: 'submit', class: 'btn btn-login mb-2 ' do %>
+            <%= button_tag type: 'submit', class: 'btn btn-login mb-2 px-4 rounded-4 ' do %>
               <i class="fa-solid fa-filter"></i>Filtrar
             <% end %>
 

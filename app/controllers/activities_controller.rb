@@ -104,10 +104,10 @@ class ActivitiesController < ApplicationController
   def filter
     filters = {}
 
-    if params[:date_start].present? && params[:date_end].present?
-      filters[:date_start] = @date_start..@date_end
-      filters[:date_end] = @date_start..@date_end
-    end
+
+      filters[:date_start] = @date_start..@date_end if params[:date_start].present?
+      filters[:date_end] = @date_start..@date_end if params[:date_end].present?
+
 
     filters[:activity_type] = params[:type] if params[:type].present?
     filters[:farm_id] = params[:farm] if params[:farm].present?

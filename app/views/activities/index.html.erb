@@ -4,52 +4,63 @@
       <h1><i class="fa-solid fa-list-check"></i>  </i> Atividades</h1>
     <% end %>
   </div>
-  <div class="card-small bg-white py-1 px-2 m-1">
+  <div class="card-small bg-white py-2 px-4 text-smallX">
     <%= form_with(url:activities_path,  method: :get, local: true) do |form| %>
-      <div class="d-flex row justify-content-between m-1">
-  <%# Campo "De" %>
-  <div class="col-6 col-lg-2 mb-1">
-    <div class="form-group">
-      <%= label_tag :date_start, 'De' %>
-      <%= date_field_tag :date_start, @date_start, class: 'form-control border border-dark' %>
-    </div>
-  </div>
+      <div class="d-flex row  ">
 
-  <%# Campo "Até" %>
-  <div class="col-6 col-lg-2 mb-1">
-    <div class="form-group">
-      <%= label_tag :date_end, 'Até' %>
-      <%= date_field_tag :date_end, @date_end, class: 'form-control border border-dark' %>
-    </div>
-  </div>
+        <div class="col-12 col-lg-4 mb-2 ">
+          <%= label_tag :search, 'Buscar', class: "form-label" %>
+          <%= text_field_tag :search, params[:search],placeholder: "Atividades...", class: 'form-control form-control-sm border border-dark' %>
+        </div>
+        <div class="col-12 col-lg-3 mb-2 d-flex justify-content-between">
+          <div class="me-2">
+            <%= label_tag :date_start, 'De', class: "form-label" %>
+            <%= date_field_tag :date_start, params[:date_start], class: 'form-control form-control-sm border border-dark  rounded-4' %>
+          </div>
+          <div class="ms-2">
+            <%= label_tag :date_end, 'Até' , class: "form-label" %>
+            <%= date_field_tag :date_end, params[:date_end], class: 'form-control form-control-sm border border-dark  rounded-4' %>
+          </div>
+        </div>
 
-  <%# Campo "Tipo de atividade" %>
-  <div class="col-6 col-lg-2 mb-1">
-    <div class="form-group">
-      <%= label_tag :type, 'Tipo de atividade' %>
-      <%= select_tag :type, options_for_select([["Todos", ""]] + @types, params[:type]), class: 'form-control border border-dark' %>
-    </div>
-  </div>
 
-  <%# Campo "Fazenda" %>
-  <div class="col-6 col-lg-2 mb-1">
-    <div class="form-group">
-      <%= label_tag :farm, 'Fazenda' %>
-      <%= select_tag :farm, options_for_select([["Todos", ""]] + @farms.map { |farm| ["#{farm.name} ", farm.id] }, params[:farm]), class: 'form-control border border-dark' %>
-    </div>
-  </div>
 
-  <%# Botões "Filtrar" e "Limpar" centralizados %>
-  <div class="col-6 col-lg-2 text-smallX text-center mt-4 mx-sm-0 mx-auto ">
-    <%= button_tag type: 'submit', class: 'btn btn-login mb-2' do %>
-      Filtrar <i class="fa-solid fa-filter"></i>
-    <% end %>
+        <div class="col-6 col-lg-3 mb-2 d-flex justify-content-evenly">
+          <div class="mx-1">
+            <%= label_tag :type, 'Tipo', class: "form-label" %>
+            <%= select_tag :type, options_for_select([["Todos", ""]] + @types, params[:type]), class: 'form-control form-control-sm border border-dark rounded-4' %>
+          </div>
+          <div class="mx-1">
+            <%= label_tag :farm, 'Fazenda' , class: "form-label" %>
+            <%= select_tag :farm, options_for_select([["Todas", ""]] + @farms.map { |farm| ["#{farm.name} ", farm.id] }, params[:farm]), class: 'form-control form-control-sm border border-dark rounded-4' %>
+          </div>
+        </div>
 
-    <%= link_to activities_path, class: "link-danger link-underline-opacity-25 link-underline-opacity-100-hover" do %>
-      <i class="fa-solid fa-circle-minus"></i> Limpar o filtro
-    <% end %>
-  </div>
-</div>
+
+
+
+
+        <div class="col-6 col-lg-2 text-smallX text-center mt-4 mx-0  d-flex justify-content-between  ">
+          <div class="">
+            <%= button_tag type: 'submit', class: 'btn btn-login mb-2 px-4 rounded-4 ' do %>
+              <i class="fa-solid fa-filter"></i>Filtrar
+            <% end %>
+
+            <%= link_to activities_path, class: "link-danger link-underline-opacity-25 link-underline-opacity-100-hover" do %>
+              <i class="fa-solid fa-circle-minus"></i>Limpar
+            <% end %>
+          </div>
+          <div class="mx-3">
+            <%= link_to activities_path({ format: :pdf }.merge(request.query_parameters)), class: "btn-plus-sign" do %>
+              <i class="fa-solid fa-file-pdf"></i>
+            <% end %>
+          </div>
+        </div>
+
+      </div>
+
+
+
 
     <% end %>
   </div>

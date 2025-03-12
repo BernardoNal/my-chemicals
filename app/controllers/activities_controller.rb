@@ -9,6 +9,8 @@ class ActivitiesController < ApplicationController
     @types= @activities.distinct.pluck(:activity_type)
     @farms = current_user.farms
     filter
+    search
+    render_pdf
   end
 
   # Displays details of a specific activity
@@ -102,15 +104,34 @@ class ActivitiesController < ApplicationController
   def filter
     filters = {}
 
-    if params[:date_start].present? || params[:date_end].present?
-      filters[:date_start] = @date_start..@date_end
-      filters[:date_end] = @date_start..@date_end
-    end
+
+      filters[:date_start] = @date_start..@date_end if params[:date_start].present?
+      filters[:date_end] = @date_start..@date_end if params[:date_end].present?
+
 
     filters[:activity_type] = params[:type] if params[:type].present?
     filters[:farm_id] = params[:farm] if params[:farm].present?
 
     @activities = @activities.where(filters) if filters.present?
   end
+
+   # Renders a PDF format of the chemical table
+  def render_pdf
+    last = params[:date_start].present?
+    respond_to do |format|
+      format.html
+      format.pdf do
+        pdf = ActivitiesPdf.new(@activities,@date_start, @date_end,last).call
+        send_data pdf, filename: "#{Time.now.strftime("%d_%m_%y")}-Atividades.pdf", type: "application/pdf"
+      end
+    end
+  end
+
+  def search
+    if params[:search].present?
+      @activities = @activities.where('activities.name ILIKE ? OR activities.description ILIKE ?', "%#{params[:search]}%", "%#{params[:search]}%")
+    end
+  end
+
 
 end

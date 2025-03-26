@@ -74,9 +74,7 @@
                         <th class='text-dgreen fs-5 col-2' scope="col">Atividade <%= link_to "<i class='fa-solid fa-circle-plus'></i>".html_safe, new_activity_path, class: "text-dgreen fs-5" %></th>
                         <th class='text-dgreen d-none d-sm-table-cell' scope="col">Descrição</th>
                         <th class='text-dgreen col-1 d-none d-sm-table-cell' scope="col">Tipo</th>
-                        <th class='text-dgreen d-sm-none d-table-cell' scope="col">Período</th>
-                        <th class='text-dgreen d-none d-sm-table-cell' scope="col-6">Data de Início</th>
-                        <th class='text-dgreen d-none d-sm-table-cell' scope="col">Data de Fim</th>
+                        <th class='text-dgreen' scope="col-6">Início</th>
                         <th class='text-dgreen' scope="col">Fazenda</th>
                         <th class='text-dgreen col-1 ' scope="col"></th>
                     </tr>
@@ -87,14 +85,12 @@
                         <td class='text-dgreen col-2'><%= activity.name %></td>
                         <td class='text-dgreen d-none d-sm-table-cell col-3'><%= activity.description&.truncate(27) %></td>
                         <td class='text-dgreen d-none d-sm-table-cell'><%= activity.activity_type %></td>
-                        <td class='text-dgreen d-sm-none d-table-cell'><%= activity.date_start&.strftime('%d/%m/%Y') %> <br> a <%= activity.date_end&.strftime('%d/%m/%Y') %> </td>
-                        <td class='text-dgreen d-none d-sm-table-cell'><%= activity.date_start&.strftime('%d/%m/%Y') %></td>
-                        <td class='text-dgreen d-none d-sm-table-cell'><%= activity.date_end&.strftime('%d/%m/%Y') %></td>
+                        <td class='text-dgreen '><%= activity.date_start&.strftime('%d/%m/%Y') %></td>
                         <td class='text-dgreen'><%= activity.farm.name%></td>
                         <td class='text-dgreen col-1'>
-                          <%= link_to  edit_activity_path(activity), class: "text-dgreen text-decoration-none" do %> <i class="fa-regular fa-pen-to-square"></i> <% end %>
+                          <%= link_to  edit_activity_path(activity), class: "text-dgreen text-decoration-none fs-4" do %> <i class="fa-regular fa-pen-to-square"></i> <% end %>
                           &nbsp;
-                          <%= link_to activity_path(activity), class: "text-dgreen text-decoration-none" do %>
+                          <%= link_to activity_path(activity), class: "text-dgreen text-decoration-none fs-4" do %>
                             <i class="fa-solid fa-circle-info"></i>
                           <% end %>
                         </td>

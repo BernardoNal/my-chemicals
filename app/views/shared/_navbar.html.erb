@@ -22,13 +22,16 @@
           </a>
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
               <%= link_to myfarms_path, class: "dropdown-item" do %>
-              <i class="fa-brands fa-pagelines"></i>  </i>Minha Fazenda
+              <i class="fa-brands fa-pagelines"></i>  </i>Fazendas
               <% end %>
               <%= link_to storages_path, class: "dropdown-item" do %>
-              <i class="fa-solid fa-warehouse"></i> Meus Galpões
+              <i class="fa-solid fa-warehouse"></i>Galpões
               <% end %>
               <%= link_to carts_path, class: "dropdown-item" do %>
-              <i class="fa-solid fa-sheet-plastic"></i>  </i>Meus registros
+              <i class="fa-solid fa-sheet-plastic"></i>  </i>Registros
+              <% end %>
+              <%= link_to activities_path, class: "dropdown-item" do %>
+               <i class="fa-solid fa-list-check"></i>  </i>Atividades
               <% end %>
               <%= link_to employees_path, class: "dropdown-item" do %>
               <i class="fa-solid fa-users"></i> Funcionarios

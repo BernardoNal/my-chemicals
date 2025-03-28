@@ -6,6 +6,7 @@ class Farm < ApplicationRecord
   has_many :cart_chemicals, through: :carts
   has_many :chemicals, through: :cart_chemicals
   has_many :employees, dependent: :destroy
+  has_many :activities, dependent: :destroy
 
   # Validations
   validates :name, :size, :cep,:user_id, presence: true

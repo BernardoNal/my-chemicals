@@ -5,6 +5,7 @@ class Employee < ApplicationRecord
   # Associations
   belongs_to :user
   belongs_to :farm
+  has_many :responsibles
 
   # Validations
   validates :farm_id, presence: true

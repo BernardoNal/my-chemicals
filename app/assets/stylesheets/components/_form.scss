@@ -6,6 +6,19 @@
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
   background-color: $form-box;
 }
+.form-shape input{
+  border: 1px solid $gray;
+  border-radius: 8px;
+}
+.form-shape select{
+  border: 1px solid $gray;
+  border-radius: 8px;
+}
+.form-shape textarea{
+  border: 1px solid $gray;
+  border-radius: 8px;
+}
+
 
 .form-title {
   text-align: center;

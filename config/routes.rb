@@ -4,6 +4,18 @@ Rails.application.routes.draw do
   root to: "farms#index"
   resources :farms
   get "myfarms" => 'farms#myfarms'
+
+  resources :activities do
+    resources :activity_chemicals, only: %i[new create]
+    resources :responsibles, only: %i[new create]
+  end
+
+  resources :activity_chemicals, only: %i[destroy]
+  resources :responsibles, only: %i[destroy]
+  # namespace :activities do
+  #   resources :activities
+  # end
+
   resources :chemicals
 
   resources :storages do

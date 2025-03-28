@@ -3,6 +3,9 @@ class Chemical < ApplicationRecord
   has_many :cart_chemicals, dependent: :destroy
   has_many :carts, through: :cart_chemicals
 
+  has_many :activity_chemicals, dependent: :destroy
+  has_many :activities, through: :activity_chemicals
+
   validates :product_name, :compound_product, :type_product, :area, :measurement_unit, :amount, presence: true
   validates :product_name, uniqueness:
   TYPE_PRODUCTS = ["INSETICIDA", "Adjuvante e Redutor de Espuma", "Fungicida", "FEROMÔNIO SINTÉTICO",

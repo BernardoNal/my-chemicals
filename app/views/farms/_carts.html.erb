@@ -51,7 +51,8 @@
   </div>
 </div>
   </div>
-
+    <% total_chemicals = 15 %>
+    <% offset = params[:set].to_i % total_chemicals == 0 ? params[:set].to_i : 0 %>
    <div id="cart-<%= cart.id %>" class="table-responsive col-12">
     <table id="search-results-bottom" class="table table-dark table-striped table-bordered ">
       <thead>
@@ -71,7 +72,7 @@
         </tr>
       </thead>
       <tbody>
-        <% @chemical_totals.each do |chemical| %>
+        <% @chemical_totals.limit(total_chemicals).offset(offset).each do |chemical| %>
           <%# <% if chemical.total_quantity > 0   %>
             <tr>
               <td class='text-center'><%= link_to chemical_path(chemical), data: {turbo_frame: :modal}, class: "text-decoration-none text-white" do %> <%= highlight_background(chemical.product_name.capitalize, params.dig(:search, :query)) %> <% end %></td>
@@ -85,4 +86,16 @@
       </tbody>
     </table>
   </div>
+   <p class="icon-lg-right "> <% if offset > 0 %>
+        <%= link_to farms_path(request.query_parameters.merge(set: offset - total_chemicals)), class: "text-dgreen text-decoration-none" do %>
+          <i class="fa-solid fa-arrow-left"></i>
+        <% end %>
+      <% end %>
+      Página <%=(offset/total_chemicals)+1 %>
+      <% if offset+total_chemicals < @chemical_totals.length %>
+        <%= link_to farms_path(request.query_parameters.merge(set: offset + total_chemicals)), class: "text-dgreen text-decoration-none" do %>
+          <i class="fa-solid fa-arrow-right"></i>
+        <% end %>
+      <% end %>
+    </p>
 </div>

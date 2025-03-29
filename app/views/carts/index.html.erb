@@ -4,33 +4,32 @@
   </div>
 
   <div class="row m-0">
-    <div class="card-small col-md-8 m-1 my-5 px-0">
+    <div class="card-small col-md-10 mx-auto mt-4 px-0">
       <h2 class="fw-bold pending-date m-3"><i class="fa-regular fa-calendar"></i> Selecione as datas:</h2>
       <%= form_with(url: carts_path, method: :get, local: true) do |form| %>
         <div class="d-flex row justify-content-between m-1">
-          <div class="form-group col-sm-3 m-2">
+          <div class=" col-sm-2 m-2">
             <%= label_tag :start_date, 'De' %>
-            <%= date_field_tag :start_date, @start_date, class: 'form-control' %>
+            <%= date_field_tag :start_date, @start_date, class: 'form-control border border-dark  rounded-4' %>
           </div>
-          <div class="form-group col-sm-3 m-2">
+          <div class=" col-sm-2 m-2">
             <%= label_tag :end_date, 'Até' %>
-            <%= date_field_tag :end_date, @end_date, class: 'form-control' %>
+            <%= date_field_tag :end_date, @end_date, class: 'form-control border border-dark  rounded-4' %>
           </div>
-          <div class="form-group col-sm-4 m-2">
+          <div class=" col-sm-3 m-2">
             <%= label_tag :chemical, 'Químicos' %>
-           <%= select_tag :chemical, options_for_select([["Todos", "all"]] + @chemicals.map { |chemical| ["#{chemical.product_name} (#{chemical.amount}#{chemical.measurement_unit})", chemical.id] }, params[:chemical]), class: 'form-control' %>
+           <%= select_tag :chemical, options_for_select([["Todos", "all"]] + @chemicals.map { |chemical| ["#{chemical.product_name} (#{chemical.amount}#{chemical.measurement_unit})", chemical.id] }, params[:chemical]), class: 'form-control border border-dark  rounded-4' %>
           </div>
-        </div>
-        <div class="d-flex  m-1 justify-content-between">
-            <%= button_tag type: 'submit', class: 'btn btn-login m-3 px-4', style: "width: auto;" do %>
+          <div class="col-sm-3 mt-4  d-flex justify-content-between">
+            <%= button_tag type: 'submit', class: 'btn btn-login mb-2 px-3 rounded-4', style: "width: auto;" do %>
               Filtrar <i class="fa-solid fa-filter"></i>
             <% end %>
             <% if @carts.any? { |date_move, carts| carts.any? } %>
-              <%= link_to  carts_path(format: :pdf,start_date: @start_date,end_date: @end_date,chemical: params[:chemical]), class: " btn-plus-sign  mx-3 my-2  " do %>
+              <%= link_to  carts_path(format: :pdf,start_date: @start_date,end_date: @end_date,chemical: params[:chemical]), class: " btn-plus-sign  mx-3   " do %>
                 <i class="fa-solid fa-file-pdf"></i>
               <% end %>
             <% end %>
-
+          </div>
         </div>
       <% end %>
     </div>

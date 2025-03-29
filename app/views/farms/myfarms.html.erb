@@ -9,12 +9,22 @@
             <div class="card-small">
               <h2><%= farm.name %></h2>
               <p>Tamanho: <span class="title-info"><%= farm.size %></p>
-              <div class="map-container">
-                <div id="map_<%= farm.id %>" class="map" style="height: 300px;"></div>
-              </div>
+              <p><i class="fa-solid fa-warehouse"></i> Galpões:</p>
+                <ul>
+                  <% farm.storages.each do |storage| %>
+                    <li>
+                      <%= storage.name %>
+                      <%= link_to '<i class="fa-regular fa-pen-to-square"></i>'.html_safe, edit_storage_path(storage), class: "text-dgreen text-decoration-none" %>
+                      <%= link_to "<i class='far fa-trash-alt'></i>".html_safe, storage_path(storage), class: "btn-delete-bin", data: { turbo_method: :delete, turbo_confirm: "Excluir Galpão?" } %>
+                    </li>
+                  <% end %>
+                  <li> <%= link_to "Adicionar Galpão <i class='fa-solid fa-circle-plus'></i>".html_safe, new_storage_path, class: "text-dgreen text-decoration-none" %></li>
+                </ul>
               <div class="d-flex align-items-end flex-column">
-                <div class="mt-auto p-2">
-                  <%= link_to 'Edit', edit_farm_path(farm), class:"btn-edit" %>
+                <div class="mt-auto  fs-4">
+                  <%= link_to  edit_farm_path(farm), class:"text-dgreen text-decoration-none" do %>
+                   <i class="fa-regular fa-pen-to-square"></i>
+                  <% end %>
                   <%= link_to farm_path(farm), data: {turbo_method: :delete}, class:'btn-delete-bin' do %>
                     <i class="far fa-trash-alt"></i>
                   <% end %>
@@ -22,19 +32,6 @@
               </div>
             </div>
           </div>
-          <script>
-            mapboxgl.accessToken = "pk.eyJ1Ijoiam9yZGFubzg4IiwiYSI6ImNsc2x4OWdvZjBkOTUyanNjOXRtZno4YnkifQ.9TVAMKmkrFEmnXjmIah2aQ";
-            var map_<%= farm.id %> = new mapboxgl.Map({
-              container: 'map_<%= farm.id %>',
-              style: 'mapbox://styles/mapbox/streets-v11',
-              center: [<%= farm.longitude %>, <%= farm.latitude %>],
-              zoom: 15
-            });
-            new mapboxgl.Marker()
-              .setLngLat([<%= farm.longitude %>, <%= farm.latitude %>])
-              .setPopup(new mapboxgl.Popup().setHTML('<h3>' + '<%= farm.name %>' + '</h3>'))
-              .addTo(map_<%= farm.id %>);
-          </script>
         <% end %>
       </div>
     </div>

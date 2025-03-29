@@ -10,7 +10,12 @@
             <% end %>
           </div>
           <div class="col-4">
-            <h3 class="form-title"><%= @entry == "1" ? "Entrada" : "Saída" %></h3>
+            <h3 class="form-title">
+              <span class="<%= @entry == '1' ? 'text-dgreen' : 'text-danger' %>">
+                <%= @entry == '1' ? 'Entrada' : 'Saída' %>
+              </span>
+            </h3>
+
           </div>
         </div>
         <% @entry.nil? ? @entry = params[:cart_chemical][:entry] : '' %>
@@ -31,11 +36,11 @@
           <% @cart_chemicals.each do |item| %>
             <div class="card-item">
               <div class="card-item-content">
-                <%= item.chemical.product_name %> -<b><%= item.chemical.amount * (@entry == "1" ? item.quantity : -item.quantity) %><%= item.chemical.measurement_unit %></b>
+                <%= item.chemical.product_name %> -<b>   <span class="<%= @entry == '1' ? 'text-dgreen' : 'text-danger' %>"><%= item.chemical.amount * (@entry == "1" ? item.quantity : -item.quantity) %><%= item.chemical.measurement_unit %> </span></b>
               </div>
 
               <div class="card-item-actions">
-                <%= link_to  cart_chemical_path(item,entry: @entry),  data: {turbo_method: :delete} do  %>
+                <%= link_to  cart_chemical_path(item,entry: @entry),  data: {turbo_method: :delete}, class:'btn-delete-bin' do  %>
                   <i class="far fa-trash-alt"></i>
                 <% end %>
               </div>

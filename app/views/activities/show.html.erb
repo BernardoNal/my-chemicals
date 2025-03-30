@@ -51,7 +51,7 @@
         <h3 class ="form-title">Químicos</h3>
           <div class="form-shape  col-md-8 mx-auto mt-3">
             <%= simple_form_for [@activity, @activity_chemical]  do |f| %>
-              <%= f.input :chemical_id, as: :select, collection: @chemicals.order(product_name: :asc).map { |chemical| ["#{chemical.product_name.truncate(30)}(#{chemical.measurement_unit})", chemical.id] }, label: "Químico" %>
+              <%= f.input :chemical_id, as: :select, collection: @chemicals.order(product_name: :asc).map { |chemical| ["#{chemical.product_name&.truncate(30)}(#{chemical.measurement_unit})", chemical.id] }, label: "Químico" %>
               <%= f.input :quantity, input_html: { min: 0 }, label: "Quantidade" %>
               <%= f.button :submit, "Adicionar", class: "my-2 btn-login" %>
              <% end %>

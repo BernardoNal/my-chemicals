@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_19_005746) do
+ActiveRecord::Schema[7.1].define(version: 2025_04_01_181222) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "unaccent"
@@ -19,9 +19,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_19_005746) do
     t.date "date_start"
     t.date "date_end"
     t.text "description"
-    t.string "name"
-    t.string "activity_type"
-    t.string "area"
+    t.string "activity_type", null: false
+    t.string "area", null: false
     t.integer "forecast_days"
     t.text "resources"
     t.string "place"

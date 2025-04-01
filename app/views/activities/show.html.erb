@@ -10,13 +10,13 @@
             <%= link_to activities_path(), class: 'btn-back text-decoration-none me-2' do %>
               <i class='fa-solid fa-circle-left'></i>
             <% end %>
-            <h2 class=" py-2 text-center flex-grow-1 mb-0"><%= @activity.name %>
+            <h2 class=" py-2 text-center flex-grow-1 mb-0"> <%= @activity.description %>
              <%= link_to  edit_activity_path(@activity), class: "text-dgreen text-decoration-none" do %> <i class="fa-regular fa-pen-to-square"></i> <% end %>
             </h2>
           </div>
         <div class="col-md-6">
           <p class ="py-3">Categoria: <%= @activity.activity_type %></p>
-          <p class ="py-3">Descrição: <%= @activity.description %></p>
+          <p class ="py-3">Area de Atuação: <%= @activity.area %></p>
           <p class ="py-3">Químicos:
             <% @activity.activity_chemicals.each do |chemical| %>
               <div class ="px-4 py-2">
@@ -31,7 +31,7 @@
         <div class="col-md-6">
           <p class ="py-3">Período: <%= @activity.date_start&.strftime('%d/%m/%Y') %> a <%= @activity.date_end&.strftime('%d/%m/%Y') %> (<%= @activity.forecast_days %> dias)</p>
           <p class ="py-3">Fazenda: <%= @activity.farm.name %></p>
-          <p class ="py-3">Local: <%= @activity.place %>, <%= @activity.area %></p>
+          <p class ="py-3">Local: <%= @activity.place %></p>
           <p class ="py-3">Recursos: <%= @activity.resources %></p>
           <p class ="py-3">Responsáveis:
             <% @activity.responsibles.each do |responsible| %>

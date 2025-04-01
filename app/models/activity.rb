@@ -4,7 +4,7 @@ class Activity < ApplicationRecord
   has_many :activity_chemicals, dependent: :destroy
   has_many :chemicals, through: :activity_chemicals
 
-  validates :name, :farm_id, presence: true
+  validates :activity_type,:area, :farm_id, presence: true
 
   # Validação de valores numéricos
   validates :forecast_days, numericality: { only_integer: true, greater_than_or_equal_to: 0 }, allow_nil: true

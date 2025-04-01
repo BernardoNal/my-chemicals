@@ -75,7 +75,7 @@ class ActivitiesController < ApplicationController
 
   # Permits activity parameters
   def activity_params
-    params.require(:activity).permit(:name, :description, :activity_type, :area, :place, :resources, :farm_id,)
+    params.require(:activity).permit( :description, :activity_type, :area, :place, :resources, :farm_id,)
   end
 
   # Sets the activity instance variable based on the provided id
@@ -88,18 +88,18 @@ class ActivitiesController < ApplicationController
     @activity.date_end = params[:date_end]
   end
 
-  def filter_order
-    case params[:filter]
-    when "1"
-      @activities = @activities.order(name: :asc)
-    when "2"
-      @activities = @activities.order(activity_type: :desc)
-    when "3"
-      @activities = @activities.order(date_start: :asc)
-    else
-      @activities = @activities.order(date_end: :desc)
-    end
-  end
+  # def filter_order
+  #   case params[:filter]
+  #   when "1"
+  #     @activities = @activities.order(name: :asc)
+  #   when "2"
+  #     @activities = @activities.order(activity_type: :desc)
+  #   when "3"
+  #     @activities = @activities.order(date_start: :asc)
+  #   else
+  #     @activities = @activities.order(date_end: :desc)
+  #   end
+  # end
 
   def filter
     filters = {}
@@ -129,7 +129,7 @@ class ActivitiesController < ApplicationController
 
   def search
     if params[:search].present?
-      @activities = @activities.where('activities.name ILIKE ? OR activities.description ILIKE ?', "%#{params[:search]}%", "%#{params[:search]}%")
+      @activities = @activities.where('activities.activity_type ILIKE ? OR activities.description ILIKE ? OR activities.area ILIKE ?', "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%")
     end
   end
 

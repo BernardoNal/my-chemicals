@@ -4,7 +4,7 @@
   </div>
   <div class="row px-4">
 
-    <div class="col-md-7 mb-2">
+    <div class="col-lg-7 mb-2">
       <div class="card-small row">
          <div class="d-flex justify-content-between align-items-center my-2">
             <%= link_to activities_path(), class: 'btn-back text-decoration-none me-2' do %>
@@ -46,10 +46,10 @@
       </div>
     </div>
 
-    <div class="col-md-4 mx-md-5">
+    <div class="col-lg-4 mx-lg-5">
       <div class="card-small">
         <h3 class ="form-title">Químicos</h3>
-          <div class="form-shape  col-md-8 mx-auto mt-3">
+          <div class="form-shape col-10 col-md-8 mx-auto mt-3">
             <%= simple_form_for [@activity, @activity_chemical]  do |f| %>
               <%= f.input :chemical_id, as: :select, collection: @chemicals.order(product_name: :asc).map { |chemical| ["#{chemical.product_name&.truncate(30)}(#{chemical.measurement_unit})", chemical.id] }, label: "Químico" %>
               <%= f.input :quantity, input_html: { min: 0 }, label: "Quantidade" %>
@@ -60,7 +60,7 @@
       </div>
       <div class="card-small">
         <h3 class ="form-title">Responsáveis</h3>
-          <div class="form-shape  col-md-8 mx-auto mt-3">
+          <div class="form-shape col-10 col-md-8 mx-auto mt-3">
             <%= simple_form_for [@activity, @responsible]  do |f| %>
               <%= f.input :employee_id, as: :select, collection: @employees.map { |employee| ["#{employee.user.full_name}", employee.id]} , label: "Funcionário" %>
               <%= f.input :name, label: "Nome", hint: "Não é necessário, caso selecione o funcinário" %>

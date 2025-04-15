@@ -64,15 +64,15 @@
 
     <% end %>
   </div>
-     <% total_activities = 10 %>
+     <% total_activities = 30 %>
      <% offset = params[:set].to_i % total_activities == 0 ? params[:set].to_i : 0 %>
   <% if @activities.present? %>
     <div class="table-responsive col-12 mt-2">
       <table class="table  text-center ">
                 <thead class="table-bg fs-5">
                     <tr>
-                        <th class='text-dgreen' scope="col-6">Início</th>
-                        <th class='text-dgreen fs-5 ' scope="col"><%= link_to "<i class='fa-solid fa-circle-plus'></i>".html_safe, new_activity_path, class: "text-dgreen fs-5" %> Area de Atuação</th>
+                        <th class='text-dgreen' scope="col-6"><%= link_to "<i class='fa-solid fa-circle-plus'></i>".html_safe, new_activity_path, class: "text-dgreen fs-5" %>Início</th>
+                        <th class='text-dgreen fs-5 ' scope="col"> Area de Atuação</th>
                         <th class='text-dgreen d-none d-sm-table-cell' scope="col">Descrição</th>
                         <th class='text-dgreen  ' scope="col">Tipo</th>
                         <th class='text-dgreen d-none d-sm-table-cell' scope="col">Fazenda</th>

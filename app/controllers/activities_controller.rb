@@ -10,6 +10,7 @@ class ActivitiesController < ApplicationController
     @farms = current_user.farms
     filter
     search
+    @activities = @activities.order(date_start: :desc)
     render_pdf
   end
 
@@ -88,26 +89,11 @@ class ActivitiesController < ApplicationController
     @activity.date_end = params[:date_end]
   end
 
-  # def filter_order
-  #   case params[:filter]
-  #   when "1"
-  #     @activities = @activities.order(name: :asc)
-  #   when "2"
-  #     @activities = @activities.order(activity_type: :desc)
-  #   when "3"
-  #     @activities = @activities.order(date_start: :asc)
-  #   else
-  #     @activities = @activities.order(date_end: :desc)
-  #   end
-  # end
-
   def filter
     filters = {}
 
-
       filters[:date_start] = @date_start..@date_end if params[:date_start].present?
       filters[:date_end] = @date_start..@date_end if params[:date_end].present?
-
 
     filters[:activity_type] = params[:type] if params[:type].present?
     filters[:farm_id] = params[:farm] if params[:farm].present?

@@ -40,7 +40,7 @@ class ActivitiesPdf
 
             pdf.move_down 10
 
-            text = "<b>#{index + 1}:  #{activity.name}</b> (#{activity.activity_type.titleize}) - #{activity.description} \n" \
+            text = "<b>#{index + 1}: #{activity.activity_type.titleize} </b> - #{activity.description} \n" \
                    "Realizado entre #{activity&.date_start&.strftime("%d-%m-%y")} a #{activity&.date_end&.strftime("%d-%m-%y")} \n"
             if activity.responsibles.present?
                             text += "Por: "

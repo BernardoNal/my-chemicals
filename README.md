@@ -15,6 +15,19 @@ My Chemicals é uma aplicação web que permite aos usuários gerenciar produtos
 - Pesquisar produtos químicos por nome.
 - Convidar Funcionarios para aumentar time de controle de químicos.
 
+## 📝 Módulo de Atividades
+
+O **Módulo de Atividades** foi idealizado e desenvolvido por [Bernardo](https://github.com/BernardoNal) com o objetivo de registrar e acompanhar as atividades agrícolas realizadas na fazenda.
+
+### Funcionalidades do módulo:
+
+- Registro de atividades como plantio, colheita, irrigação, pulverização e outras.
+- Associação de recursos utilizados, como produtos químicos e responsáveis.
+- Definição de períodos de execução (data de início e fim).
+- Consulta detalhada do histórico de atividades por fazenda.
+- Integração com o estoque para controle do uso de produtos durante atividades.
+
+
 ## Instalação
 
 1. Clone o repositório:

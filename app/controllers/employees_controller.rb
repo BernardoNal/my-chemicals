@@ -52,6 +52,7 @@ class EmployeesController < ApplicationController
   def destroy
     @employee = Employee.find(params[:id])
     authorize @employee
+
     @employee.destroy
     flash[:alert] = "Funcionario removido com sucesso."
 

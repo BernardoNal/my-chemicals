@@ -40,7 +40,7 @@ class CartChemical < ApplicationRecord
   # Validates the quantity to prevent broken quantities
   def rounded_number
     return unless quantity && chemical_id
-    return unless quantity * chemical.amount % 0.25 != 0
+    return unless quantity * chemical.amount % 0.05 != 0
 
     errors.add(:quantity, message: 'invalid for rounding')
   end

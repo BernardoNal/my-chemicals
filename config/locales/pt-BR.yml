@@ -20,8 +20,10 @@ pt-BR:
         farm_id: "Fazenda"
       chemical:
         name: "Nome"
-        amount: "Quantidade por unidade"
+        amount: "Embalagem"
         unit: "Unidade"
+        type: "Categoria"
+        compound_product: "Composto"
       activity:
         farm_id: "Fazenda"
         activity_type: "Tipo de Atividade"

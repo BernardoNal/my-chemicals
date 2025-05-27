@@ -44,14 +44,14 @@
   <div class="col-6 mx-auto">
 
   <div class="row justify-content-center mb-5">
-    <%= f.button :submit, "Atualizar", class: 'col-2 btn-update' %>
+    <%= f.button :submit, "Atualizar", class: 'btn-login' %>
   </div>
 <% end %>
 
 
 
   <div class="row justify-content-center mb-5 ">
-    <%= link_to "Cancelar conta", registration_path(resource_name), class: 'btn-red col-4 text-decoration-none', data: { turbo_confirm: "Confirmar cancelamento de conta?", turbo_method: :delete } %>
+    <%= link_to "Cancelar conta", registration_path(resource_name), class: 'btn-red  text-decoration-none', data: { turbo_confirm: "Confirmar cancelamento de conta?", turbo_method: :delete } %>
     </div>
 
   </div>

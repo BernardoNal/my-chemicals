@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container container-view mt-4">
   <div class="form-shape col-md-6 mx-auto">
     <%= link_to myfarms_path, class: 'btn-back text-decoration-none' do %>
       <i class='fa-solid fa-circle-left'></i>
@@ -15,53 +15,3 @@
     <% end %>
   </div>
 </div>
-
-<div class="map" id="map" ></div>
-
-  <script src='https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js'></script>
-
-  <script>
-     mapboxgl.accessToken = "pk.eyJ1Ijoiam9yZGFubzg4IiwiYSI6ImNsc2x4OWdvZjBkOTUyanNjOXRtZno4YnkifQ.9TVAMKmkrFEmnXjmIah2aQ";
-     var map = new mapboxgl.Map({
-      container: 'map',
-      style: 'mapbox://styles/mapbox/streets-v11',
-      center: [-47.9292, -15.7801],
-      zoom: 15
-     });
-
-    function updateMapLocation() {
-    var cep = document.getElementById('cepInput').value;
-    fetch(`https://cep.awesomeapi.com.br/json/${cep}`)
-      .then(response => response.json())
-      .then(data => {
-        var lngLat = [data.lng, data.lat];
-        map.setCenter(lngLat);
-        new mapboxgl.Marker().setLngLat(lngLat).addTo(map);
-
-
-        document.getElementById('farmLatitude').value = data.lat;
-        document.getElementById('farmLongitude').value = data.lng;
-      })
-      .catch(error => {
-        console.error('Erro ao obter localização:', error);
-        alert('CEP inválido ou não encontrado.');
-      });
-    }
-
-    map.on('moveend', function() {
-    var center = map.getCenter();
-    var savedCoordinates = JSON.parse(localStorage.getItem('savedCoordinates')) || [];
-    savedCoordinates.push([center.lat, center.lng]);
-    localStorage.setItem('savedCoordinates', JSON.stringify(savedCoordinates));
-    });
-
-    document.getElementById('cepInput').addEventListener('change', function() {
-    var cep = this.value;
-    updateMapLocation(cep);
-    });
-
-   new mapboxgl.Marker()
-   .setLngLat([-47.9292, -15.7801])
-   .addTo(map);
-
-  </script>

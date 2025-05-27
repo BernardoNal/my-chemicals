@@ -26,7 +26,7 @@ class CartChemical < ApplicationRecord
     return unless quantity && chemical_id && cart_id
     return unless quantity_total < -quantity && entry == '0'
 
-    errors.add(:quantity, message: 'above limit')
+    errors.add(:quantity, :above_limit)
   end
 
   # Validates the quantity to prevent negative quantities
@@ -34,14 +34,14 @@ class CartChemical < ApplicationRecord
     return unless quantity && chemical_id && cart_id
     return unless (quantity.positive? && entry == '0') || (quantity.negative? && entry == '1') || quantity == 0
 
-    errors.add(:quantity, message: 'invalid')
+    errors.add(:quantity, :invalid_quantity)
   end
 
   # Validates the quantity to prevent broken quantities
   def rounded_number
     return unless quantity && chemical_id
-    return unless quantity * chemical.amount % 0.05 != 0
+    return unless (quantity * chemical.amount*100) % 5 != 0
 
-    errors.add(:quantity, message: 'invalid for rounding')
+    errors.add(:quantity, :invalid_round)
   end
 end

@@ -1,0 +1,88 @@
+pt-BR:
+  activerecord:
+    models:
+      farm: "Fazenda"
+      storage: "Galpão"
+      chemical: "Químico"
+      activity: "Atividade"
+      activity_chemical: "Aplicação de Químico"
+      employee: "Funcionário"
+      responsible: "Responsável"
+
+    attributes:
+      farm:
+        name: "Nome"
+        size: "Tamanho"
+        cep: "CEP"
+      storage:
+        name: "Nome"
+        size: "Tamanho"
+        farm_id: "Fazenda"
+      chemical:
+        name: "Nome"
+        amount: "Quantidade por unidade"
+        unit: "Unidade"
+      activity:
+        farm_id: "Fazenda"
+        activity_type: "Tipo de Atividade"
+      activity_chemical:
+        chemical_id: "Químico"
+        quantity: "Quantidade"
+      employee:
+        name: "Nome do funcionário"
+        cpf: "CPF"
+        farm_id: "Fazenda"
+        user_cpf: "CPF"
+      responsible:
+        name: "Nome"
+        employee: "Funcionário responsável"
+        activity: "Atividade"
+      cart_chemical:
+        quantity: "Quantidade"
+        chemical_id: "Químico"
+
+  devise:
+    sessions:
+      signed_in: "Login efetuado com sucesso."
+      signed_out: "Logout efetuado com sucesso."
+      invalid: "Email ou senha inválidos."
+      already_signed_out: "Logout efetuado com sucesso."
+    failure:
+      already_authenticated: "You are already signed in."
+      inactive: "Your account is not activated yet."
+      invalid: "Invalid %{authentication_keys} or password."
+      locked: "Your account is locked."
+      last_attempt: "You have one more attempt before your account is locked."
+      not_found_in_database: "Invalid %{authentication_keys} or password."
+      timeout: "Your session expired. Please sign in again to continue."
+      unauthenticated: "Logout efetuado com sucesso."
+      unconfirmed: "You have to confirm your email address before continuing."
+
+  errors:
+    messages:
+      blank: "não pode ficar em branco"
+      taken: "já está em uso"
+      inclusion: "não está incluído na lista"
+      numericality: "deve ser um número válido"
+      not_a_number: "não é um número válido"
+      multiple_of_quarter: "deve ser múltiplo de 0,25"
+      too_many_decimals: "deve ter no máximo duas casas decimais"
+      record_invalid: "não é válido"
+      above_limit: "acima do limite"
+      invalid_round: "inválida para arredondar"
+      invalid_quantity: "deve ser maior que zero"
+      greater_than: " maior que %{count}"
+      restrict_dependent_destroy:
+        has_one: "não pode ser excluído porque está associado a outro registro."
+        has_many: "não pode ser excluído porque possui registros dependentes."
+
+  helpers:
+    submit:
+      create: "Criar %{model}"
+      update: "Atualizar %{model}"
+      submit: "Salvar %{model}"
+  support:
+    array:
+      words_connector: ", "
+      two_words_connector: " e "
+      last_word_connector: " e "

@@ -28,5 +28,10 @@ module MyChemicals
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+    #
+    config.i18n.available_locales = %i[en pt-BR]
+    config.i18n.default_locale = :"pt-BR"
+    # Configure the default encoding used in templates for Ruby 1.9.
+    config.encoding = "utf-8"
   end
 end

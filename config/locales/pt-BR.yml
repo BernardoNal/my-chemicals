@@ -19,10 +19,10 @@ pt-BR:
         size: "Tamanho"
         farm_id: "Fazenda"
       chemical:
-        name: "Nome"
+        product_name: "Nome"
         amount: "Embalagem"
-        unit: "Unidade"
-        type: "Categoria"
+        measurement_unit: "Unidade"
+        type_product: "Categoria"
         compound_product: "Composto"
       activity:
         farm_id: "Fazenda"

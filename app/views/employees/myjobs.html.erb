@@ -18,8 +18,8 @@
                 <p>Cargo : <%= employee.manager ? 'Gerente' : "Funcionário" %></h5>
               </div>
               <%if employee.invite == false  %>
-                <div class="card-small-btns">
-                  <%= link_to  employee_path(employee), data: {turbo_method: :patch}, class:' btn-plus-approve ma mb-2 ' do %>
+                <div class="card-small-btns mx-auto">
+                  <%= link_to  employee_path(employee), data: {turbo_method: :patch}, class:' btn-plus-approve ma mb-3 ' do %>
                     <i class="fa-solid fa-user-plus"></i>
                   <% end %>
                   <%= link_to  employee_path(employee), data: {turbo_method: :delete}, class:' btn-plus-reject ma' do %>

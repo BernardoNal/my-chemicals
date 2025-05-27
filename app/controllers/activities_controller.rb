@@ -28,6 +28,7 @@ class ActivitiesController < ApplicationController
     @activity = Activity.new
     authorize @activity
     @farms = current_user.farms
+    render :form
   end
 
   # Creates a new activity
@@ -48,6 +49,7 @@ class ActivitiesController < ApplicationController
   def edit
     authorize @activity
     @farms = current_user.farms
+    render :form
   end
 
   # Updates a activity

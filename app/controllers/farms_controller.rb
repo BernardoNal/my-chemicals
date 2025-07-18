@@ -118,11 +118,8 @@ class FarmsController < ApplicationController
   # Searches for chemicals
   def search_chemical
     if params[:search].present? && params[:search][:query].present?
-      search_query = params[:search][:query]
-      chemical_ids = Chemical.search_by_name(search_query).pluck(:id)
-      @carts = @carts.joins(:chemicals).where(chemicals: { id: chemical_ids })
-    elsif @carts.nil?
-      # @carts = Cart.all
+      query = "%#{params[:search][:query].strip.downcase}%"
+      @chemical_totals = @chemical_totals.where("LOWER(product_name) ILIKE ?", query)
     end
   end
 

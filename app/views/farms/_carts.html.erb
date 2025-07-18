@@ -1,10 +1,11 @@
 <div class="container">
   <div class="search-bar px-5">
-    <%= simple_form_for :search, url: root_path(anchor: 'search-results-bottom'), method: :get, data: { turbo_action: "replace" } do |f| %>
-      <%= hidden_field_tag 'farm_id', params[:farm_id] if params[:farm_id].present? %>
-      <%= hidden_field_tag 'storage_id', params[:storage_id] if params[:storage_id].present? %>
-      <div class="search-form-control form-group">
-        <div class="input-group">
+  <%= simple_form_for :search, url: root_path(), method: :get, data: { turbo_action: "replace" } do |f| %>
+    <%= hidden_field_tag 'farm_id', params[:farm_id] if params[:farm_id].present? %>
+    <%= hidden_field_tag 'storage_id', params[:storage_id] if params[:storage_id].present? %>
+    <%= hidden_field_tag :filter, params[:filter] if params[:filter].present? %>
+    <div class="form-group">
+      <div class="input-group">
           <input class="form-control string required" type="text" placeholder="Buscar produto" name="search[query]" id="search_query"
                 value="<%= params[:search][:query] if params[:search].present? %>" />
           <div class="input-group-append">
@@ -58,16 +59,16 @@
       <thead>
         <tr>
           <th class='text-center' scope="col">
-            <%= link_to "Nome", farms_path(filter: 0, farm_id: @storage.farm_id, storage_id: @storage.id), class: "#{'text-decoration-none' unless params[:filter].to_i == 0} #{'text-decoration-underline' if params[:filter].to_i == 0} text-white" %>
+            <%= link_to "Nome", farms_path(request.query_parameters.merge(filter: 0)), class: "#{'text-decoration-none' unless params[:filter].to_i == 0} #{'text-decoration-underline' if params[:filter].to_i == 0} text-white" %>
           </th>
           <th class='text-center' scope="col">
-            <%= link_to "Tipo", farms_path(filter: 1, farm_id: @storage.farm_id, storage_id: @storage.id), class: "#{'text-decoration-none' unless params[:filter].to_i == 1} #{'text-decoration-underline' if params[:filter].to_i == 1} text-white" %>
+            <%= link_to "Tipo", farms_path(request.query_parameters.merge(filter: 1)), class: "#{'text-decoration-none' unless params[:filter].to_i == 1} #{'text-decoration-underline' if params[:filter].to_i == 1} text-white" %>
           </th>
           <th class='text-center d-none d-sm-table-cell' scope="col">
-            <%= link_to "Composto", farms_path(filter: 3, farm_id: @storage.farm_id, storage_id: @storage.id), class: "#{'text-decoration-none' unless params[:filter].to_i == 3} #{'text-decoration-underline' if params[:filter].to_i == 3} text-white" %>
+            <%= link_to "Composto", farms_path(request.query_parameters.merge(filter: 3)), class: "#{'text-decoration-none' unless params[:filter].to_i == 3} #{'text-decoration-underline' if params[:filter].to_i == 3} text-white" %>
           </th>
           <th class='text-center' scope="col">
-            <%= link_to "Total em estoque", farms_path(filter: 2, farm_id: @storage.farm_id, storage_id: @storage.id), class: "#{'text-decoration-none' unless params[:filter].to_i == 2} #{'text-decoration-underline' if params[:filter].to_i == 2} text-white" %>
+            <%= link_to "Total em estoque", farms_path(request.query_parameters.merge(filter: 2)), class: "#{'text-decoration-none' unless params[:filter].to_i == 2} #{'text-decoration-underline' if params[:filter].to_i == 2} text-white" %>
           </th>
         </tr>
       </thead>
@@ -75,7 +76,7 @@
         <% @chemical_totals.limit(total_chemicals).offset(offset).each do |chemical| %>
           <%# <% if chemical.total_quantity > 0   %>
             <tr>
-              <td class='text-center'><%= link_to chemical_path(chemical), data: {turbo_frame: :modal}, class: "text-decoration-none text-white" do %> <%= highlight_background(chemical.product_name.capitalize, params.dig(:search, :query)) %> <% end %></td>
+              <td class='text-center'><%= link_to chemical_path(chemical), data: {turbo_frame: :modal}, class: "text-decoration-none text-white" do %> <%= chemical.product_name.capitalize %> <% end %></td>
               <td class='text-center'><%= chemical.type_product.titleize %></td>
               <td class='text-center d-none d-sm-table-cell'><%= chemical.compound_product.capitalize %></td>
               <td class='text-center'><%= number_with_precision(chemical.total, precision: 2) %> <%= chemical.measurement_unit %></td>

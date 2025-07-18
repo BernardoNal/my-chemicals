@@ -57,6 +57,7 @@ gem "pundit"
 gem 'prawn'
 gem "pg_search"
 gem 'stringio', '3.1.1'
+gem 'ransack'
 
 
 group :development, :test do

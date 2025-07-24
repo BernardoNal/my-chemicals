@@ -74,14 +74,14 @@
       </thead>
       <tbody>
         <% @chemical_totals.limit(total_chemicals).offset(offset).each do |chemical| %>
-          <%# <% if chemical.total_quantity > 0   %>
+           <% if chemical.total_quantity > 0   %>
             <tr>
               <td class='text-center'><%= link_to chemical_path(chemical), data: {turbo_frame: :modal}, class: "text-decoration-none text-white" do %> <%= chemical.product_name.capitalize %> <% end %></td>
               <td class='text-center'><%= chemical.type_product.titleize %></td>
               <td class='text-center d-none d-sm-table-cell'><%= chemical.compound_product.capitalize %></td>
               <td class='text-center'><%= number_with_precision(chemical.total, precision: 2) %> <%= chemical.measurement_unit %></td>
             </tr>
-          <%# <% end %>
+          <% end %>
         <% end %>
 
       </tbody>

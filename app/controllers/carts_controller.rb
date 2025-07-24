@@ -91,7 +91,6 @@ class CartsController < ApplicationController
 
   # Deletes a cart
   def destroy
-    @cart = Cart.find(params[:id])
     authorize @cart
     @cart.destroy!
     redirect_to pending_path
@@ -102,6 +101,9 @@ class CartsController < ApplicationController
   # Sets the cart instance variable based on the provided id
   def set_cart
     @cart = Cart.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    flash[:alert] = "Carrinho não encontrado."
+    redirect_to root_path
   end
 
   # Sets the new cart instance variable

@@ -1,6 +1,6 @@
 class CartPolicy < ApplicationPolicy
   def show?
-    true
+    !record.approved?
   end
 
   def new

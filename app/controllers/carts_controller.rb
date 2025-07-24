@@ -48,7 +48,6 @@ class CartsController < ApplicationController
 
   # Creates a new cart
   def create
-    Cart.where(storage_id: params[:storage_id]).destroy_by(approved: nil)
     @cart = Cart.new
     @storage = Storage.find(params[:storage_id])
     set_new_cart

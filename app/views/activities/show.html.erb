@@ -35,7 +35,7 @@
           <%= simple_format("Recursos: " + @activity.resources, { class: "py-3" }, wrapper_tag: nil) %>
           <p class ="py-3">Responsáveis:
             <% @activity.responsibles.each do |responsible| %>
-              <%= responsible.name || responsible.employee.user.full_name %>
+              <%= responsible.name.presence || responsible.employee&.user&.full_name %>
               (<%= link_to  responsible_path(responsible),  data: {turbo_method: :delete}, class:' text-danger text-decoration-none' do  %>
                   <i class="far fa-trash-alt"></i>
                 <% end %>) /

@@ -12,7 +12,6 @@ class Employee < ApplicationRecord
   validates :farm_id, uniqueness: { scope: :user_id, message: "já tem esse funcionário" }
   validates :user_id, :user_cpf, presence: true
   validate :valid_cpf
-  before_destroy :clean_up_responsibles
 
   # Custom validation method to validate user's CPF
   def valid_cpf
@@ -23,17 +22,4 @@ class Employee < ApplicationRecord
     end
   end
 
-  def clean_up_responsibles
-   Rails.logger.info ">> CALLBACK: Limpando responsibles do funcionário #{id}"
-    puts ">> CALLBACK: Limpando responsibles do funcionário #{id}"
-    # Garante que o nome do user ainda está acessível antes do destroy
-    nome_usuario = user&.full_name
-
-    responsibles.find_each do |responsible|
-        responsible.update!(
-          employee_id: nil,
-          name: "Ex-#{nome_usuario || 'Funcionário'}"
-        )
-    end
-  end
 end

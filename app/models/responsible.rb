@@ -5,10 +5,16 @@ class Responsible < ApplicationRecord
   validates :activity_id, presence: true
   validates :name, presence: true, unless: -> { employee.present? }
 
+
   validate :unique_responsible_per_activity
 
   private
 
+  def set_name_from_employee
+    self.name = employee.user.full_name if employee&.user
+  end
+
+  before_validation :set_name_from_employee, if: -> { employee.present? && name.blank? }
   # Validação personalizada para garantir unicidade dentro de uma atividade
   def unique_responsible_per_activity
     if name.present? && activity.responsibles.where.not(id: id).exists?(name: name)

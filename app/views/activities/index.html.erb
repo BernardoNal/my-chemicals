@@ -64,8 +64,6 @@
 
     <% end %>
   </div>
-     <% total_activities = 30 %>
-     <% offset = params[:set].to_i % total_activities == 0 ? params[:set].to_i : 0 %>
   <% if @activities.present? %>
     <div class="table-responsive col-12 mt-2">
       <table class="table  text-center ">
@@ -80,7 +78,7 @@
                     </tr>
                 </thead>
                 <tbody class="table-group-divider">
-                    <% @activities.limit(total_activities).offset(offset).each do |activity| %>
+                    <% @activities.each do |activity| %>
                       <tr>
                         <td class='text-dgreen text-smallX '><%= activity.date_start&.strftime('%d/%m/%Y') %></td>
                         <td class='text-dgreen d-none d-sm-table-cell'><%= activity.area %></td>
@@ -100,14 +98,14 @@
                 </tbody>
             </table>
     </div>
-    <p class="icon-lg-right "> <% if offset > 0 %>
-        <%= link_to activities_path(request.query_parameters.merge(set: offset - total_activities)), class: "text-dgreen text-decoration-none" do %>
+    <p class="icon-lg-right "> <% if @offset > 0 %>
+        <%= link_to activities_path(request.query_parameters.merge(set: @offset - @total_activities)), class: "text-dgreen text-decoration-none" do %>
           <i class="fa-solid fa-arrow-left"></i>
         <% end %>
       <% end %>
-      Página <%=(offset/total_activities)+1 %>
-      <% if offset+total_activities < @activities.count %>
-        <%= link_to activities_path(request.query_parameters.merge(set: offset + total_activities)), class: "text-dgreen text-decoration-none" do %>
+      Página <%=(@offset/@total_activities)+1 %>
+      <% if @offset+@total_activities < @activities_total_count %>
+        <%= link_to activities_path(request.query_parameters.merge(set: @offset + @total_activities)), class: "text-dgreen text-decoration-none" do %>
           <i class="fa-solid fa-arrow-right"></i>
         <% end %>
       <% end %>

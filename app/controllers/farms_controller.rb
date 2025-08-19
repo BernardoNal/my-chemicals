@@ -5,9 +5,9 @@ class FarmsController < ApplicationController
   # Displays a list of farms
   def index
     @farms = policy_scope(Farm)
-    current_user.employees.each do |employee|
-      @farms += [employee.farm] if employee.invite
-    end
+    # current_user.employees.each do |employee|
+    #   @farms += [employee.farm] if employee.invite
+    # end
     @storages = []
     farm_select
     storage_select
@@ -26,11 +26,9 @@ class FarmsController < ApplicationController
     @farm = Farm.new(farm_params)
     @farm.user = current_user
     authorize @farm
-    @farm.save
 
     if @farm.save
       flash[:alert] = "Fazenda criada com sucesso."
-
       redirect_to myfarms_path
     else
       render :new, status: :unprocessable_entity
@@ -125,13 +123,10 @@ class FarmsController < ApplicationController
 
   # Renders a PDF format of the chemical table
   def render_pdf
-    respond_to do |format|
-      format.html
-      format.pdf do
-        pdf = ChemicalsPdf.new(@chemical_totals, @storage).call
-        send_data pdf, filename: "#{Time.now.strftime("%d_%m_%y")}-Estoque de químicos.pdf", type: "application/pdf"
-      end
-    end
+    return unless request.format.pdf?
+
+    pdf = ChemicalsPdf.new(@chemical_totals, @storage).call
+    send_data pdf, filename: "#{Time.now.strftime("%d_%m_%y")}-Estoque de químicos.pdf", type: "application/pdf"
   end
 
 end

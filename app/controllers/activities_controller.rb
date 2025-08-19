@@ -10,7 +10,15 @@ class ActivitiesController < ApplicationController
     @farms = current_user.farms
     filter
     search
-    @activities = @activities.order(date_start: :desc)
+
+    @total_activities = 10
+    @offset = params[:set].to_i
+    @offset = 0 if @offset % @total_activities != 0
+    @activities_total_count = @activities.count
+
+     @activities = @activities.order(date_start: :desc)
+                           .limit(@total_activities)
+                           .offset(@offset)
     render_pdf
   end
 

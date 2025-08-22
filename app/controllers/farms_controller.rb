@@ -5,9 +5,6 @@ class FarmsController < ApplicationController
   # Displays a list of farms
   def index
     @farms = policy_scope(Farm)
-    # current_user.employees.each do |employee|
-    #   @farms += [employee.farm] if employee.invite
-    # end
     @storages = []
     farm_select
     storage_select
@@ -101,6 +98,8 @@ class FarmsController < ApplicationController
   end
 
   def filter
+    return unless params[:filter].present?
+
     case params[:filter]
     when "1"
       @chemical_totals = @chemical_totals.order(type_product: :asc)

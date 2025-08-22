@@ -113,14 +113,12 @@ class ActivitiesController < ApplicationController
 
    # Renders a PDF format of the chemical table
   def render_pdf
+    return unless request.format.pdf?
+
     last = params[:date_start].present?
-    respond_to do |format|
-      format.html
-      format.pdf do
-        pdf = ActivitiesPdf.new(@activities,@date_start, @date_end,last).call
-        send_data pdf, filename: "#{Time.now.strftime("%d_%m_%y")}-Atividades.pdf", type: "application/pdf"
-      end
-    end
+    pdf = ActivitiesPdf.new(@activities,@date_start, @date_end,last).call
+    send_data pdf, filename: "#{Time.now.strftime("%d_%m_%y")}-Atividades.pdf", type: "application/pdf"
+
   end
 
   def search

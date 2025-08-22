@@ -1,15 +1,4 @@
 class ResponsiblesController < ApplicationController
-  # Displays a list of farms accessible to the current user
-  # def index
-  #   @farms = policy_scope(Farm)
-  #   @user = current_user
-  # end
-
-  # # Prepares a form to create a new responsible
-  # def new
-  #   @responsible = Responsible.new
-  #   authorize @responsible
-  # end
 
   # Creates a new responsible record
   def create

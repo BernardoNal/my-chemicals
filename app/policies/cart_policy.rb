@@ -3,10 +3,6 @@ class CartPolicy < ApplicationPolicy
     !record.approved?
   end
 
-  def new
-    true
-  end
-
   def create?
     true
   end

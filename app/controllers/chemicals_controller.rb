@@ -52,6 +52,21 @@ class ChemicalsController < ApplicationController
 
   end
 
+  def search
+    authorize Chemical  # <-- adiciona isso
+    query = params[:q]
+
+    chemicals = if query.present?
+                  Chemical.where("product_name ILIKE ?", "%#{query}%").limit(5)
+                else
+                  Chemical.none
+                end
+
+    render json: chemicals.map { |c| { id: c.id, product_name: "#{c.product_name} (#{c.amount}#{c.measurement_unit})" } }
+  end
+
+
+
   private
 
   # Permits chemical parameters

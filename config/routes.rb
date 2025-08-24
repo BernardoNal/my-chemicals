@@ -6,8 +6,8 @@ Rails.application.routes.draw do
   get "myfarms" => 'farms#myfarms'
 
   resources :activities do
-    resources :activity_chemicals, only: %i[new create]
-    resources :responsibles, only: %i[new create]
+    resources :activity_chemicals, only: %i[create]
+    resources :responsibles, only: %i[create]
   end
 
   resources :activity_chemicals, only: %i[destroy]
@@ -17,13 +17,14 @@ Rails.application.routes.draw do
   # end
 
   resources :chemicals
+  get "/search_chemicals", to: "chemicals#search"
 
   resources :storages do
-    resources :carts, only: %i[new create]
+    resources :carts, only: %i[create]
   end
 
   resources :carts, except: %i[new create] do
-    resources :cart_chemicals, only: %i[new create]
+    resources :cart_chemicals, only: %i[create]
   end
 
   patch "carts/:id/record" => 'carts#record', as: "cart_record"

@@ -16,12 +16,17 @@ class FarmPolicy < ApplicationPolicy
   end
 
   class Scope < Scope
-    # NOTE: Be explicit about which records you allow access to!
     def resolve
-      scope.where(user: user)
+     # Farms do usuário
+      farms = scope.where(user: user)
+
+      # Farms de employees convidados
+      invited_farms_ids = Farm.joins(:employees)
+                              .where(employees: { id: user.employee_ids, invite: true })
+                              .pluck(:id)
+
+      # Une os dois conjuntos pelo id
+      scope.where(id: farms.pluck(:id) + invited_farms_ids)
     end
-    # def resolve
-    #   scope.joins(:farms_users).where(farms_users: { user_id: user.id })
-    # end
   end
 end

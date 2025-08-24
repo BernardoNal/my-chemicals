@@ -1,6 +1,23 @@
 <%= simple_form_for [cart,cart_chemical], method: :post do |f| %>
   <%= f.hidden_field :entry, value: entry == "1" ? 1 : 0 %>
-  <%= f.input :chemical_id, as: :select, collection: chemicals.map { |chemical| ["#{chemical.product_name&.truncate(35)} (#{chemical.amount}#{chemical.measurement_unit})", chemical.id] }, label: "Químico" %>
+  <%# <%= f.input :chemical_id, as: :select, collection: chemicals.map { |chemical| ["#{chemical.product_name&.truncate(35)} (#{chemical.amount}#{chemical.measurement_unit})", chemical.id] }, label: "Químico" %>
+<!-- Dropdown search para químicos -->
+  <div data-controller="dropdown-search" data-dropdown-search-url-value="<%= search_chemicals_path %>" class="">
+
+    <!-- Campo visível para o usuário digitar -->
+    <%= text_field_tag :chemical_search,
+          nil,
+          placeholder: "Buscar químico...",
+          data: { dropdown_search_target: "input", action: "input->dropdown-search#search" },
+          class: "form-control mt-3" %>
+
+    <!-- Campo hidden que envia o chemical_id -->
+    <%= f.hidden_field :chemical_id, data: { dropdown_search_target: "hidden" } %>
+
+    <!-- Resultados do dropdown -->
+    <div data-dropdown-search-target="results" class="absolute z-10 border  rounded-2  mt- mb-3"></div>
+  </div>
+
   <%= f.input :quantity, input_html: { min: 0 }, label: "Quantidade" %>
   <%= f.button :submit, value: entry == "1" ? "Adicionar produto" : "Saída do produto", class: "my-2 btn-login" %>
 <% end %>

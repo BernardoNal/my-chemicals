@@ -10,7 +10,15 @@ class ActivitiesController < ApplicationController
     @farms = current_user.farms
     filter
     search
-    @activities = @activities.order(date_start: :desc)
+
+    @total_activities = 10
+    @offset = params[:set].to_i
+    @offset = 0 if @offset % @total_activities != 0
+    @activities_total_count = @activities.count
+
+     @activities = @activities.order(date_start: :desc)
+                           .limit(@total_activities)
+                           .offset(@offset)
     render_pdf
   end
 
@@ -105,14 +113,12 @@ class ActivitiesController < ApplicationController
 
    # Renders a PDF format of the chemical table
   def render_pdf
+    return unless request.format.pdf?
+
     last = params[:date_start].present?
-    respond_to do |format|
-      format.html
-      format.pdf do
-        pdf = ActivitiesPdf.new(@activities,@date_start, @date_end,last).call
-        send_data pdf, filename: "#{Time.now.strftime("%d_%m_%y")}-Atividades.pdf", type: "application/pdf"
-      end
-    end
+    pdf = ActivitiesPdf.new(@activities,@date_start, @date_end,last).call
+    send_data pdf, filename: "#{Time.now.strftime("%d_%m_%y")}-Atividades.pdf", type: "application/pdf"
+
   end
 
   def search

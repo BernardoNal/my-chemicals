@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   # end
 
   resources :chemicals
+  get "/search_chemicals", to: "chemicals#search"
 
   resources :storages do
     resources :carts, only: %i[create]

@@ -1,0 +1,6 @@
+<%= simple_form_for [storage, cart] do |f| %>
+  <%= f.hidden_field :entry, value: entry %>
+  <button type="submit" class="<%= "#{btn_class} mt-4" %>">
+    <i class="fa-solid <%= icon %>"></i> <%= text %>
+  </button>
+<% end %>

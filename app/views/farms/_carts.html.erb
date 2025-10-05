@@ -18,40 +18,52 @@
     <% end %>
   </div>
 
-  <div class="card-btn  row mb-3 ">
+ <div class="card-btn row mb-3">
+  <div class="col-sm-4">
+    <h2 class="mt-4">Meus produtos:</h2>
 
-    <div class="col-sm-4">
-      <h2 class='mt-4'>Meus produtos:</h2>
-      <%= link_to  farms_path(format: :pdf,farm_id: @storage.farm_id, storage_id: @storage.id), class: " btn-plus-sign    " do %>
-                <i class="fa-solid fa-file-pdf"></i>
-      <% end %>
-    </div>
+    <%= link_to farms_path(format: :pdf, farm_id: @storage.farm_id, storage_id: @storage.id),
+                class: "btn-plus-sign", title: "Exportar PDF" do %>
+      <i class="fa-solid fa-file-pdf"></i>
+    <% end %>
+  </div>
 
-<div class="col-sm-8 p-0">
-  <div class="row">
+  <div class="col-sm-8 p-0">
+    <div class="row align-items-start">
       <% manager = @storage.farm.employees.find_by(user_id: current_user.id) %>
-      <% if (manager.present? && manager.manager) || @storage.farm.user == current_user %>
-        <div class="col-md-6 d-flex d-sm-block justify-content-around ">
-          <%= simple_form_for [storage, cart] do |f|%>
-            <%= f.hidden_field :entry, value: 1 %>
-            <button name="button" type="submit" class=" btn-new-product mt-4 ">
-              <i class="fa-solid fa-up-long"></i> Entrada de produto
-            </button>
-          <% end %>
+      <% can_manage = manager&.manager || @storage.farm.user == current_user %>
+
+      <% if can_manage %>
+        <div class="col-md-6 d-flex justify-content-center mb-3 mb-md-0">
+          <%= render "product_form_button",
+                      storage: storage,
+                      cart: cart,
+                      entry: 1,
+                      icon: "fa-up-long",
+                      text: "Entrada de produto",
+                      btn_class: "btn-new-product" %>
         </div>
       <% end %>
 
-      <div class="col-md-6 d-flex d-sm-block justify-content-center ">
-        <%= simple_form_for [storage,cart] do |f|%>
-          <%= f.hidden_field :entry, value: 0 %>
-            <button name="button" type="submit" class="btn-out-product  mt-4">
-              <i class="fa-solid fa-down-long"></i> Saída de produto
-            </button>
-        <% end %>
+      <div class="col-md-6 d-flex justify-content-center">
+        <%= render "product_form_button",
+                    storage: storage,
+                    cart: cart,
+                    entry: 0,
+                    icon: "fa-down-long",
+                    text: "Saída de produto",
+                    btn_class: "btn-out-product" %>
       </div>
+
+      <% if @carts.present? %>
+        <p class="text-center mt-3">
+          Última atualização: <%= @carts.last.updated_at.strftime('%d/%m/%Y') %>
+        </p>
+      <% end %>
+    </div>
   </div>
 </div>
-  </div>
+
     <% total_chemicals = 30 %>
     <% offset = params[:set].to_i % total_chemicals == 0 ? params[:set].to_i : 0 %>
    <div id="cart-<%= cart.id %>" class="table-responsive col-12">

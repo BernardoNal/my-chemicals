@@ -29,7 +29,8 @@ class ChemicalsPdf
       end
 
       pdf.text "Fazenda: #{@storage.farm.name} - #{@storage.name}", style: :bold, color: "6d7760", align: :center, size: 16
-      pdf.text "Data: #{Time.now.strftime("%d-%m-%y")} ", style: :bold, color: "6d7760", align: :center, size: 15
+      pdf.text "Geração do PDF: #{Time.now.strftime("%d/%m/%Y")} ", style: :bold, color: "6d7760", align: :center, size: 14
+      pdf.text "Ultima Atualização: #{@storage.carts.last.updated_at.strftime('%d/%m/%Y')} ", style: :bold, color: "6d7760", align: :center, size: 14
       pdf.move_down 5
 
       if chemical_totals.any?

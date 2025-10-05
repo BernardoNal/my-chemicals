@@ -44,11 +44,14 @@
       <div class="col-md-6 d-flex d-sm-block justify-content-center ">
         <%= simple_form_for [storage,cart] do |f|%>
           <%= f.hidden_field :entry, value: 0 %>
-            <button name="button" type="submit" class="btn-out-product  mt-4">
+            <button name="button" type="submit" class="btn-out-product  my-4">
               <i class="fa-solid fa-down-long"></i> Saída de produto
             </button>
         <% end %>
       </div>
+        <p class = "text-center">
+            <%= "Ultima Atualização: "+ @carts.last.updated_at.strftime('%d/%m/%Y') %>
+        </p>
   </div>
 </div>
   </div>

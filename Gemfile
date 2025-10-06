@@ -59,6 +59,9 @@ gem "pg_search"
 gem 'stringio', '3.1.1'
 gem 'ransack'
 
+gem 'nokogiri', '< 1.18'
+
+
 
 group :development, :test do
   gem "dotenv-rails"

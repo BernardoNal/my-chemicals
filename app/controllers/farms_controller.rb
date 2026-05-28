@@ -61,6 +61,12 @@ class FarmsController < ApplicationController
     redirect_to myfarms_path
   end
 
+  def dashboard
+    @farms = policy_scope(Farm)
+    authorize @farms
+    @carts= @farms.first.storages.first
+  end
+
   private
 
   # Permits farm parameters

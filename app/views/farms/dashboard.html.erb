@@ -1,0 +1,11 @@
+<div class="container container-view mt-4">
+  <div class="title-big">
+    <h1 class="farm-title"><i class="fa-brands fa-pagelines"></i> Fazendas</h1>
+  </div>
+<p>ultimo produto usados</p>
+  <% @carts.chemicals.to_a.uniq.to_a.last(10).reverse.each do |chemical| %>
+                    <li>
+                      <%= chemical.product_name %>
+                    </li>
+                  <% end %>
+</div>

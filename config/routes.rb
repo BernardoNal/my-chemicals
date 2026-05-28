@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   root to: "farms#index"
   resources :farms
   get "myfarms" => 'farms#myfarms'
+  get "dashboard_chemicals" => 'farms#dashboard'
 
   resources :activities do
     resources :activity_chemicals, only: %i[create]

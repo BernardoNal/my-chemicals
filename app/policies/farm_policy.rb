@@ -15,6 +15,10 @@ class FarmPolicy < ApplicationPolicy
     true
   end
 
+  def dashboard?
+    true
+  end
+
   class Scope < Scope
     def resolve
      # Farms do usuário

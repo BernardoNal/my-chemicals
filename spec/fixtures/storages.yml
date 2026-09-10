@@ -2,3 +2,7 @@ one:
   name: "Galpão principal"
   size: '20 m2'
   farm: one
+two:
+  name: "Galpão secundário"
+  size: "20 m2"
+  farm: one

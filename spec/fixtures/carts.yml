@@ -2,3 +2,14 @@ one:
  requestor: henrique
  approver: henrique
  storage: one
+ approved: true
+two:
+  requestor: henrique
+  approver: henrique
+  storage: two
+  approved: true
+three:
+  requestor: henrique
+  approver: henrique
+  storage: one
+  approved: false

@@ -66,6 +66,86 @@ RSpec.describe CartChemical, type: :model do
     end
   end
 
+  context "decimal precision" do
+    before do
+      @cart_chemical = CartChemical.new(valid_attributes)
+    end
+
+    it "accepts decimal quantities without floating point precision errors" do
+      @cart_chemical.quantity = 0.15
+      @cart_chemical.entry = '1'
+
+      expect(@cart_chemical).to be_valid
+    end
+
+    it "accepts a quantity resulting from decimal calculations" do
+      @cart_chemical.quantity = 0.1 + 0.05
+      @cart_chemical.entry = '1'
+
+      expect(@cart_chemical).to be_valid
+    end
+
+    it "calculates decimal stock movements without floating point errors" do
+      cart_chemical = cart_chemicals(:one)
+
+      CartChemical.create!(
+        quantity: 0.15,
+        cart: carts(:one),
+        chemical: chemicals(:one)
+      )
+
+      3.times do
+        CartChemical.create!(
+          quantity: -0.05,
+          cart: carts(:one),
+          chemical: chemicals(:one)
+        )
+      end
+
+      expect(cart_chemical.quantity_total).to eq(10.0)
+    end
+
+    it "preserves a small but valid remaining stock" do
+      cart_chemical = cart_chemicals(:one)
+
+      CartChemical.create!(
+        quantity: 0.05,
+        cart: carts(:one),
+        chemical: chemicals(:one)
+      )
+
+      expect(cart_chemical.quantity_total).to eq(10.05)
+    end
+
+    it "allows withdrawing the entire stock" do
+      cart_chemical = cart_chemicals(:one)
+
+      adjustment = CartChemical.new(
+        quantity: -10,
+        cart: carts(:one),
+        chemical: chemicals(:one)
+      )
+      adjustment.entry = '0'
+
+      expect(adjustment).to be_valid
+    end
+
+    it "allows withdrawing the exact current stock" do
+      cart_chemical = cart_chemicals(:one)
+
+      current_stock = cart_chemical.quantity_total
+
+      adjustment = CartChemical.new(
+        quantity: -current_stock,
+        cart: carts(:one),
+        chemical: chemicals(:one)
+      )
+      adjustment.entry = '0'
+
+      expect(adjustment).to be_valid
+    end
+  end
+
   context "Cart Chemical errors" do
     before do
       @cart_chemical = CartChemical.new(valid_attributes)
@@ -103,6 +183,21 @@ RSpec.describe CartChemical, type: :model do
       expect(@cart_chemical.errors.details[:quantity]).to include(error: :invalid_round)
     end
 
+    it "rejects withdrawing more than the current stock" do
+      cart_chemical = cart_chemicals(:one)
+
+      adjustment = CartChemical.new(
+        quantity: -(cart_chemical.quantity_total + 0.01),
+        cart: carts(:one),
+        chemical: chemicals(:one)
+      )
+      adjustment.entry = '0'
+
+      expect(adjustment).not_to be_valid
+      expect(adjustment.errors.details[:quantity]).to include(
+        error: :above_limit
+      )
+    end
     context "quantity sign" do
       it "accepts a positive quantity for an entry" do
         @cart_chemical.entry = '1'

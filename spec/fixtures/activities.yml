@@ -1,13 +1,15 @@
 one:
   date_start: <%= Date.today %>
   date_end: <%= Date.today + 7.days %>
-  name: "Plantio de Milho"
+  description: "Plantio de Milho"
+  activity_type: teste
   area: "campo"
   farm: one
 
 two:
   date_start: <%= Date.today + 30.days %>
   date_end: <%= Date.today + 35.days %>
-  name: "Colheita de Soja"
+  description: "Colheita de Soja"
+  activity_type: teste
   area: "campo"
   farm: one

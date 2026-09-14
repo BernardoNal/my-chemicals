@@ -1,50 +1,145 @@
-# My Chemicals
+# MyChemicals
 
-Este é um projeto de controle de estoque de produtos químicos  idealizado por [Bernardo](https://github.com/BernardoNal) e desenvolvido por [Bernardo](https://github.com/BernardoNal), [Henrique](https://github.com/HenriqueDNMAL), [Lucas](https://github.com/llfmoreno), [Jordano](https://github.com/Jordano88) e [Clara](https://github.com/clararcx)
+Web application for managing agricultural chemical inventory, storage, stock movements, and product usage across farm activities.
 
-## Descrição
+## About
 
-My Chemicals é uma aplicação web que permite aos usuários gerenciar produtos químicos em sua fazenda. A aplicação oferece recursos como realizar entradas e saídas de produtos químicos, traz registros de todas entradas e saidas realizadas, bem como pesquisar produtos existentes no galpão.
+MyChemicals is a Rails application designed to help agricultural properties manage chemical products throughout their lifecycle.
 
-## Funcionalidades Principais
+The application covers inventory management, storage, stock movements, agricultural activities, employees, and access control, providing a centralized workflow for managing chemical products within farms and their storage facilities.
 
-- Criar sua fazenda e seu galpão.
-- Realizar entrada/saida produtos químicos no galpão.
-- Geração de PDF do estoque.
-- Vizualizar todas as entradas e saídas realizadas e gerar pdf delas.
-- Pesquisar produtos químicos por nome.
-- Convidar Funcionarios para aumentar time de controle de químicos.
+The project started as a collaborative application developed during a Le Wagon coding bootcamp and has since evolved into an independently maintained and continuously developed project.
 
-## 📝 Módulo de Atividades
+## Features
 
-O **Módulo de Atividades** foi idealizado e desenvolvido por [Bernardo](https://github.com/BernardoNal) com o objetivo de registrar e acompanhar as atividades agrícolas realizadas na fazenda.
+- **Farm Management**
+  - Create and manage agricultural properties
+  - Manage employees and access to farms
+  - Control access based on user roles and farm membership
 
-### Funcionalidades do módulo:
+- **Storage Management**
+  - Manage chemical storage facilities within farms
+  - Organize chemical products by storage location
+  - Track stock movements associated with each storage
 
-- Registro de atividades como plantio, colheita, irrigação, pulverização e outras.
-- Associação de recursos utilizados, como produtos químicos e responsáveis.
-- Definição de períodos de execução (data de início e fim).
-- Consulta detalhada do histórico de atividades por fazenda.
-- Integração com o estoque para controle do uso de produtos durante atividades.
+- **Chemical Inventory**
+  - Register chemical products
+  - Search and filter products
+  - Track product quantities and stock movements
+  - Manage inventory across different storage locations
 
+- **Stock Movements**
+  - Register product entries and withdrawals
+  - Manage stock movements through carts
+  - Support approval workflows for stock operations
+  - Track pending and recorded movements
 
-## Instalação
+- **Agricultural Activities**
+  - Register agricultural activities
+  - Associate chemical products with activities
+  - Record quantities used
+  - Assign responsible employees
+  - Generate activity history reports
 
-1. Clone o repositório:
-2. Navegue até o diretório do projeto:
-3. Instale as dependências: 'bundle install', 'rails db:create db:migrate'
-4. Inicie o servidor de desenvolvimento: 'rails s'
+- **Authentication & Authorization**
+  - User authentication
+  - Role-based access control
+  - Farm-level authorization
+  - Employee access management
 
+- **Reports**
+  - Generate PDF reports for agricultural activities
+  - Generate reports for stock movements
 
-## Tecnologias Utilizadas
+## Project History
+
+MyChemicals was originally created as a collaborative project during the Le Wagon coding bootcamp.
+
+The original development team consisted of:
+
+- Bernardo Carvalho
+- Henrique
+- Lucas
+- Jordano
+- Clara
+
+After the bootcamp ended, Bernardo Carvalho continued the project independently.
+
+For nearly two years, he has been the sole maintainer and active developer of MyChemicals, continuing to evolve the application, implement new features, fix bugs, improve the codebase, and maintain its test suite.
+
+## My Contribution
+
+After the original collaborative development during the bootcamp, I continued MyChemicals independently as its sole maintainer.
+
+Since then, I have been responsible for the ongoing development and maintenance of the application, including:
+
+- Designing and implementing new features
+- Maintaining and evolving the existing Rails codebase
+- Implementing and improving authorization rules
+- Developing inventory and stock management workflows
+- Fixing bugs and improving existing functionality
+- Expanding automated test coverage
+- Maintaining domain rules related to chemicals, storage, carts, and stock movements
+- Improving application reliability and maintainability
+
+The **Activities module** was also designed and implemented by me. This module integrates agricultural activities with chemical usage and responsible employees, including activity history and PDF reporting.
+
+## Tech Stack
+
+### Backend
+
+- Ruby 3.1.2
+- Ruby on Rails 7.1
+- PostgreSQL
+
+### Frontend
 
 - HTML
 - CSS
 - JavaScript
-- Ruby on Rails
-- Ajax
+- Bootstrap 5
+- Hotwire
+- Stimulus
+- Turbo
 
+### Authentication & Authorization
 
+- Devise
+- Pundit
 
-## Licença
-  Rails app generated with [lewagon/rails-templates](https://github.com/lewagon/rails-templates), created by the [Le Wagon coding bootcamp](https://www.lewagon.com) team.
+### Search & Data
+
+- PgSearch
+- Ransack
+
+### Reports
+
+- Prawn
+
+### Testing
+
+- RSpec
+- Factory Bot
+- Capybara
+- Selenium
+
+## Application Architecture
+
+The application follows Rails' MVC architecture and uses domain models to represent the main entities of the system.
+
+Some of the core relationships include:
+
+```text
+User
+ ├── Farms
+ │    ├── Storages
+ │    │    └── Carts
+ │    │         └── Cart Chemicals
+ │    │              └── Chemicals
+ │    │
+ │    └── Activities
+ │         ├── Activity Chemicals
+ │         │    └── Chemicals
+ │         └── Responsibles
+ │
+ └── Employees

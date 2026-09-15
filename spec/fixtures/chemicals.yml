@@ -5,3 +5,18 @@ one:
   area: 'Milho,Laranja,Soja'
   measurement_unit: 'L'
   amount: 1
+two:
+  product_name: "Agro Max"
+  compound_product: "Composto Teste"
+  type_product: "Fungicida"
+  area: "Milho"
+  measurement_unit: "L"
+  amount: 1
+
+three:
+  product_name: "Zeta"
+  compound_product: "Composto Teste"
+  type_product: "Herbicida"
+  area: "Soja"
+  measurement_unit: "L"
+  amount: 1

@@ -2,5 +2,12 @@ one:
  farm: one
  user: carlos
  manager: false
-
+two:
+  farm: one
+  user: henrique
+  manager: false
+three:
+  farm: two
+  user: carlos
+  manager: false
 #  user_cpf: '90236213016'

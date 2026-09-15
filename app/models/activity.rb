@@ -24,7 +24,9 @@ class Activity < ApplicationRecord
 
   def available_responsibles
     existing_employee_ids = responsibles.pluck(:employee_id).compact
-    Employee.where.not(id: existing_employee_ids)
+
+    Employee.where(farm: farm)
+            .where.not(id: existing_employee_ids)
   end
 
   private

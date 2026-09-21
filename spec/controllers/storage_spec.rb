@@ -11,14 +11,6 @@ RSpec.describe StoragesController, type: :controller do
     end
   end
 
-  describe "GET index" do
-    it "returns a 200" do
-      get :index
-      expect(response).to have_http_status(200)
-      expect(response).to render_template(:index)
-    end
-  end
-
   describe "GET new" do
     it "returns a 200" do
       get :new
@@ -47,9 +39,9 @@ RSpec.describe StoragesController, type: :controller do
         expect { post :create, params: valid_params }.to change(Storage, :count).by(1)
       end
 
-      it "redirects to storages_path after creating a new storage" do
+      it "redirects to myfarms_path after creating a new storage" do
         post :create, params: valid_params
-        expect(response).to redirect_to(storages_path)
+        expect(response).to redirect_to(myfarms_path)
       end
 
       it "does not create a new storage with invalid parameters" do
@@ -71,15 +63,56 @@ RSpec.describe StoragesController, type: :controller do
 
   describe "PUT update" do
     it "updates the storage" do
-      put :update, params: { id: storages(:one).id, storage: { name: "Updated storage" } }
-      expect(response).to redirect_to(storages_path)
+      put :update, params: {
+        id: storages(:one).id,
+        storage: { name: "Updated storage" }
+      }
+
+      expect(response).to redirect_to(myfarms_path)
+    end
+
+    context "when the storage belongs to another farm" do
+      let!(:other_farm) do
+        Farm.create!(
+          name: "Other Farm",
+          size: "300 ha",
+          cep: "49075221",
+          user: users(:rogerio)
+        )
+      end
+
+      let!(:other_storage) do
+        Storage.create!(
+          name: "Other Storage",
+          size: "20 m2",
+          farm: other_farm
+        )
+      end
+
+      it "redirects to the root path" do
+        put :update, params: {
+          id: other_storage.id,
+          storage: { name: "Unauthorized Update" }
+        }
+
+        expect(response).to redirect_to(root_path)
+      end
+
+      it "does not update the storage" do
+        expect {
+          put :update, params: {
+            id: other_storage.id,
+            storage: { name: "Unauthorized Update" }
+          }
+        }.not_to change { other_storage.reload.name }
+      end
     end
   end
 
   describe "DELETE destroy" do
     it "deletes the storage" do
       delete :destroy, params: { id: storages(:one).id }
-      expect(response).to redirect_to(storages_path)
+      expect(response).to redirect_to(myfarms_path)
     end
   end
 end

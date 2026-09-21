@@ -77,8 +77,32 @@ RSpec.describe FarmsController, type: :controller do
 
   describe "PUT update" do
     it "updates the farm" do
-      put :update, params: { id: farms(:one).id, farm: { name: "Updated Farm" } }
+      put :update, params: {
+        id: farms(:one).id,
+        farm: { name: "Updated Farm" }
+      }
+
       expect(response).to redirect_to(myfarms_path)
+    end
+
+    context "when the farm belongs to another user" do
+      it "redirects to the root path" do
+        put :update, params: {
+          id: farms(:two).id,
+          farm: { name: "Unauthorized Update" }
+        }
+
+        expect(response).to redirect_to(root_path)
+      end
+
+      it "does not update the farm" do
+        expect {
+          put :update, params: {
+            id: farms(:two).id,
+            farm: { name: "Unauthorized Update" }
+          }
+        }.not_to change { farms(:two).reload.name }
+      end
     end
   end
 

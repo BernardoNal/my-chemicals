@@ -51,8 +51,18 @@ RSpec.describe CartPolicy, type: :policy do
   end
 
   describe "destroy?" do
-    it "allows access" do
-      expect(policy.destroy?).to be(true)
+    it "allows the farm owner" do
+      owner = users(:henrique)
+      cart = carts(:one)
+
+      expect(described_class.new(owner, cart).destroy?).to be(true)
+    end
+
+    it "denies users from another farm" do
+      other_user = users(:rogerio)
+      cart = carts(:one)
+
+      expect(described_class.new(other_user, cart).destroy?).to be(false)
     end
   end
 

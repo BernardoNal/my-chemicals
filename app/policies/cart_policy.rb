@@ -20,7 +20,7 @@ class CartPolicy < ApplicationPolicy
   end
 
   def destroy?
-    true
+    record.storage.farm.user == user
   end
 
   class Scope < Scope

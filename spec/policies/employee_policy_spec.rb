@@ -26,15 +26,35 @@ RSpec.describe EmployeePolicy, type: :policy do
     end
   end
 
-  describe "update?" do
-    it "allows access" do
-      expect(policy.update?).to be(true)
+  describe "#update?" do
+    it "allows the farm owner" do
+      owner = users(:henrique)
+      employee = employees(:one)
+
+      expect(described_class.new(owner, employee).update?).to be(true)
+    end
+
+    it "denies users from another farm" do
+      other_user = users(:rogerio)
+      employee = employees(:one)
+
+      expect(described_class.new(other_user, employee).update?).to be(false)
     end
   end
 
-  describe "destroy?" do
-    it "allows access" do
-      expect(policy.destroy?).to be(true)
+  describe "#destroy?" do
+    it "allows the farm owner" do
+      owner = users(:henrique)
+      employee = employees(:one)
+
+      expect(described_class.new(owner, employee).destroy?).to be(true)
+    end
+
+    it "denies users from another farm" do
+      other_user = users(:rogerio)
+      employee = employees(:one)
+
+      expect(described_class.new(other_user, employee).destroy?).to be(false)
     end
   end
 

@@ -75,16 +75,38 @@ RSpec.describe EmployeesController, type:  :controller do
 
 
   describe "PUT update" do
-    it "updates the employee" do
-      put :update, params: { id: employees(:one).id }
-      expect(response).to redirect_to(myjobs_path)
+    context "when the employee belongs to another farm" do
+     let(:other_employee) { employees(:three) }
+
+      it "redirects to the root path" do
+        put :update, params: { id: other_employee.id }
+
+        expect(response).to redirect_to(root_path)
+      end
+
+      it "does not update the employee" do
+        expect {
+          put :update, params: { id: other_employee.id }
+        }.not_to change { other_employee.reload.invite }
+      end
     end
   end
 
   describe "DELETE destroy" do
-    it "deletes the employee" do
-      delete :destroy, params: { id: employees(:one).id }
-      expect(response).to redirect_to(employees_path)
+    context "when the employee belongs to another farm" do
+      let(:other_employee) { employees(:three) }
+
+      it "redirects to the root path" do
+        delete :destroy, params: { id: other_employee.id }
+
+        expect(response).to redirect_to(root_path)
+      end
+
+      it "does not destroy the employee" do
+        expect {
+          delete :destroy, params: { id: other_employee.id }
+        }.not_to change(Employee, :count)
+      end
     end
   end
 end

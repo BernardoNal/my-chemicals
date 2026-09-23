@@ -11,14 +11,13 @@ class EmployeePolicy < ApplicationPolicy
     true
   end
 
-  def update?
-    true
+ def update?
+    record.farm.user == user
   end
 
   def destroy?
-    true
+    record.farm.user == user
   end
-
   class Scope < Scope
     # NOTE: Be explicit about which records you allow access to!
      def resolve

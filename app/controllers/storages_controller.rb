@@ -1,9 +1,5 @@
 class StoragesController < ApplicationController
   before_action :set_storage, only: %i[edit update destroy]
-  # Displays a list of storages
-  def index
-    @storages = policy_scope(Storage)
-  end
 
   # Renders form to create a new storage
   def new
@@ -48,7 +44,7 @@ class StoragesController < ApplicationController
     @storage.destroy
     flash[:alert] = "Galpão excluído com sucesso."
 
-    redirect_to storages_path
+    redirect_to myfarms_path
   end
 
   private

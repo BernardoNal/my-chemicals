@@ -4,11 +4,11 @@ class ActivityChemicalPolicy < ApplicationPolicy
   end
 
   def create?
-    true
+    record.activity.farm.user == user
   end
 
   def destroy?
-    true
+    record.activity.farm.user == user
   end
 
   class Scope < Scope

@@ -40,38 +40,38 @@ RSpec.describe ActivityChemicalsController, type: :controller do
           }
         }.not_to change(ActivityChemical, :count)
       end
+    end
+  end
 
-      describe "DELETE destroy" do
-        let!(:other_activity) do
-          Activity.create!(
-            date_start: Date.current,
-            date_end: Date.current + 7.days,
-            activity_type: "teste",
-            area: "campo",
-            farm: farms(:two)
-          )
-        end
+  describe "DELETE destroy" do
+    let!(:other_activity) do
+      Activity.create!(
+        date_start: Date.current,
+        date_end: Date.current + 7.days,
+        activity_type: "teste",
+        area: "campo",
+        farm: farms(:two)
+      )
+    end
 
-        let!(:activity_chemical) do
-          ActivityChemical.create!(
-            activity: other_activity,
-            chemical: chemicals(:one),
-            quantity: 10
-          )
-        end
+    let!(:activity_chemical) do
+      ActivityChemical.create!(
+        activity: other_activity,
+        chemical: chemicals(:one),
+        quantity: 10
+      )
+    end
 
-        it "redirects to the root path when the activity belongs to another farm" do
-          delete :destroy, params: { id: activity_chemical.id }
+    it "redirects to the root path when the activity belongs to another farm" do
+      delete :destroy, params: { id: activity_chemical.id }
 
-          expect(response).to redirect_to(root_path)
-        end
+      expect(response).to redirect_to(root_path)
+    end
 
-        it "does not destroy the activity chemical when the activity belongs to another farm" do
-          expect {
-            delete :destroy, params: { id: activity_chemical.id }
-          }.not_to change(ActivityChemical, :count)
-        end
-      end
+    it "does not destroy the activity chemical when the activity belongs to another farm" do
+      expect {
+        delete :destroy, params: { id: activity_chemical.id }
+      }.not_to change(ActivityChemical, :count)
     end
   end
 end

@@ -1,20 +1,36 @@
 require "rails_helper"
 
 RSpec.describe CartChemicalPolicy, type: :policy do
-  let(:user) { instance_double(User) }
-  let(:cart_chemical) { instance_double(CartChemical) }
+  fixtures :users, :farms, :storages, :carts, :chemicals
 
-  subject(:policy) { described_class.new(user, cart_chemical) }
+  let(:owner) { users(:henrique) }
+  let(:other_user) { users(:rogerio) }
+
+  let(:cart_chemical) do
+    CartChemical.create!(
+      cart: carts(:three),
+      chemical: chemicals(:one),
+      quantity: 1
+    )
+  end
 
   describe "create?" do
-    it "allows access" do
-      expect(policy.create?).to be(true)
+    it "allows access to the farm owner" do
+      expect(described_class.new(owner, cart_chemical).create?).to be(true)
+    end
+
+    it "denies access to another user" do
+      expect(described_class.new(other_user, cart_chemical).create?).to be(false)
     end
   end
 
   describe "destroy?" do
-    it "allows access" do
-      expect(policy.destroy?).to be(true)
+    it "allows access to the farm owner" do
+      expect(described_class.new(owner, cart_chemical).destroy?).to be(true)
+    end
+
+    it "denies access to another user" do
+      expect(described_class.new(other_user, cart_chemical).destroy?).to be(false)
     end
   end
 end

@@ -1,10 +1,10 @@
 class CartChemicalPolicy < ApplicationPolicy
   def create?
-    true
+    record.cart.storage.farm.user == user
   end
 
   def destroy?
-    true
+    record.cart.storage.farm.user == user
   end
 
   class Scope < Scope

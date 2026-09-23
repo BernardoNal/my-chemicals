@@ -4,12 +4,14 @@ class ActivityChemicalsController < ApplicationController
     # Creates a new ActivityChemical
     def create
       @responsible = Responsible.new
-      @activity_chemical = ActivityChemical.new(activity_chemical_params)
-      authorize @activity_chemical
       @activity = Activity.find(params[:activity_id])
+      @activity_chemical = ActivityChemical.new(activity_chemical_params)
+      @activity_chemical.activity = @activity
+      authorize @activity_chemical
+
       @chemicals = @activity.available_chemicals
       @employees = @activity.available_responsibles
-      @activity_chemical.activity = @activity
+
       if @activity_chemical.save
         redirect_to activity_path(@activity)
       else

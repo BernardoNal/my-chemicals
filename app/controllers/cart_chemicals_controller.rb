@@ -2,11 +2,14 @@ class CartChemicalsController < ApplicationController
 
   # Creates a new CartChemical
   def create
-    @cart_chemical = CartChemical.new(cart_chemical_params)
-    authorize @cart_chemical
     @cart = Cart.find(params[:cart_id])
+    @cart_chemical = CartChemical.new(cart_chemical_params)
+    @cart_chemical.cart = @cart
+    authorize @cart_chemical
+
     init_cart_chemical
     chemical_exit
+
     if @cart_chemical.save
       redirect_to cart_path(@cart, entry: params[:cart_chemical][:entry])
     else

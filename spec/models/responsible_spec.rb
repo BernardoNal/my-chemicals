@@ -24,12 +24,18 @@ RSpec.describe Responsible, type: :model do
       @responsible = Responsible.new(valid_attributes)
     end
 
-    %i[name activity_id].each do |attr|
-      it "blank #{attr}" do
-        @responsible[attr] = nil
-        @responsible.valid?
-        expect(@responsible.errors[attr]).to include("can't be blank")
-      end
+    it "sets name from employee when name is blank" do
+      @responsible.name = nil
+      @responsible.valid?
+
+      expect(@responsible.name).to eq(employees(:one).user.full_name)
+    end
+
+    it "validates activity_id presence" do
+      @responsible.activity_id = nil
+      @responsible.valid?
+
+      expect(@responsible.errors[:activity_id]).to include("não pode ficar em branco")
     end
   end
 end

@@ -1,11 +1,13 @@
+require 'rails_helper'
+
 RSpec.describe Employee, :type => :model do
   # Load necessary fixtures for the tests
   fixtures :users, :farms
   let(:valid_attributes) do
     {
-      farm_id: farms(:one).id,
+      farm_id: farms(:two).id,
       user_id: users(:henrique).id,
-      user_cpf: '90236213016'
+      user_cpf: '79143178880'
     }
   end
 
@@ -29,7 +31,7 @@ RSpec.describe Employee, :type => :model do
       it "blank #{attr}" do
         @employee[attr] = nil
         @employee.valid?
-        expect(@employee.errors[attr]).to include("can't be blank")
+        expect(@employee.errors[attr]).to include("não pode ficar em branco")
       end
     end
 
@@ -37,7 +39,7 @@ RSpec.describe Employee, :type => :model do
     it "blank user_cpf" do
       @employee.user_cpf = nil
       @employee.valid?
-      expect(@employee.errors[:user_cpf]).to include("can't be blank")
+      expect(@employee.errors[:user_cpf]).to include("não pode ficar em branco")
     end
 
     # Test if the user_cpf attribute is invalid
@@ -56,7 +58,7 @@ RSpec.describe Employee, :type => :model do
 
     # Test if the cpf is already associated with another user
     it "cpf self registration" do
-      @employee.user_cpf = '79143178880'
+      @employee.user_cpf = '56974952007'
       @employee.valid?
       expect(@employee.errors[:user_cpf]).to include("não é possível se cadastrar")
     end

@@ -29,7 +29,7 @@ RSpec.describe Cart, type: :model do
       it "blank #{attr}" do
         @cart[attr] = nil
         @cart.valid?
-        expect(@cart.errors[attr]).to include("can't be blank")
+        expect(@cart.errors[attr]).to include("não pode ficar em branco")
       end
     end
   end

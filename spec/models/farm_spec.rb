@@ -30,7 +30,7 @@ RSpec.describe Farm, :type => :model do
       it "blank #{attr}" do
         @farm[attr] = nil
         @farm.valid?
-        expect(@farm.errors[attr]).to include("can't be blank")
+        expect(@farm.errors[attr]).to include("não pode ficar em branco")
       end
     end
   end

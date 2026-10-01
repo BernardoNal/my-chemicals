@@ -29,7 +29,7 @@ RSpec.describe User, :type => :model do
       it "blank #{attr}" do
         @user[attr] = nil
         @user.valid?
-        expect(@user.errors[attr]).to include("can't be blank")
+        expect(@user.errors[attr]).to include("não pode ficar em branco")
       end
     end
 
@@ -37,7 +37,7 @@ RSpec.describe User, :type => :model do
      it "blank password" do
       @user.password = nil
       @user.valid?
-      expect(@user.errors[:password]).to include("can't be blank")
+      expect(@user.errors[:password]).to include("não pode ficar em branco")
     end
 
      # Test if the cpf attribute is invalid

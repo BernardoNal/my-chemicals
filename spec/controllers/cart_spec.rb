@@ -13,7 +13,10 @@ RSpec.describe CartsController, type: :controller do
 
   describe "GET show" do
     it "returns a 200" do
+      carts(:one).update!(approved: false)
+
       get :show, params: { id: carts(:one).id }
+
       expect(response).to have_http_status(200)
       expect(response).to render_template(:show)
     end
@@ -27,18 +30,29 @@ RSpec.describe CartsController, type: :controller do
     end
   end
 
-  describe " Patch record" do
+  describe "Patch record" do
     it "records the cart" do
-      patch :record, params: { id: carts(:one).id }
-      expect(response).to redirect_to(farms_path(farm_id: carts(:one).storage.farm_id,
-                                                 storage_id: carts(:one).storage_id))
+      patch :record, params: {
+        id: carts(:one).id,
+        cart: {
+          description: "Stock movement"
+        }
+      }
+
+      expect(response).to redirect_to(
+        farms_path(
+          farm_id: carts(:one).storage.farm_id,
+          storage_id: carts(:one).storage_id
+        )
+      )
     end
   end
 
   describe "DELETE destroy" do
     it "deletes the cart" do
       delete :destroy, params: { id: carts(:one).id }
-      expect(response).to redirect_to(farms_path)
+
+      expect(response).to redirect_to(pending_path)
     end
 
     context "when the cart belongs to another farm" do

@@ -28,14 +28,14 @@ RSpec.describe ActivityChemical, type: :model do
       it "blank #{attr}" do
         @activity_chemical[attr] = nil
         @activity_chemical.valid?
-        expect(@activity_chemical.errors[attr]).to include("can't be blank")
+        expect(@activity_chemical.errors[attr]).to include("não pode ficar em branco")
       end
     end
 
     it "quantity must be greater than 0" do
       @activity_chemical.quantity = 0
       @activity_chemical.valid?
-      expect(@activity_chemical.errors[:quantity]).to include("must be greater than 0")
+      expect(@activity_chemical.errors[:quantity]).to include(" maior que 0")
     end
   end
 end

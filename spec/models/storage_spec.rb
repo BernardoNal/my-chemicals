@@ -28,7 +28,7 @@ RSpec.describe Storage, :type => :model do
       it "blank #{attr}" do
         @storage[attr] = nil
         @storage.valid?
-        expect(@storage.errors[attr]).to include("can't be blank")
+        expect(@storage.errors[attr]).to include("não pode ficar em branco")
       end
     end
   end

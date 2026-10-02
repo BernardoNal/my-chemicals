@@ -130,7 +130,6 @@ GEM
       dotenv (= 3.1.0)
       railties (>= 6.1)
     drb (2.2.1)
-    error_highlight (0.7.0)
     erubi (1.13.0)
     execjs (2.10.0)
     factory_bot (6.4.6)
@@ -381,7 +380,6 @@ DEPENDENCIES
   debug
   devise
   dotenv-rails
-  error_highlight (>= 0.4.0)
   factory_bot_rails
   font-awesome-sass (~> 6.1)
   importmap-rails

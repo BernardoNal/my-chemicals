@@ -81,6 +81,9 @@ group :development do
 
   gem "error_highlight", ">= 0.4.0", platforms: [:ruby]
   gem 'whenever', require: false
+  gem "rubocop"
+  gem "json", "< 3"
+  gem "brakeman"
 end
 
 group :test do

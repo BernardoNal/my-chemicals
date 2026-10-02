@@ -123,7 +123,12 @@ class ActivitiesController < ApplicationController
 
   def search
     if params[:search].present?
-      @activities = @activities.where('activities.activity_type ILIKE ? OR activities.description ILIKE ? OR activities.area ILIKE ?', "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%")
+      @activities = @activities.where(
+        'activities.activity_type ILIKE ? OR activities.description ILIKE ? OR activities.area ILIKE ?',
+        "%#{params[:search]}%",
+        "%#{params[:search]}%",
+        "%#{params[:search]}%"
+      )
     end
   end
 

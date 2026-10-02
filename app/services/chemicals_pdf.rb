@@ -24,13 +24,41 @@ class ChemicalsPdf
       end
       pdf.repeat :all do
         pdf.fill_color "F4F4F4"
-        pdf.text_box "MyChemicals", at: [pdf.bounds.width - 560, pdf.bounds.top - -46], width: 100, height: 20, size: 15
-        pdf.text_box "Estoque do Químicos", at: [pdf.bounds.left, pdf.bounds.top - -47], width: pdf.bounds.width, height: 30, align: :center, size: 20
+        pdf.text_box(
+          "MyChemicals",
+          at: [pdf.bounds.width - 560, pdf.bounds.top - -46],
+          width: 100,
+          height: 20, size: 15
+        )
+        pdf.text_box(
+          "Estoque do Químicos",
+          at: [pdf.bounds.left, pdf.bounds.top - -47],
+          width: pdf.bounds.width,
+          height: 30,
+          align: :center, size: 20
+        )
       end
 
-      pdf.text "Fazenda: #{@storage.farm.name} - #{@storage.name}", style: :bold, color: "6d7760", align: :center, size: 16
-      pdf.text "Geração do PDF: #{Time.now.strftime("%d/%m/%Y")} ", style: :bold, color: "6d7760", align: :center, size: 14
-      pdf.text "Ultima Atualização: #{@storage.carts.last.updated_at.strftime('%d/%m/%Y')} ", style: :bold, color: "6d7760", align: :center, size: 14
+      pdf.text(
+        "Fazenda: #{@storage.farm.name} - #{@storage.name}",
+        style: :bold,
+        color: "6d7760",
+        align: :center, size: 16
+      )
+
+      pdf.text(
+        "Geração do PDF: #{Time.now.strftime("%d/%m/%Y")}",
+        style: :bold,
+        color: "6d7760",
+        align: :center, size: 14
+      )
+
+      pdf.text(
+        "Ultima Atualização: #{@storage.carts.last.updated_at.strftime('%d/%m/%Y')}",
+        style: :bold,
+        color: "6d7760",
+        align: :center, size: 14
+      )
       pdf.move_down 5
 
       if chemical_totals.any?

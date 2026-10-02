@@ -62,7 +62,12 @@ class ChemicalsController < ApplicationController
                   Chemical.none
                 end
 
-    render json: chemicals.map { |c| { id: c.id, product_name: "#{c.product_name} (#{c.amount}#{c.measurement_unit})" } }
+    render json: chemicals.map { |c|
+      {
+        id: c.id,
+        product_name: "#{c.product_name} (#{c.amount}#{c.measurement_unit})"
+      }
+    }
   end
 
 

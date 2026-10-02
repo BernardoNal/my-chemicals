@@ -26,11 +26,30 @@ class ActivitiesPdf
       end
       pdf.repeat :all do
         pdf.fill_color "F4F4F4"
-        pdf.text_box "MyChemicals", at: [pdf.bounds.width - 560, pdf.bounds.top - -46], width: 100, height: 20, size: 15
-        pdf.text_box "Histórico de Atividades", at: [pdf.bounds.left, pdf.bounds.top - -47], width: pdf.bounds.width, height: 30, align: :center, size: 20
+        pdf.text_box(
+          "MyChemicals",
+          at: [pdf.bounds.width - 560, pdf.bounds.top - -46],
+          width: 100,
+          height: 20,
+          size: 15
+        )
+        pdf.text_box(
+          "Histórico de Atividades",
+          at: [pdf.bounds.left, pdf.bounds.top - -47],
+          width: pdf.bounds.width,
+          height: 30,
+          align: :center,
+          size: 20
+        )
       end
       if @last
-        pdf.text "Período: #{@date_start.strftime("%d-%m-%y")} a #{@date_end.strftime("%d-%m-%y")} ", style: :bold, color: "6d7760", align: :center, size: 15
+        pdf.text(
+          "Período: #{@date_start.strftime("%d-%m-%y")} a #{@date_end.strftime("%d-%m-%y")} ",
+          style: :bold,
+          color: "6d7760",
+          align: :center,
+          size: 15
+        )
       end
       pdf.move_down 5
       separator = "-------------------------------------------------------------------------------------------"
@@ -41,14 +60,16 @@ class ActivitiesPdf
             pdf.move_down 10
 
             text = "<b>#{index + 1}: #{activity.activity_type.titleize} </b> - #{activity.description} \n" \
-                   "Realizado entre #{activity&.date_start&.strftime("%d-%m-%y")} a #{activity&.date_end&.strftime("%d-%m-%y")} \n"
-            if activity.responsibles.present?
-                            text += "Por: "
-                            activity.responsibles.each do |responsible|
-                              text += " #{responsible.name} /"
-                            end
-                            text += "\n"
-            end
+                   "Realizado entre #{activity&.date_start&.strftime("%d-%m-%y")} " \
+                   "a #{activity&.date_end&.strftime("%d-%m-%y")} \n"
+
+             if activity.responsibles.present?
+              text += "Por: "
+              activity.responsibles.each do |responsible|
+                text += " #{responsible.name} /"
+              end
+              text += "\n"
+             end
 
             if activity.activity_chemicals.present?
               text += "\n<b>Químicos usados:</b>"

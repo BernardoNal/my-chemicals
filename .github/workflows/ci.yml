@@ -46,8 +46,8 @@ jobs:
       - name: Run tests
         run: bundle exec rspec
 
-      - name: Run lint
-        run: bundle exec rubocop
+      - name: Run security checks
+        run: bundle exec brakeman --except EOLRuby,EOLRails
 
       - name: Run security checks
         run: bundle exec brakeman

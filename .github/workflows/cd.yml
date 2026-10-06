@@ -1,0 +1,24 @@
+name: Heroku CD
+
+on:
+  workflow_run:
+    workflows: ["Ruby on Rails CI"]
+    types: [completed]
+    branches: ["master"]
+
+jobs:
+  deploy:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout tested commit
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+
+      - name: Deploy to Heroku
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        run: |
+          git push https://heroku:${HEROKU_API_KEY}@git.heroku.com/my-chemicals.git HEAD:master

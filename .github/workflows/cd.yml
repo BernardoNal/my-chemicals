@@ -12,10 +12,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout tested commit
-        uses: actions/checkout@v4
-        with:
+      -  name: Checkout tested commit
+         uses: actions/checkout@v4
+         with:
           ref: ${{ github.event.workflow_run.head_sha }}
+          fetch-depth: 0
 
       - name: Deploy to Heroku
         env:

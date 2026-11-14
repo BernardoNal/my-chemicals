@@ -13,7 +13,7 @@ module MyChemicals
       generate.helper false
       generate.test_framework :test_unit, fixture: false
     end
-    # Initialize configuration defaults for originally generated Rails version.
+    # Keep existing defaults during the Rails upgrade to avoid unrelated behavior changes.
     config.load_defaults 7.1
 
     # Please, add to the `ignore` list any other `lib` subdirectories that do

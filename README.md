@@ -88,8 +88,8 @@ The **Activities module** was also designed and implemented by me. This module i
 
 ### Backend
 
-- Ruby 3.1.2
-- Ruby on Rails 7.1
+- Ruby 3.4.12
+- Ruby on Rails 8.1
 - PostgreSQL
 
 ### Frontend

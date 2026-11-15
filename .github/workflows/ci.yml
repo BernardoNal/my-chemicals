@@ -37,7 +37,7 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: "3.1.2"
+          ruby-version: "3.4.12"
           bundler-cache: true
 
       - name: Set up database
@@ -50,4 +50,4 @@ jobs:
         run: bundle exec rubocop
 
       - name: Run security checks
-        run: bundle exec brakeman --except EOLRuby,EOLRails
+        run: bundle exec brakeman

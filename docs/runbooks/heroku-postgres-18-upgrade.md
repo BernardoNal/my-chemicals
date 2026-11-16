@@ -1,26 +1,14 @@
 # Heroku Postgres 18 upgrade runbook
 
-**Status:** preparation only; no production database operation has been run. Inventory checked on November 15, 2026.
+**Status:** production upgrade completed on November 15, 2026. Inventory and outcome recorded below.
 
 ## Objective and known status
 
-The Heroku notification quoted in issue #205 reports an automatic-upgrade deadline of January 28, 2027 and PostgreSQL 15 end of life on February 28, 2027. The live app check confirmed that `DATABASE_URL` is PostgreSQL 15.18 on the `essential-0` plan, with 10.1 MB of 1 GB used and status `Available`. Heroku reports continuous protection on, but no logical backups or restores. Fork/follow and rollback are unsupported for this database. No database maintenance status was shown by the inventory command.
+The Heroku notification quoted in issue #205 reported an automatic-upgrade deadline of January 28, 2027 and PostgreSQL 15 end of life on February 28, 2027. The live inventory on November 15, 2026 confirmed that `DATABASE_URL` was PostgreSQL 15.18 on the `essential-0` plan, with 10.1 MB of 1 GB used. The database has since been upgraded to PostgreSQL 18.4; see the production outcome below. Heroku reported continuous protection on, but no logical backups or restores before the upgrade. Fork/follow and rollback are unsupported for this plan.
 
-The application targets PostgreSQL through Rails and the `pg` gem. The schema enables `plpgsql` and `unaccent`; chemical search uses PgSearch full-text search with prefix matching. The application dependency is `pg` 1.7.0. CI is configured for PostgreSQL 18 in checkpoint 1. The local test run passed 268 examples on PostgreSQL 16.15; PostgreSQL 18 CI results are still pending.
+The application targets PostgreSQL through Rails and the `pg` gem. The schema enables `plpgsql` and `unaccent`; chemical search uses PgSearch full-text search with prefix matching. The application dependency is `pg` 1.7.0. CI is configured for PostgreSQL 18 in checkpoint 1. The local test run passed 268 examples on PostgreSQL 16.15. The public app endpoint returned HTTP 200 after the production upgrade; the RSpec suite has not been rerun against PostgreSQL 18 in this environment.
 
-## Inventory (read-only)
-
-Authenticate the Heroku CLI locally, then inspect the app without sharing credentials or database URLs:
-
-```sh
-heroku pg:info --app my-chemicals
-heroku pg:backups --app my-chemicals
-heroku addons --app my-chemicals
-```
-
-For an Advanced database, use the `heroku data:pg:*` command family instead of `heroku pg:*`. Record the database plan, PostgreSQL version, data size, extensions, followers, backup/protection status, and any application integrations that connect directly to the database. Do not include connection strings or secrets in this runbook.
-
-### Current inventory
+## Pre-upgrade inventory
 
 Checked with `heroku pg:info --app my-chemicals`, `heroku pg:backups --app my-chemicals`, and `heroku addons --app my-chemicals` on November 15, 2026:
 
@@ -33,36 +21,20 @@ Checked with `heroku pg:info --app my-chemicals`, `heroku pg:backups --app my-ch
 
 The app's command line reports Heroku CLI 11.11.0, which meets the upgrade guide's minimum CLI version for direct upgrades.
 
-## Select and rehearse the upgrade
+## Upgrade method
 
-Heroku's supported upgrade path depends on the database plan and size. Review the current [Heroku Postgres version support](https://devcenter.heroku.com/articles/heroku-postgres-version-support) and [upgrade guide](https://devcenter.heroku.com/articles/upgrading-heroku-postgres-databases) after gathering the inventory. Heroku documents direct upgrade, follower failover, and data copy paths; eligibility and downtime differ by plan. Do not choose a path from this runbook alone.
+Heroku recommends the direct upgrade method for this `essential-0` database. Essential upgrades start immediately, with database access restricted during the operation; Heroku estimates about 10 minutes of downtime for most use cases. Follower failover is unavailable on Essential plans. The database was upgraded with the direct method described in Heroku's [upgrade guide](https://devcenter.heroku.com/articles/upgrading-heroku-postgres-databases). The staged preparation and dry-run steps in that guide apply to Standard-tier and higher plans, not this Essential plan.
 
-For the current `essential-0` database, Heroku recommends the direct upgrade method and supports it for Essential plans. Heroku says Essential upgrades start immediately and commonly make the database unavailable for about 10 minutes, depending on data size. Follower failover is not available for Essential plans. Data copy is documented for Essential plans under 10 GB, but direct upgrade is the recommended method. Do not execute an upgrade until a backup and recovery path have been verified and a maintenance window approved.
+## Backup and recovery
 
-For plans that support the staged upgrade workflow, use Heroku's documented dry run and preparation steps first. Confirm that extensions and application queries work on PostgreSQL 18 using an isolated copy or staging database. Estimate downtime from the live database and Heroku's plan-specific guidance, and agree on a maintenance window before production execution.
-
-## Backup and recovery readiness
-
-Before any production upgrade:
-
-1. Confirm the plan's backup and recovery features and retention.
-2. Ensure a recent backup completed successfully; capture a new backup if the plan and database size support it.
-3. Validate restore/recovery steps against an isolated database and confirm the application can use the restored copy.
-4. Document the selected recovery path, expected data-loss window (if any), and who will make the go/no-go decision.
-
-No production backup has been captured or restored as part of this work. Continuous Protection is reported as on, but the `pg:backups` listing is empty. Confirm what recovery is available for this Essential plan and how it applies during an upgrade; do not treat Continuous Protection as a tested restore. Heroku's [backup documentation](https://devcenter.heroku.com/articles/heroku-postgres-backups) describes plan-specific protection and size limits; verify current details before relying on a method.
+Before the upgrade, Heroku's plan information reported Continuous Protection on, while `pg:backups` had no logical backups listed. A logical backup (`b003`) was captured successfully and downloaded before the upgrade. The archive index was readable with `pg_restore --list`; no restore rehearsal was performed. The downloaded copy is stored outside the repository on the operator's machine. Heroku's [backup documentation](https://devcenter.heroku.com/articles/heroku-postgres-backups) describes plan-specific protection and size limits.
 
 ## Application validation
 
-On a PostgreSQL 18 database with representative data, validate:
+After the upgrade, the database was available on PostgreSQL 18.4 and a request to the public root returned HTTP 200 after following its redirect. The full RSpec suite and authenticated inventory/stock movement workflows were not run against PostgreSQL 18. CI is configured for PostgreSQL 18; record its result here when available. The local RSpec suite had passed 268 examples on PostgreSQL 16.15 before the production upgrade.
 
-- schema load/migrations and the `plpgsql` and `unaccent` extensions;
-- chemical full-text search, including prefix matches;
-- the complete RSpec suite and the application's critical inventory and stock movement flows;
-- any external jobs or integrations that connect directly to Postgres.
+## Production outcome
 
-Record the database version, test commands, results, and any compatibility changes here before scheduling production work. Current evidence is limited to the PostgreSQL 16.15 local run and the pending PostgreSQL 18 CI job.
+On November 15, 2026, after explicit approval and with the app's maintenance mode enabled, the direct upgrade was started for `DATABASE_URL` with target PostgreSQL 18. Heroku reported `version upgrade: succeeded`. The database returned to `Available` on PostgreSQL 18.4 with 9.92 MB used and 13 tables. Maintenance mode was turned off after confirmation.
 
-## Production go/no-go
-
-Production execution is a separate step. It requires the live inventory, a rehearsed plan-specific upgrade and recovery procedure, a maintenance window, and explicit approval. No production upgrade, follower creation, data copy, or restore is authorized by this preparation document.
+No follower was created, and no data copy or restore was performed.
